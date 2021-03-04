@@ -24,7 +24,7 @@ How to install the ALL Stripe Donation plugin and get it working.
 
 == Changelog ==
 
-= 1.0.3 =
+= 1.0.4 =
 * enabled front end for showing amounts by campaign ID.
 
 = 1.0.1 =
