@@ -1,0 +1,160 @@
+    div#wpsd-preview-image,
+    div#wpsd-form-banner-preview-image {
+        display: block;
+        width: 150px;
+        height: auto;
+        padding: 5px;
+        margin-top: 5px;
+        background: #EAEAEA;
+        border: 1px solid #999;
+        border-radius: 3px;
+    }
+    
+    div#wpsd-form-banner-preview-image {
+        height: 200px;
+        width: auto;
+    }
+    
+    img#wpsd-preview-image,
+    img#wpsd-form-banner-preview-image {
+        display: block;
+        width: 150px;
+        height: auto;
+        padding: 5px;
+        margin-top: 5px;
+        background: #EAEAEA;
+        border: 1px solid #999;
+        border-radius: 3px;
+    }
+    
+    img#wpsd-form-banner-preview-image {
+        height: 200px;
+        width: auto;
+    }
+    
+    div#wpsd-preview-image>img#wpsd-preview-image,
+    div#wpsd-form-banner-preview-image>img#wpsd-form-banner-preview-image {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+    
+    div#wpsd-form-banner-preview-image>img#wpsd-form-banner-preview-image {
+        height: 200px;
+        width: auto;
+    }
+    
+    table#wpc_data_table {
+        margin-bottom: 10px;
+    }
+    
+    .column-wpsd_donated_amount,
+    table#wpc_data_table>tbody>tr>td.wpsd-donated-amount {
+        width: 55px;
+        text-align: right;
+    }
+    
+    #wpsd_shortcode {
+        padding: 10px;
+        text-align: center;
+        border: 2px dotted #FF0000;
+        background: #FFAA2B;
+        font-size: 18px;
+        font-weight: 600;
+        max-width: 1000px;
+        width: 645px;
+    }
+    /* template selector section */
+    
+    .wpsd-template-selector {
+        border: 0px solid #000;
+        max-width: 720px;
+    }
+    
+    .wpsd-template-item {
+        border: 0px solid #000;
+        min-height: 50px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 10px 0;
+    }
+    
+    .wpsd-template-item input[type='radio'] {
+        vertical-align: top;
+    }
+    
+    .wpsd-template-selector {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .wpsd-template-item label {
+        margin-left: 5px;
+        height: 50px;
+        width: 100px;
+        border: 0px solid #6ABD6E;
+    }
+    
+    .wpsd-template-item label.wpsd-template-0 {
+        background-color: #000;
+    }
+    
+    .wpsd-template-item label.wpsd-template-1 {
+        background-color: #FF76B7;
+    }
+    
+    .wpsd-template-item label.wpsd-template-2 {
+        background-color: #099795;
+    }
+    
+    .wpsd-template-item label.wpsd-template-3 {
+        background-color: #2B98FE;
+    }
+    
+    .wpsd-template-item label.wpsd-template-4 {
+        background-color: #E4BF8E;
+    }
+    /* Alert Bar Started */
+    
+    .wpsd-alert {
+        padding: 20px !important;
+        color: white;
+        margin-bottom: 10px;
+    }
+    
+    .wpsd-alert.success {
+        background-color: #6ABD6E;
+    }
+    
+    .wpsd-alert.error {
+        background-color: #F66358;
+    }
+    
+    .wpsd-alert.warning {
+        background-color: #FFAA2B;
+    }
+    
+    .wpsd-alert.info {
+        background-color: #47A8F5;
+    }
+    
+    .wpsd-closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    
+    .wpsd-closebtn:hover {
+        color: black;
+    }
+    /* Alert Bar Ended */

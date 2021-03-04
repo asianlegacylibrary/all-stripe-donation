@@ -1,0 +1,560 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Language: ar\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:108
+msgid "Other Amount"
+msgstr "مبلغ آخر"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:81
+msgid "10"
+msgstr "10"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:102
+msgid "100"
+msgstr "100"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:88
+msgid "20"
+msgstr "20"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:95
+msgid "50"
+msgstr "50"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:1
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:138
+msgid "Address"
+msgstr "العنوان"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:135
+msgid "Address Label"
+msgstr "اسم حقل العنوان"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:36
+msgid "In memory of"
+msgstr "لذكرة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:201
+msgid "In memory of field"
+msgstr "حقل لذكرة"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:1
+msgid "All Donations"
+msgstr "كل التبرعات"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:131
+msgid "Amount"
+msgstr "المبلغ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:101
+msgid "Campaign Options"
+msgstr "خيارات الحملة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:156
+msgid "Allow custom amount"
+msgstr "السماح للمستخدم بإختيار مبلغ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:112
+msgid "Campaign"
+msgstr "الحملة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:138
+msgid "Currency"
+msgstr "العملة"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:140
+msgid "Recurring"
+msgstr "دفع متكرر"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:141
+msgid "Date"
+msgstr "التاريخ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:91
+msgid "Display Header"
+msgstr "عرض الواجهة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:144
+msgid "Donate Amount Label"
+msgstr "عنوان حقل تبرع بمبلغ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:112
+msgid "Custom Amount Label"
+msgstr "عنوان حقل المبلغ الإحتياري"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:129
+msgid "Donate Button Text"
+msgstr "نص زر تبرع بمبلغ"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:133
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:102
+msgid "Donation For"
+msgstr "تبرع لصالح"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:99
+msgid "Donation For Label"
+msgstr "عنوان حقل تبرع لصالح"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:69
+msgid "Donation Form Banner"
+msgstr "رأس استمارة التبرع"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:60
+msgid "Donation Info Email"
+msgstr "العنوان البريدي لمعلومات التبرع"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:89
+msgid "Donation Options"
+msgstr "خيارات التبرع"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:70
+msgid "Donation Title"
+msgstr "عنوان التبرع"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:65
+msgid "Donation information will send to this email"
+msgstr "بيانات التبرع سترسل إلى عنوان البريد الإلكترةوني هذا"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:129
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:126
+msgid "Email Label"
+msgstr "اسم حقل عنوان البريد الإلكتروني"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:29
+msgid "Phone"
+msgstr "الهاتف"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:147
+msgid "Phone Label"
+msgstr "عنوان حقل الهاتف"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:30
+msgid "Country"
+msgstr "البلد"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:156
+msgid "Country Label"
+msgstr "عنوان حقل المدينة"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:31
+msgid "State"
+msgstr "الولاية"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:165
+msgid "State Label"
+msgstr "عنوان حقل الولاية"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:32
+msgid "City"
+msgstr "المدينة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:174
+msgid "City Label"
+msgstr "عنوان حقل المدينة"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:33
+msgid "ZIP"
+msgstr "الرمز"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:183
+msgid "ZIP Label"
+msgstr "عنوان حقل الرمز"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:1
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:111
+msgid "First Name"
+msgstr "الأسم الأول"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:108
+msgid "First Name Label"
+msgstr "اسم حقل الأسم الأول"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:1
+msgid "General Settings"
+msgstr "الإعدادات العامة"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:1
+msgid "Key Settings"
+msgstr "إعدادات المفاتيح"
+
+#. Text in echo
+#: wp-stripe-donation/front/view/wpsd-front-view.php:81
+msgid "Enter Your Amount"
+msgstr "أدخل المبلغ"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:1
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:120
+msgid "Last Name"
+msgstr "الإسم الثاني"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:117
+msgid "Last Name Label"
+msgstr "اسم حقل الإسم الثاني"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-all-donations.php:12
+msgid "List of all donations"
+msgstr "عرض كل التبرعات"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:155
+msgid "Payment Modal Logo"
+msgstr "صورة لإستمارة الدفع للإطار المنبثق"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-key-settings.php:35
+msgid "Private Key"
+msgstr "المفتاح المشفر الخاص"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-key-settings.php:44
+msgid "Secret Key"
+msgstr "المفتاح المشفر السري"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:52
+msgid "Select a Template"
+msgstr "إختر قالب"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:75
+msgid "Select a banner"
+msgstr "إختر شعار البداية"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:161
+msgid "Select a logo"
+msgstr "إختر شعار"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:176
+msgid "Shortcode"
+msgstr "كود مختصر"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:1
+msgid "Template Settings"
+msgstr "إعدادات القالب"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:185
+msgid "Update General Settings"
+msgstr "تحديث الإعدادات العامة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-key-settings.php:62
+msgid "Update Settings"
+msgstr "تحديث الإعدادات"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:162
+msgid "Update Temp Settings"
+msgstr "تحديث الإعدادات الموءقتة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:95
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:107
+msgid "Use comma \",\" separated values"
+msgstr "ضع فاصلة \",\" بين القيم"
+
+#. Text in function
+#: wp-stripe-donation/admin/cls-wpsd-admin.php:1
+#: wp-stripe-donation/front/view/wpsd-front-view.php:40
+msgid "WP Stripe Donation"
+msgstr "WP Stripe Donation"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-key-settings.php:25
+msgid "WP Stripe Donation Key Settings"
+msgstr "إعدادات المفتايح"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings.php:49
+msgid "WP Stripe General Settings"
+msgstr "الإعدادات العامة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:42
+msgid "WP Stripe Template Settings"
+msgstr "إعدادات القالب"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-key-settings.php:53
+msgid "Webhooks Key"
+msgstr "مفتاح إشعارات سترايب"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:49
+#: wp-stripe-donation/front/view/wpsd-front-view.php:63
+msgid "Choose Your Amount"
+msgstr "إختر المبلغ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:205
+msgid "One Time Label"
+msgstr "عنوان زر مرة واحدة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:50
+#: wp-stripe-donation/front/view/wpsd-front-view.php:91
+msgid "One Time"
+msgstr "مرة واحدة"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:214
+msgid "Monthly Label"
+msgstr "عنوان زر شهريا"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:51
+#: wp-stripe-donation/front/view/wpsd-front-view.php:97
+msgid "Monthly"
+msgstr "شهريا"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:223
+msgid "Card Label"
+msgstr "عنوان حقل بطاقة الدفع"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:52
+#: wp-stripe-donation/front/view/wpsd-front-view.php:159
+msgid "Credit Card Details"
+msgstr "بطاقة الدفع"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:232
+msgid "Card Agreement"
+msgstr "اتفاقية الدفع"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-template-settings.php:53
+#: wp-stripe-donation/front/view/wpsd-front-view.php:170
+msgid "By clicking submit, you are agreeing to submitting payment"
+msgstr "من خلال الضغط على تبرع الآن, إنك توافق على دفع المبلغ"
+
+#. Text in function
+#: wp-stripe-donation/front/cls-wpsd-front.php:6
+#: wp-stripe-donation/front/cls-wpsd-front.php:11
+msgid "Submit"
+msgstr "تبرع الآن"
+
+#. Text in function
+#: wp-stripe-donation/front/cls-wpsd-front.php:7
+#: wp-stripe-donation/front/cls-wpsd-front.php:12
+msgid "USD"
+msgstr "د.أ"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:85
+msgid "Please Enter Your First Name"
+msgstr "الرجاء إدخال اسمك الأول"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:86
+msgid "Please Enter Your Last Name"
+msgstr "الرجاء إدخال اسم العائلة"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:87
+msgid "Please Enter Your Address"
+msgstr "الرجاء إدخال عنوانك"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:88
+msgid "Please Enter Email"
+msgstr "الرجاء إدخال عنوان البريد الإلكتروني"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:91
+msgid "Please Enter Valid Email"
+msgstr "الرجاء إدخال عنوان البريد الإلكتروني صحيح"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:92
+msgid "Please select an amount to donate"
+msgstr "الرجاء إختيار مبلغ للتبرع"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:93
+msgid "Secret key missing"
+msgstr "المفتاح السري غير موجود"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:7
+msgid "All Amounts"
+msgstr "كل المبالغ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:15
+msgid "Add Amount"
+msgstr "اضف مبلغ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:22
+msgid "Edit Amount"
+msgstr "تعديل مبلغ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:29
+msgid "Delete Amount"
+msgstr "حذف مبلغ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:41
+msgid "Stripe Product ID"
+msgstr "معرف سترايب للمنتج"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:41
+msgid "Actions"
+msgstr "إجراءات"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:89
+msgid "Amount already exists"
+msgstr "المبلغ موجود"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:96
+msgid "Amount updated successfully"
+msgstr "تم تحديث المبلغ بنجاح"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:103
+msgid "Failed to update product price"
+msgstr "تعذر تحديث سعر المنتج"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:143
+msgid "An error occurred during deleting the amount"
+msgstr "حصل خطأ اثناء حذف المبلغ"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:179
+msgid "Amount is not valid"
+msgstr "المبلغ غير صحيح"
+
+#. Text in echo
+#: wp-stripe-donation/admin/amounts/AmountCrud.php:207
+msgid "Amount is created successfully"
+msgstr "تم إضافة المبلغ بنجاح"
+
+#. Text in echo
+#: wp-stripe-donation/admin/view/wpsd-general-settings:19
+msgid "Your information updated successfully"
+msgstr "تم تعديل معلوماتك بنجاح"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:197
+msgid "Failed to create donation"
+msgstr "فشل في إضافة تبرع"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:203
+msgid "Thank you for your donation"
+msgstr "شكرا للتبرع"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:237
+msgid "Please fill all the required fields"
+msgstr "الرجاء تعبئة كافة الحقول المطلوبة"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:253
+msgid "Donation not found"
+msgstr "لم يتم العثور على التبرع"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:381
+msgid "Amount not found"
+msgstr "لم يتم العثور على المبلغ"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:404
+msgid "Custom Amount is not valid"
+msgstr "المبلغ غير صحيح"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-front.php:409
+msgid "Recurring is not valid"
+msgstr "المبلغ الشهري ليس صالح"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-webhooks.php:26
+msgid "Please fill the Webhooks Key field for WPSD Stripe Donation plugin"
+msgstr ""
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-webhooks.php:40
+msgid "Invalid payload"
+msgstr "البيانات غير صحيحة"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-webhooks.php:44
+msgid "Invalid signature"
+msgstr "التوقيع غير صحيح"
+
+#. Text in echo
+#: wp-stripe-donation/front/cls-wpsd-webhooks.php:47
+msgid "Hook ran successfully"
+msgstr ""

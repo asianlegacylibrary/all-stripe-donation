@@ -1,0 +1,163 @@
+[
+    {
+        "name": "menarasolutions/geographer",
+        "version": "v0.3.9",
+        "version_normalized": "0.3.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MenaraSolutions/geographer.git",
+            "reference": "1ab992dd8684e2a8027c4896b3cdadaad96046d3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MenaraSolutions/geographer/zipball/1ab992dd8684e2a8027c4896b3cdadaad96046d3",
+            "reference": "1ab992dd8684e2a8027c4896b3cdadaad96046d3",
+            "shasum": ""
+        },
+        "require": {
+            "menarasolutions/geographer-data": "^0.1.0",
+            "php": ">=5.5.0"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "dev-master",
+            "illuminate/support": "5.*",
+            "menarasolutions/geographer-de": "0.*",
+            "menarasolutions/geographer-nl": "0.*",
+            "menarasolutions/geographer-ru": "0.*",
+            "phpunit/phpunit": "4.*|5.*"
+        },
+        "time": "2020-05-19T23:05:12+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MenaraSolutions\\Geographer\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Denis Mysenko",
+                "email": "denis@menara.com.au",
+                "homepage": "https://www.menara.com.au"
+            }
+        ],
+        "description": "A PHP library that knows how any country, state or city is called in any language",
+        "homepage": "https://github.com/MenaraSolutions/geographer",
+        "keywords": [
+            "geo",
+            "geolocation",
+            "geonames",
+            "localization"
+        ]
+    },
+    {
+        "name": "menarasolutions/geographer-data",
+        "version": "v0.1.10",
+        "version_normalized": "0.1.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/MenaraSolutions/geographer-data.git",
+            "reference": "84a8f387772c6094ae726e9755caa3f303f40de1"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/MenaraSolutions/geographer-data/zipball/84a8f387772c6094ae726e9755caa3f303f40de1",
+            "reference": "84a8f387772c6094ae726e9755caa3f303f40de1",
+            "shasum": ""
+        },
+        "time": "2020-03-31T06:40:33+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "MenaraSolutions\\Geographer\\Helpers\\": "helpers/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Denis Mysenko",
+                "email": "denis@menara.com.au",
+                "homepage": "https://www.menara.com.au"
+            }
+        ],
+        "description": "Basic data package for Geographer - countries and their subdivisions",
+        "homepage": "https://github.com/MenaraSolutions/geographer-data",
+        "keywords": [
+            "geographer",
+            "geolocation",
+            "localization"
+        ]
+    },
+    {
+        "name": "stripe/stripe-php",
+        "version": "v7.55.0",
+        "version_normalized": "7.55.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/stripe/stripe-php.git",
+            "reference": "992057d4fd50b3979a8cdabf1d44bd13d55a78a9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/992057d4fd50b3979a8cdabf1d44bd13d55a78a9",
+            "reference": "992057d4fd50b3979a8cdabf1d44bd13d55a78a9",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "ext-mbstring": "*",
+            "php": ">=5.6.0"
+        },
+        "require-dev": {
+            "friendsofphp/php-cs-fixer": "2.16.1",
+            "php-coveralls/php-coveralls": "^2.1",
+            "phpunit/phpunit": "^5.7",
+            "squizlabs/php_codesniffer": "^3.3",
+            "symfony/process": "~3.4"
+        },
+        "time": "2020-09-24T23:45:12+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Stripe\\": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Stripe and contributors",
+                "homepage": "https://github.com/stripe/stripe-php/contributors"
+            }
+        ],
+        "description": "Stripe PHP Library",
+        "homepage": "https://stripe.com/",
+        "keywords": [
+            "api",
+            "payment processing",
+            "stripe"
+        ]
+    }
+]

@@ -1,0 +1,9 @@
+{
+    "name": "devvly/wp-stripe-donation",
+    "type": "project",
+    "minimum-stability": "stable",
+    "require": {
+        "stripe/stripe-php": "^7.55",
+        "menarasolutions/geographer": "^0.3.9"
+    }
+}
