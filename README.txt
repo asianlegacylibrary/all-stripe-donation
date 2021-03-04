@@ -24,6 +24,9 @@ How to install the ALL Stripe Donation plugin and get it working.
 
 == Changelog ==
 
+= 1.0.2 =
+* enabled front end for showing amounts by campaign ID.
+
 = 1.0.1 =
 * fork of wp-stripe-donation plugin to include ALL customizations for adding campaign ids to each amount.
 
