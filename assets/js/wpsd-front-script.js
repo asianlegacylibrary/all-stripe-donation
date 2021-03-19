@@ -383,7 +383,7 @@
                         $('.wpsd-donation-message-con').addClass('message-hidden');
                     },300);
                 })
-            }, 8000);
+            }, 90000);
         },200);
     }
 
@@ -404,7 +404,7 @@
                         $('.wpsd-donation-message-con').addClass('message-hidden');
                     },300);
                 })
-            }, 8000);
+            }, 90000);
         },200);
     }
 

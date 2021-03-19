@@ -24,6 +24,10 @@ How to install the ALL Stripe Donation plugin and get it working.
 
 == Changelog ==
 
+= 1.0.5 =
+* Made the donate button show translations
+* Made the error, and success messages to appear with branded red color, and to be persistent on the page for 90 seconds.
+
 = 1.0.4 =
 * enabled front end for showing amounts by campaign ID.
 
