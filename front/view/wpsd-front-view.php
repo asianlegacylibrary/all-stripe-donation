@@ -22,7 +22,7 @@ $wpsd_donator_zip_label = $options->get_value("template", "wpsd_donator_zip_labe
 $wpsd_donator_address_label = $options->get_value("template", "wpsd_donator_address_label", "Address", false);
 $wpsd_donate_amount_label = $options->get_value("template", "wpsd_donate_amount_label", "Choose Your Amount", false);
 $wpsd_donate_sponsor_volume = $options->get_value("template", "wpsd_donate_sponsor_volume", "Donations that total $120 USD sponsor a volume in your name.", false);
-$wpsd_in_memory_of_label = $options->get_value("template", "wpsd_in_memory_of_label", "In memory of", false);
+//$wpsd_in_memory_of_label = $options->get_value("template", "wpsd_in_memory_of_label", "In memory of", false);
 $wpsd_one_time_label = $options->get_value("template", "wpsd_one_time_label", "One Time", false);
 $wpsd_monthly_label = $options->get_value("template", "wpsd_monthly_label", "Monthly", false);
 $wpsd_card_label = $options->get_value('template','wpsd_card_label', 'Credit Card Details', false);
@@ -41,7 +41,7 @@ $wpsdTranslations = array(
 	'wpsd_donor_address'		    => esc_html__('Address', 'wp-stripe-donation'),
 	'wpsd_donor_address2'	=> esc_html__('Address 2', 'wp-stripe-donation'),
 	'wpsd_donor_choose_amount'		=> esc_html__('Choose Your Amount', 'wp-stripe-donation'),
-	'wpsd_donor_memory'		    => esc_html__('In memory of', 'wp-stripe-donation'),
+	//'wpsd_donor_memory'		    => esc_html__('In memory of', 'wp-stripe-donation'),
 	'wpsd_donor_one'	=> esc_html__('One Time', 'wp-stripe-donation'),
 	'wpsd_donor_monthly'		=> esc_html__('Monthly', 'wp-stripe-donation'),
 	'wpsd_donor_card_details'		    => esc_html__('Credit Card Details', 'wp-stripe-donation'),
@@ -53,7 +53,7 @@ $campaign = $params['campaign'];
 $campaign_id = $params['campaign_id'];  //$this->dc($campaign_id);
 $fund = $params['fund'];
 $fund_id = $params['fund_id'];
-$in_memory_of_field_id = $params['imof'];
+//$in_memory_of_field_id = $params['imof'];
 $custom_amount = $params['custom_amount'] === "true";
 $countries = $this->wpsd_get_countries();
 $amounts = $this->wpsd_get_all_amounts();  //$this->dc($amounts);
@@ -85,7 +85,7 @@ usort($amounts, 'compareByName'); //$this->dc($amounts);
 			<input type="hidden" required name="wpsd_campaign_id" id="wpsd_campaign_id" class="wpsd-text-field" value="<?php echo $campaign_id; ?>">
 			<input type="hidden" required name="wpsd_fund" id="wpsd_fund" class="wpsd-text-field" value="<?php echo $fund; ?>">
 			<input type="hidden" required name="wpsd_fund_id" id="wpsd_fund_id" class="wpsd-text-field" value="<?php echo $fund_id; ?>">
-			<input type="hidden" required name="wpsd_in_memory_of_field_id" id="wpsd_in_memory_of_field_id" class="wpsd-text-field" value="<?php echo $in_memory_of_field_id; ?>">
+			<!-- <input type="hidden" required name="wpsd_in_memory_of_field_id" id="wpsd_in_memory_of_field_id" class="wpsd-text-field" value="<?php //echo $in_memory_of_field_id; ?>"> -->
 			<!-- Input section -->
 			<div id="wpsd_donate_amount">
 			<div class="wpsd_flex_con bg-white">
@@ -167,11 +167,11 @@ usort($amounts, 'compareByName'); //$this->dc($amounts);
 							<!-- Input section -->
 							<input type="text" required name="wpsd_donator_phone" id="wpsd_donator_phone" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_phone_label, 'wp-stripe-donation' ); ?>">
 						</div>
-						<div class="wpsd_flex_item w-100">
+						<!-- <div class="wpsd_flex_item w-100">
 							<div class="wpsd_in_memory_of_con">
-								<input type="text" name="wpsd_in_memory_of" id="wpsd_in_memory_of" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_in_memory_of_label, 'wp-stripe-donation' ); ?>">
+								<input type="text" name="wpsd_in_memory_of" id="wpsd_in_memory_of" class="wpsd-text-field" placeholder="<?php //esc_attr_e( $wpsd_in_memory_of_label, 'wp-stripe-donation' ); ?>">
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="wpsd_flex_con">
