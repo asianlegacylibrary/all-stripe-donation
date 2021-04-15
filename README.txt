@@ -24,6 +24,12 @@ How to install the ALL Stripe Donation plugin and get it working.
 
 == Changelog ==
 
+= 1.0.7 =
+* added a redirect from the donation form (to https://asianlegacylibrary.org/donate/thank-you/) on a successfull order.
+
+= 1.0.6 =
+* removed in memory of fields from the front view form completely.
+
 = 1.0.5 =
 * Made the donate button show translations
 * Made the error, and success messages to appear with branded red color, and to be persistent on the page for 90 seconds.
