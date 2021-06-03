@@ -130,12 +130,59 @@ class Wpsd_Webhooks {
 	function wpsd_update_payment_status($paymentIntent){
 		global $wpdb;
 		$tableName = WPSD_TABLE;
-		$data = array(
-			'wpsd_payment_complete' => 1,
-		);
-		$where = array(
-			'wpsd_payment_intent_id' => $paymentIntent->id,
-		);
+
+		// if there is no record in the database for this payment intent, then add the record now
+		// This is a hack for donorbox, where the donation was not submitted through the form on the ALL site.
+		$idExists = $this->wpsd_get_donation($paymentIntent->id);
+		if ($idExists === null) {
+			$tableName = WPSD_TABLE;
+			list($first_name, $last_name) = explode(" ", $paymentIntent->charges->data[0]->billing_details->name, 2);
+			$country_temp = ($paymentIntent->charges->data[0]->billing_details->address->country !== null) ? $paymentIntent->charges->data[0]->billing_details->address->country : $paymentIntent->charges->data[0]->payment_method_details->card->country;
+			$country_code = ($country_temp !== null) ? $country_temp: "ZZ";
+			$campaign_temp = ($paymentIntent->charges->data[0]->metadata->donorbox_campaign !== null) ? $paymentIntent->charges->data[0]->metadata->donorbox_campaign: "";
+			$recurring_temp = ($paymentIntent->charges->data[0]->metadata->donorbox_recurring_donation !== null) ? $paymentIntent->charges->data[0]->metadata->donorbox_recurring_donation: "false";
+			$values_and_format = array(
+				'wpsd_donation_for' 					=> [ 'value' => 'Asian Legacy Library', 'format' => '%s' ],
+				'wpsd_donator_first_name' 		=> [ 'value' => $first_name, 'format' => '%s', ],
+				'wpsd_donator_last_name' 			=> [ 'value' => $last_name, 'format' => '%s', ],
+				'wpsd_donator_email' 					=> [ 'value' => $paymentIntent->receipt_email, 'format' => '%s', ],
+				'wpsd_donator_phone' 					=> [ 'value' => $paymentIntent->charges->data[0]->billing_details->phone, 'format' => '%s', ],
+				'wpsd_donator_country' 				=> [ 'value' => $country_code, 'format' => '%s', ],
+				'wpsd_donator_state' 					=> [ 'value' => $paymentIntent->charges->data[0]->billing_details->address->state, 'format' => '%s', ],
+				'wpsd_donator_city' 					=> [ 'value' => $paymentIntent->charges->data[0]->billing_details->address->city, 'format' => '%s', ],
+				'wpsd_donator_zip' 						=> [ 'value' => $paymentIntent->charges->data[0]->billing_details->address->postal_code, 'format' => '%s', ],
+				'wpsd_donator_address' 				=> [ 'value' => $paymentIntent->charges->data[0]->billing_details->address->line1 . ',' . $paymentIntent->charges->data[0]->billing_details->address->line2, 'format' => '%s', ],
+				'wpsd_campaign' 							=> [ 'value' => $campaign_temp, 'format' => '%s', ],
+				'wpsd_campaign_id' 						=> [ 'value' => '', 'format' => '%s', ],
+				'wpsd_fund' 									=> [ 'value' => '', 'format' => '%s', ],
+				'wpsd_fund_id' 								=> [ 'value' => '', 'format' => '%s', ],
+				'wpsd_in_memory_of_field_id' 	=> [ 'value' => '', 'format' => '%s', ],
+				'wpsd_in_memory_of' 					=> [ 'value' => '', 'format' => '%s', ],
+				'wpsd_is_recurring' 					=> [ 'value' => $recurring_temp, 'format' => '%d', ],
+				'wpsd_payment_intent_id' 			=> [ 'value' => $paymentIntent->id, 'format' => '%s', ],
+				'wpsd_payment_complete' 			=> [ 'value' => 0, 'format' => '%d', ],
+				'wpsd_donated_amount' 				=> [ 'value' => $paymentIntent->amount, 'format' => '%s', ],
+				'wpsd_amount_id' 							=> [ 'value' => 0, 'format' => '%d', ],
+				'wpsd_donation_datetime' 			=> [ 'value' => date('Y-m-d h:i:s'), 'format' => '%s', ],
+				'wpsd_currency' 							=> [ 'value' => $paymentIntent->charges->data[0]->currency, 'format' => '%s', ],
+				'wpsd_payment_method' 				=> [ 'value' => $paymentIntent->charges->data[0]->payment_method, 'format' => '%s', ],
+				'wpsd_customer_id' 						=> [ 'value' => $paymentIntent->charges->data[0]->customer, 'format' => '%s', ],
+			);
+			// formats:
+			// %s: string, %d: int, %f: float
+			$formats = [];
+			$values = [];
+			foreach ( $values_and_format as $field => $data_item ) {
+				$formats[] = $data_item['format'];
+				$values[$field] = $data_item['value'];
+			}
+			$result = $wpdb->insert($tableName, $values, $formats);
+			if($result){ $insertedID = $wpdb->insert_id; }
+		}
+
+		// now that we know that a DB record exists, update the payment complete field and return true;
+		$data = array( 'wpsd_payment_complete' => 1, );
+		$where = array( 'wpsd_payment_intent_id' => $paymentIntent->id, );
 		$result = $wpdb->update($tableName, $data, $where, array('%d'));
 		return false !== $result;
 	}
@@ -158,16 +205,19 @@ class Wpsd_Webhooks {
 		else {
 			$amount_val =  $donation->wpsd_donated_amount;
 		}
-		$countries = $this->wpsd_init_countries();
-		/** @var  Country $country */
-		$country = $countries->findOne(array('code' => $donation->wpsd_donator_country));
-		$stateCode = null;
-		if($donation->wpsd_donator_state){
-			$states = $country->getStates();
-			$state = $states->find(array('name' => $donation->wpsd_donator_state));
-			$state = $state->first();
-			$isoCode = $state->isoCode;
-			$stateCode = substr($isoCode, strlen($isoCode) -2, 2);
+		if ($donation->wpsd_donator_country != "ZZ") {
+			$countries = $this->wpsd_init_countries();
+			/** @var  Country $country */
+			$country = $countries->findOne(array('code' => $donation->wpsd_donator_country));
+			$country_long = $country->getName();
+			$stateCode = null;
+			if($donation->wpsd_donator_state){
+				$states = $country->getStates();
+				$state = $states->find(array('name' => $donation->wpsd_donator_state));
+				$state = $state->first();
+				$isoCode = $state->isoCode;
+				$stateCode = substr($isoCode, strlen($isoCode) -2, 2);
+			}
 		}
 		$campaign = $donation->wpsd_campaign;
 		$campaign_id = $donation->wpsd_campaign_id;
@@ -185,7 +235,7 @@ class Wpsd_Webhooks {
 				"city"                               => $donation->wpsd_donator_city,
 				"state"                              => $stateCode,
 				"postal"                             => $donation->wpsd_donator_zip,
-				"country"                            => $country->getName(),
+				"country"                            => $country_long,
 				"primary_phone"                      => $donation->wpsd_donator_phone,
 				"stripe_customer_id"                 => $donation->wpsd_customer_id,
 				"transaction_id"                     => null,

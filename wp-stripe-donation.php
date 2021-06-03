@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
  * plugin-update-checker
  */
 require_once 'inc/plugin-update-checker/plugin-update-checker.php';
-$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/asianclassics/all-stripe-donation/', __FILE__, 'all-stripe-donation' );
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/asianlegacylibrary/all-stripe-donation/', __FILE__, 'all-stripe-donation' );
 $myUpdateChecker->setAuthentication( '71bf466bbcefda0b3f8b6e610500d8d32edaa56a' );
 $myUpdateChecker->setBranch( 'master' );
 

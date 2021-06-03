@@ -12,15 +12,18 @@
 	var payment_method_id = null;
 	var customer_id = null;
 	var recurring = false;
+	var stripeFormPresent = document.getElementById('card-element'); //console.log("Form Present:", stripeFormPresent);
 	init();
 	async function init() {
-		addListeners();
-		if (wpsdAdminScriptObj.publishable_key == "") {
-			showError(wpsdAdminScriptObj.validation.not_valid.publishable_key);
-			return false;
-		} else {
-			stripe = Stripe(wpsdAdminScriptObj.publishable_key, { locale: wpsdAdminScriptObj.locale });
-			createCardForm();
+		if (stripeFormPresent != null) {
+			addListeners();
+			if (wpsdAdminScriptObj.publishable_key == "") {
+				showError(wpsdAdminScriptObj.validation.not_valid.publishable_key);
+				return false;
+			} else {
+				stripe = Stripe(wpsdAdminScriptObj.publishable_key, { locale: wpsdAdminScriptObj.locale });
+				createCardForm();
+			}
 		}
 	}
 	function addListeners() {
