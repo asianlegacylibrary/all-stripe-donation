@@ -12,6 +12,10 @@ body.rtl .wpsd-wrapper-content {
 .wpsd-wrapper-content * {
     font-family: Arial, Optima LT W10 Roman !important;
 }
+.wpsd-wrapper-content form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 .wpsd-alert {
     color: white;
     display: inline-block;
