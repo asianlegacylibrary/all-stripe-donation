@@ -1,9 +1,16 @@
+/* DO WE TAKE PRECEDENCE OVER MAIN CSS? */
+@media (min-width: 768px) {
+    .entry-content > * {
+        max-width: 80% !important;
+    }
+}
+
 /* alert started */
 body.rtl .wpsd-wrapper-content {
     direction: rtl;
 }
 .wpsd-wrapper-content * {
-    font-family: Optima LT W10 Roman !important;
+    font-family: Arial, Optima LT W10 Roman !important;
 }
 .wpsd-alert {
     color: white;
