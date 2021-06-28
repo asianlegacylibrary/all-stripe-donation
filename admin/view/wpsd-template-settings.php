@@ -22,6 +22,7 @@ if( isset( $_POST['updateTempSettings'] ) ) {
         'wpsd_card_label'  => ( sanitize_text_field( $_POST['wpsd_card_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_card_label'] ) : 'Credit Card Details',
         'wpsd_card_agreement'  => ( sanitize_text_field( $_POST['wpsd_card_agreement'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_card_agreement'] ) : '',
         'wpsd_donate_amount_label'  => ( sanitize_text_field( $_POST['wpsd_donate_amount_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_amount_label'] ) : 'Donate Amount',
+        'wpsd_donate_details_label'  => ( sanitize_text_field( $_POST['wpsd_donate_details_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_details_label'] ) : 'Personal Details',
     );
 
     $wpsdTempShowMessage = update_option('wpsd_temp_settings', serialize( $wpsdTempSettingsInfo ) );
@@ -49,6 +50,7 @@ $wpsd_donator_address_label = $options->get_value('template','wpsd_donator_addre
 $wpsd_donator_email_label = $options->get_value('template','wpsd_donator_email_label', 'Email', false);
 $wpsd_in_memory_of_label = $options->get_value('template','wpsd_in_memory_of_label', 'In memory of', false);
 $wpsd_donate_amount_label = $options->get_value('template','wpsd_donate_amount_label', 'Choose Your Amount', false);
+$wpsd_donate_details_label = $options->get_value('template','wpsd_donate_details_label', 'Personal Details', false);
 $wpsd_one_time_label = $options->get_value('template','wpsd_one_time_label', 'One Time', false);
 $wpsd_monthly_label = $options->get_value('template','wpsd_one_monthly_label', 'Monthly', false);
 $wpsd_card_label = $options->get_value('template','wpsd_card_label', 'Credit Card Details', false);
@@ -209,6 +211,15 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
                 <td>
                     <input type="text" name="wpsd_donate_amount_label" class="medium-text" placeholder="Donate Amount"
                         value="<?php echo $wpsd_donate_amount_label; ?>">
+                </td>
+            </tr>
+            <tr class="wpsd_donate_details_label">
+                <th scope="row">
+                    <label for="wpsd_donate_details_label"><?php _e('Personal Details Label', 'wp-stripe-donation'); ?>:</label>
+                </th>
+                <td>
+                    <input type="text" name="wpsd_donate_details_label" class="medium-text" placeholder="Personal Details"
+                        value="<?php echo $wpsd_donate_details_label; ?>">
                 </td>
             </tr>
             <tr class="wpsd_one_time_label">

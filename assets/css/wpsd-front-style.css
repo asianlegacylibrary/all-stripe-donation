@@ -9,13 +9,32 @@
 body.rtl .wpsd-wrapper-content {
     direction: rtl;
 }
-.wpsd-wrapper-content * {
+
+.wpsd-wrapper-content {
     font-family: Arial, Optima LT W10 Roman !important;
+    /* background-color: burlywood; */
 }
-.wpsd-wrapper-content form {
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+    margin: 2em;
+}
+
+/* .wpsd-wrapper-content form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-}
+} */
+
 .wpsd-alert {
     color: white;
     display: inline-block;
@@ -23,7 +42,7 @@ body.rtl .wpsd-wrapper-content {
     height: auto;
     font-size: 20px;
     line-height: 1.2;
-    border-radius: 5px;
+    border-radius: 0;
     transition: all 0.3s linear;
     padding: 5% 10%;
     margin: 10px 0 20px;
@@ -62,11 +81,17 @@ body.rtl .wpsd-alert ul li {
     line-height: 46px;
 }
 
-.wpsd-master-wrapper {
-    margin: 15px 0;
+/* MASTER RAPPER YO */
+.wpsd-master-wrapper input,
+.wpsd-master-wrapper select,
+.wpsd-master-wrapper textarea {
+    margin: 0;
+    color: #222;
+    box-shadow: none;
 }
+
 .wpsd-master-wrapper .wpsd-wrapper-header {
-    background: #000;
+    background: #222;
     padding: 20px 15px;
     text-align: center;
 }
@@ -77,7 +102,7 @@ body.rtl .wpsd-alert ul li {
     font-size: 30px;
     line-height: 30px;
     font-weight: 600;
-    color: #ffffff;
+    color: #222;
 }
 
 img.wpsd-form-banner {
@@ -88,9 +113,10 @@ img.wpsd-form-banner {
 
 .wpsd-master-wrapper .wpsd-wrapper-content {
     text-align: left;
-    background: #f3f3f3;
-    padding: 10%;
-    border-radius: 30px;
+    border: 1px solid #222;
+    /* background: #f3f3f3;
+    padding: 0;
+    border-radius: 0; */
 }
 
 .wpsd-wrapper-content .payment-title {
@@ -102,18 +128,19 @@ img.wpsd-form-banner {
     font-size: 20px;
     line-height: 26px;
     font-weight: 700;
-    color: #161c2d;
+    color: #222;
     margin: 0 0 15px;
 }
 
-.wpsd-master-wrapper .wpsd-wrapper-content .wpsd-donation-form-label {
+.wpsd-donation-form-label {
     display: block;
     width: 100%;
     padding: 0 0 15px 0;
     height: auto;
     margin: 0px;
-    font-size: 19px;
-    font-weight: 100;
+    text-transform: uppercase;
+    font-size: 0.6em;
+    font-weight: bold;
 }
 
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field,
@@ -131,14 +158,14 @@ img.wpsd-form-banner {
     max-width: 100%;
     padding: 15px 0;
     border: 0;
-    border-bottom: solid 1px #bebdbd;
+    border-bottom: solid 1px #444;
 }
 
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-select-field {
     height: auto;
     outline: none;
     padding: 15px 0;
-    color: #818181;
+    color: #222;
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 0.05em;
@@ -149,7 +176,7 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field {
 }
 
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field::placeholder {
-    color: #777;
+    color: #222;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -163,7 +190,7 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field {
     border-bottom: solid 1px #bebdbd;
     background: transparent;
     padding: 13px 0;
-    color: #a50034;
+    color: #222;
     font-size: 20px;
 }
 .wpsd-master-wrapper
@@ -188,8 +215,9 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field {
     .wpsd-wrapper-content
     #wpsd-donation-form-id
     #wpsd_donate_other_amount_wrapper.bg-white::after {
-    color: #a50034;
+    /* color: #a50034; */
 }
+
 .wpsd-master-wrapper
     .wpsd-wrapper-content
     #wpsd-donation-form-id
@@ -204,9 +232,9 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field {
     width: 100%;
     display: none;
     text-align: left;
-    padding-left: 0;
+    /* padding-left: 0; */
     height: auto;
-    margin: 0px;
+    /* margin: 0px; */
 }
 
 body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_in_memory_of_con {
@@ -217,23 +245,19 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_in_memory_of_con {
     flex-wrap: wrap;
     justify-content: space-between;
 }
-
-.wpsd_flex_con.wpsd_is_recurring_wrapper {
-    background: #a50034;
-    margin: -23px 30px 30px 30px;
-    border-radius: 30px;
-    border: #a50034 solid 1px;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
+.bg-grey {
+    background-color: #efefef;
 }
+.nudge-pad {
+    padding: 2em;
+}
+
 .wpsd_flex_con.wpsd_is_recurring_wrapper .wpsd_flex_item {
     padding: 0;
     width: auto;
     flex-grow: 1;
 }
-.wpsd_flex_con.wpsd_is_recurring_wrapper .wpsd_radio_con {
-    color: #fff;
-}
+
 .wpsd_flex_con.wpsd_is_recurring_wrapper .wpsd_radio_btn_con .label_text {
     padding: 12px 5px;
     text-transform: uppercase;
@@ -245,7 +269,6 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_in_memory_of_con {
     .wpsd_radio_con
     input:checked
     ~ .label_text {
-    color: #fff;
     border-bottom: 0;
 }
 .wpsd_flex_con.wpsd_is_recurring_wrapper
@@ -253,23 +276,21 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_in_memory_of_con {
     input
     ~ .label_text {
     font-weight: 900;
-    color: #fff;
     border-bottom: 0;
 }
 .wpsd_flex_con.wpsd_is_recurring_wrapper
     .wpsd_radio_con
     input:checked
     ~ .label_text {
-    color: #a50034;
-    background: #fff;
-    border-radius: 30px;
+    font-weight: 900;
 }
 
 .wpsd_flex_con.bg-white {
     background: #fff;
     padding: 30px;
-    border-radius: 20px;
+    border-radius: 0;
 }
+
 .wpsd_flex_item.wpsd_radio_btn_con {
     width: 48%;
 }
@@ -305,27 +326,27 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
     display: inline-block;
 }
 
-.wpsd-master-wrapper .wpsd-wrapper-content .wpsd-donate-button {
+.wpsd-master-wrapper .btn,
+.wpsd-master-wrapper button[type='submit'],
+.wpsd-master-wrapper input[type='submit'] {
     border: none;
-    font-size: 13px;
-    line-height: 18px;
+    line-height: 4em;
     text-transform: uppercase;
     font-weight: 700;
-    color: white;
-    padding: 10px 40px;
+    color: #222;
+    width: 100%;
     cursor: pointer;
     letter-spacing: 1px;
     transition: all 0.3s linear;
     outline: none;
-    background: #a50034;
+    background: #e6fa05;
     margin: 0;
-    border-radius: 30px;
-    border: #a50034 solid 1px;
+    border-radius: 0;
 }
 .wpsd-donation-sponsor-volume {
     font-size: 13px;
     border: #a50034 solid 1px;
-    border-radius: 10px;
+    border-radius: 0;
     padding: 5px 10px;
     margin: -10px 0 0 0 !important;
     color: #a50034;
@@ -535,7 +556,7 @@ Template 4
     position: relative;
     cursor: pointer;
     font-size: 20px;
-    color: #777;
+    color: #222;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -554,14 +575,14 @@ Template 4
 
 /* On mouse-over, add a grey background color */
 .wpsd_radio_con:hover input ~ .label_text {
-    color: #a50034;
-    border-bottom: #a50034 solid 1px;
+    /* color: #a50034; */
+    border-bottom: #222 solid 1px;
 }
 
 /* When the checkbox is checked, add a blue background */
 .wpsd_radio_con input:checked ~ .label_text {
-    color: #a50034;
-    border-bottom: #a50034 solid 1px;
+    /* color: #a50034; */
+    border-bottom: #222 solid 1px;
 }
 .other_amount_radio_con {
     width: 100%;
