@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 /* DO WE TAKE PRECEDENCE OVER MAIN CSS? */
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
     .entry-content > * {
         max-width: 80% !important;
+    }
+    .flex-column {
     }
 }
 
@@ -152,7 +154,7 @@ img.wpsd-form-banner {
     height: auto;
     margin: 0px;
     text-transform: uppercase;
-    font-size: 0.6em;
+    font-size: 0.8em;
     font-weight: bold;
 }
 
@@ -351,7 +353,7 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
     border: none;
     line-height: 4em;
     text-transform: uppercase;
-    font-weight: 700;
+    text-align: right;
     color: #222;
     width: 100%;
     cursor: pointer;
@@ -392,10 +394,10 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
 .wpsd-master-wrapper.wpsd-template-6
     .wpsd-wrapper-content
     .wpsd-donate-button:hover {
-    background: white;
+    /* background: white;
     color: #a50034;
     text-decoration: none;
-    border: #a50034 solid 1px;
+    border: #a50034 solid 1px; */
 }
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-donate-button:focus,
 .wpsd-master-wrapper.wpsd-template-1
@@ -613,7 +615,7 @@ Template 4
 }
 
 .wpsd_radio_btn_con .label_text {
-    padding: 18px;
+    padding: 0.4em 0;
 }
 #card-element {
     padding: 20px 0;

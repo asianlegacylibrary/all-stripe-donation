@@ -65,11 +65,16 @@ foreach ( $amounts as $wpsd_amount ) {
 	else { $formatted = number_format($wpsd_amount->wpsd_amount/100, 2); }
 	$wpsd_amount->wpsd_amount = $formatted;
 }
-function compareByName($a, $b) {
+
+// THIS WAS CAUSING FATAL ERROR, name conflict so changed name from compareByName to comapareByAmount
+function compareByAmount($a, $b) {
 	return $a->wpsd_amount - $b->wpsd_amount;
 }
-usort($amounts, 'compareByName'); //$this->dc($amounts);
+
+usort($amounts, 'compareByAmount'); //$this->dc($amounts);
+
 ?>
+
 <div class="wpsd-master-wrapper wpsd-template-0" id="wpsd-wrap-all">
 	<?php if( '1' === $wpsd_display_header ) { ?>
 	<div class="wpsd-wrapper-header">
@@ -156,9 +161,7 @@ usort($amounts, 'compareByName'); //$this->dc($amounts);
 						<div id="wpsd_donate_amount">
 							<div class="wpsd_flex_con bg-grey nudge-pad">
 								<label for="wpsd_donate_amount" class="wpsd-donation-form-label"><?php esc_html_e( $wpsd_donate_amount_label, 'wp-stripe-donation' ); ?></label>
-								<?php if (in_array(FC_POST_ID, array(3722, 4357, 4391, 3925, 3791))) { ?>
-								<p class="wpsd-donation-sponsor-volume"><?php esc_html_e( $wpsd_donate_sponsor_volume, 'wp-stripe-donation' ); ?></p>
-								<?php } ?>
+								<!-- FC_POST_ID array location -->
 								<?php foreach ( $amounts as $wpsdKey => $wpsdAmount) {
 									$campaign_ids = array_map('trim', explode(',', $wpsdAmount->wpsd_campaign_ids));  //$this->dc($campaign_ids);
 									if (in_array($campaign_id, $campaign_ids)) { ?>

@@ -42,3 +42,11 @@ How to install the ALL Stripe Donation plugin and get it working.
 
 = 1.0.0 =
 * Initial release, setting up plugin-update-checker for future plugin releases.
+
+
+Joel Crawford edits, June 2021
+- CSS updates to integrate with NoFormat design
+- removal of FC_POST_ID code in wpsd_front_view.PHP
+<?php if (in_array(FC_POST_ID, array(3722, 4357, 4391, 3925, 3791))) { ?>
+    <p class="wpsd-donation-sponsor-volume"><?php esc_html_e( $wpsd_donate_sponsor_volume, 'wp-stripe-donation' ); ?></p>
+<?php } ?> 
