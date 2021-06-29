@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 /* DO WE TAKE PRECEDENCE OVER MAIN CSS? */
 @media (min-width: 768px) {
     .entry-content > * {
@@ -11,7 +13,7 @@ body.rtl .wpsd-wrapper-content {
 }
 
 .wpsd-wrapper-content {
-    font-family: Arial, Optima LT W10 Roman !important;
+    font-family: Roboto, Optima LT W10 Roman !important;
     /* background-color: burlywood; */
 }
 
@@ -245,8 +247,14 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_in_memory_of_con {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+.wpsd_flex_left_con {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
 .bg-grey {
-    background-color: #efefef;
+    background-color: #f8f8f8;
 }
 .nudge-pad {
     padding: 2em;

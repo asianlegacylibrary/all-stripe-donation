@@ -99,13 +99,13 @@ usort($amounts, 'compareByName'); //$this->dc($amounts);
 							<label for="wpsd_donate_details" class="wpsd-donation-form-label"><?php esc_html_e( $wpsd_donate_details_label, 'wp-stripe-donation' ); ?></label>
 							
 							<div class="wpsd_flex_item w-100">
-								<input type="text" required name="wpsd_donator_first_name" id="wpsd_donator_first_name" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_first_name_label, 'wp-stripe-donation'); ?>">
+								<input type="text" name="wpsd_donator_first_name" id="wpsd_donator_first_name" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_first_name_label, 'wp-stripe-donation'); ?>" required>
 							</div>
 							<div class="wpsd_flex_item w-100">
-								<input type="text" required name="wpsd_donator_last_name" id="wpsd_donator_last_name" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_last_name_label,'wp-stripe-donation' ); ?>">
+								<input type="text" name="wpsd_donator_last_name" id="wpsd_donator_last_name" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_last_name_label,'wp-stripe-donation' ); ?>" required>
 							</div>
 							<div class="wpsd_flex_item w-100">
-								<input type="email" required name="wpsd_donator_email" id="wpsd_donator_email" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_email_label, 'wp-stripe-donation' ); ?>">
+								<input type="email" name="wpsd_donator_email" id="wpsd_donator_email" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_email_label, 'wp-stripe-donation' ); ?>" required>
 							</div>
 							<div class="wpsd_flex_item w-100">
 								<select class="wpsd-select-field" name="wpsd_donator_country" id="wpsd_donator_country" required>
@@ -116,10 +116,10 @@ usort($amounts, 'compareByName'); //$this->dc($amounts);
 								</select>
 							</div>
 							<div class="wpsd_flex_item w-100">
-								<input type="text" required name="wpsd_donator_address" id="wpsd_donator_address" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_address_label, 'wp-stripe-donation' ); ?>">
+								<input type="text" name="wpsd_donator_address" id="wpsd_donator_address" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_address_label, 'wp-stripe-donation' ); ?>" required>
 							</div>
 							<div class="wpsd_flex_item w-100">
-								<input type="text" required name="wpsd_donator_city" id="wpsd_donator_city" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_city_label, 'wp-stripe-donation' ); ?>">
+								<input type="text" name="wpsd_donator_city" id="wpsd_donator_city" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_city_label, 'wp-stripe-donation' ); ?>" required>
 							</div>
 							<div class="wpsd_flex_item w-100">
 								<select class="wpsd-select-field" name="wpsd_donator_state" id="wpsd_donator_state">
@@ -127,10 +127,10 @@ usort($amounts, 'compareByName'); //$this->dc($amounts);
 								</select>
 							</div>
 							<div class="wpsd_flex_item w-100">
-								<input type="text" required name="wpsd_donator_zip" id="wpsd_donator_zip" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_zip_label, 'wp-stripe-donation' ); ?>">
+								<input type="text" name="wpsd_donator_zip" id="wpsd_donator_zip" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_zip_label, 'wp-stripe-donation' ); ?>" required>
 							</div>
 							<div class="wpsd_flex_item w-100">
-								<input type="text" required name="wpsd_donator_phone" id="wpsd_donator_phone" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_phone_label, 'wp-stripe-donation' ); ?>">
+								<input type="text" name="wpsd_donator_phone" id="wpsd_donator_phone" class="wpsd-text-field" placeholder="<?php esc_attr_e( $wpsd_donator_phone_label, 'wp-stripe-donation' ); ?>" required>
 							</div>
 							<!-- <div class="wpsd_flex_item w-100">
 								<div class="wpsd_in_memory_of_con">
@@ -178,7 +178,7 @@ usort($amounts, 'compareByName'); //$this->dc($amounts);
 							</div>
 						
 						
-							<div class="wpsd_flex_con bg-grey nudge-pad wpsd_is_recurring_wrapper">
+							<div class="wpsd_flex_left_con bg-grey nudge-pad wpsd_is_recurring_wrapper">
 								<div class="wpsd_flex_item wpsd_radio_btn_con">
 									<label class="wpsd_radio_con">
 										<input type="radio" name="wpsd_is_recurring" id="wpsd_is_recurring" class="wpsd_is_recurring" value="0" checked>
