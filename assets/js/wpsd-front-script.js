@@ -273,6 +273,8 @@
             payment_method_id: paymentMethodId,
             customer_id: customerId
         }
+
+        console.log('createPaymentIntent', requestData)
         return await request('wpsd_payment_intent', 'POST', requestData)
     }
 
