@@ -73,7 +73,11 @@ foreach ( $amounts as $wpsd_amount ) {
 
 // usort($amounts, 'compareByAmount'); //$this->dc($amounts);
 
+
+
 ?>
+
+
 
 <div class="wpsd-master-wrapper wpsd-template-0" id="wpsd-wrap-all">
 	<?php if( '1' === $wpsd_display_header ) { ?>
@@ -166,7 +170,7 @@ foreach ( $amounts as $wpsd_amount ) {
 									$campaign_ids = array_map('trim', explode(',', $wpsdAmount->wpsd_campaign_ids));  //$this->dc($campaign_ids);
 									if (in_array($campaign_id, $campaign_ids)) { ?>
 										<label class="wpsd_flex_item w-25 wpsd_radio_con">
-											<input type="radio" id="wpsd_amount_<?php echo esc_html($wpsdAmount->wpsd_amount_id); ?>" name="wpsd_donate_amount" value="<?php esc_attr_e($wpsdAmount->wpsd_amount_id, 'wp-stripe-donation' ); ?>" <?php echo $wpsdKey === 0? "checked": ""; ?>>
+											<input type="radio" id="wpsd_amount_<?php echo esc_html($wpsdAmount->wpsd_amount_id); ?>" name="wpsd_donate_amount_radio" value="<?php esc_attr_e($wpsdAmount->wpsd_amount_id, 'wp-stripe-donation' ); ?>" <?php echo $wpsdKey === 0? "checked": ""; ?>>
 											<span class="label_text">
 												<?php echo esc_html( $currency_symbol ) . esc_html__($wpsdAmount->wpsd_amount); ?>
 											</span>
