@@ -2,10 +2,20 @@
 
 /* DO WE TAKE PRECEDENCE OVER MAIN CSS? */
 @media screen and (min-width: 768px) {
+    /* .entry-content > * {
+        max-width: 80% !important;
+    } */
+    .wpsd-wrapper-content .flex-column {
+        flex: 1;
+    }
+    .wpsd-wrapper-content label {
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (min-width: 1062px) {
     .entry-content > * {
         max-width: 80% !important;
-    }
-    .flex-column {
     }
 }
 
@@ -41,7 +51,6 @@ body.rtl .wpsd-wrapper-content {
     display: flex;
     flex-direction: column;
     flex-basis: 100%;
-    flex: 1;
     margin: 2em;
 }
 
@@ -262,7 +271,7 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_in_memory_of_con {
 }
 .wpsd_flex_left_con {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: flex-start;
 }
 
@@ -594,16 +603,20 @@ Template 4
     width: 0;
 }
 
+.wpsd_radio_btn_con .label_text,
+.wpsd_radio_con .label_text {
+    padding: 0.4em 0;
+}
 /* On mouse-over, add a grey background color */
 .wpsd_radio_con:hover input ~ .label_text {
     /* color: #a50034; */
-    border-bottom: #222 solid 1px;
+    border-bottom: #222 solid 2px;
 }
 
 /* When the checkbox is checked, add a blue background */
 .wpsd_radio_con input:checked ~ .label_text {
     /* color: #a50034; */
-    border-bottom: #222 solid 1px;
+    border-bottom: #222 solid 2px;
 }
 .other_amount_radio_con {
     width: 100%;
@@ -614,9 +627,6 @@ Template 4
     margin: 0px;
 }
 
-.wpsd_radio_btn_con .label_text {
-    padding: 0.4em 0;
-}
 #card-element {
     padding: 20px 0;
     border: 0;

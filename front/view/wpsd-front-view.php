@@ -161,7 +161,7 @@ foreach ( $amounts as $wpsd_amount ) {
 						<div id="wpsd_donate_amount">
 							<div class="wpsd_flex_con bg-grey nudge-pad">
 								<label for="wpsd_donate_amount" class="wpsd-donation-form-label"><?php esc_html_e( $wpsd_donate_amount_label, 'wp-stripe-donation' ); ?></label>
-								<!-- FC_POST_ID array location -->
+								<!-- FC_POST_ID array location, look in README to find it -->
 								<?php foreach ( $amounts as $wpsdKey => $wpsdAmount) {
 									$campaign_ids = array_map('trim', explode(',', $wpsdAmount->wpsd_campaign_ids));  //$this->dc($campaign_ids);
 									if (in_array($campaign_id, $campaign_ids)) { ?>
