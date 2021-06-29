@@ -66,12 +66,12 @@ foreach ( $amounts as $wpsd_amount ) {
 	$wpsd_amount->wpsd_amount = $formatted;
 }
 
-// THIS WAS CAUSING FATAL ERROR, name conflict so changed name from compareByName to comapareByAmount
-function compareByAmount($a, $b) {
-	return $a->wpsd_amount - $b->wpsd_amount;
-}
+// THIS WAS CAUSING FATAL ERROR, Fatal error: Cannot redeclare compareByAmount()
+// function compareByAmount($a, $b) {
+// 	return $a->wpsd_amount - $b->wpsd_amount;
+// }
 
-usort($amounts, 'compareByAmount'); //$this->dc($amounts);
+// usort($amounts, 'compareByAmount'); //$this->dc($amounts);
 
 ?>
 
