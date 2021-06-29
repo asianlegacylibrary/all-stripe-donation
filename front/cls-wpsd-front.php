@@ -286,6 +286,7 @@ class Wpsd_Front
 	function wpsd_payment_intent_handler(){
 		$payload = @file_get_contents('php://input');
 		$data = json_decode($payload, true);
+		$this->dc($data);
 		$required = [
 			'donation_id',
 			'payment_method_id',
