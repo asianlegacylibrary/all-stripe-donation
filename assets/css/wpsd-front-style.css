@@ -7,13 +7,17 @@
     }
 }
 
+body {
+    font-family: Roboto, sans-serif !important;
+}
+
 /* alert started */
 body.rtl .wpsd-wrapper-content {
     direction: rtl;
 }
 
 .wpsd-wrapper-content {
-    font-family: Roboto, Optima LT W10 Roman !important;
+    /* font-family: Roboto, Optima LT W10 Roman !important; */
     /* background-color: burlywood; */
 }
 
