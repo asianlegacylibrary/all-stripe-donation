@@ -11,6 +11,13 @@ body {
     font-family: Roboto, sans-serif !important;
 }
 
+button,
+input,
+select,
+textarea {
+    font-family: Roboto, sans-serif !important;
+}
+
 /* alert started */
 body.rtl .wpsd-wrapper-content {
     direction: rtl;
