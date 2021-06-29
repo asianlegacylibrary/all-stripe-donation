@@ -41,16 +41,16 @@
             $('input[name="wpsd_donate_amount"]').prop('checked', false)
         })
 
-        $("input[name='wpsd_donate_amount_radio']").on('click', function () {
-            console.log(
-                'clicked radio btn',
-                document.querySelector('input[name="wpsd_donate_amount_radio"]')
-                    .value,
-                $('input[name=wpsd_donate_amount_radio]').val()
-            )
-            $('#wpsd_donate_other_amount').val('')
-            $('#wpsd_donate_other_amount_wrapper').removeClass('bg-white')
-        })
+        // $("input[name='wpsd_donate_amount_radio']").on('click', function () {
+        //     console.log(
+        //         'clicked radio btn',
+        //         document.querySelector('input[name="wpsd_donate_amount_radio"]')
+        //             .value,
+        //         $('input[name=wpsd_donate_amount_radio]').val()
+        //     )
+        //     $('#wpsd_donate_other_amount').val('')
+        //     $('#wpsd_donate_other_amount_wrapper').removeClass('bg-white')
+        // })
 
         $('.wpsd-donate-button').on('click', function (e) {
             e.preventDefault()
@@ -69,26 +69,27 @@
 
         $("input[name='wpsd_donate_amount_radio']").on('change', function (e) {
             let target = e.target
-            target.id.checked = true
-            let message
-            switch (target.id) {
-                case 'pending':
-                    message = 'The Pending radio button changed'
-                    break
-                case 'resolved':
-                    message = 'The Resolved radio button changed'
-                    break
-                case 'rejected':
-                    message = 'The Rejected radio button changed'
-                    break
+            //let updated_value = target.value.replace(/[^0-9\.]/g, '')
+
+            var options = {
+                maximumFractionDigits: 2,
+                currency: currency,
+                style: 'currency',
+                currencyDisplay: 'symbol'
             }
 
-            console.log(target)
+            let updated_value = localStringToNumber(
+                target.value
+            ).toLocaleString(undefined, options)
+
+            console.log(updated_value)
+            $('#wpsd_donate_other_amount').val(updated_value)
         })
     }
 
     async function onSubmit() {
         var valid = validateForm()
+        console.log('donation amount onSubmit', wpsdDonateAmount)
         if (!valid) {
             return false
         }
@@ -200,6 +201,7 @@
             in_memory_of: $('#wpsd_in_memory_of').val(),
             is_recurring: parseInt($('#wpsd_is_recurring:checked').val())
         }
+
         return await request('wpsd_donation', 'POST', requestData)
     }
 
@@ -380,37 +382,23 @@
             $('#wpsd_donator_email').focus()
             return false
         }
-        var other_exists = $('#wpsd_donate_other_amount').length
-        var other_amount = $('#wpsd_donate_other_amount').val()
-        if (
-            !other_exists ||
-            !other_amount ||
-            !other_amount.length ||
-            other_amount === '$0.00'
-        ) {
-            var wpsdRadioVal = $(
-                ".wpsd-wrapper-content #wpsd_donate_amount input[name='wpsd_donate_amount']:checked"
-            ).val()
-            if (wpsdRadioVal !== undefined) {
-                wpsdDonateAmount = wpsdRadioVal
-                wpsdCustomAmount = false
-            } else {
-                showError(
-                    wpsdAdminScriptObj.validation.not_valid.donation_amount
-                )
-                return false
-            }
-        } else {
-            var other_amount_val = $('#wpsd_donate_other_amount').val()
-            if (!other_amount_val) {
-                showError(
-                    wpsdAdminScriptObj.validation.not_valid.donation_amount
-                )
-                return false
-            }
-            wpsdDonateAmount = other_amount_val
-            wpsdCustomAmount = true
+
+        var other_amount = localStringToNumber(
+            $('#wpsd_donate_other_amount').val()
+        )
+
+        if (!other_amount || other_amount == 0) {
+            console.log(
+                'this is not valid donation yo!',
+                $('#wpsd_donate_other_amount').val()
+            )
+            showError(wpsdAdminScriptObj.validation.not_valid.donation_amount)
+            return false
         }
+
+        wpsdDonateAmount = other_amount
+        wpsdCustomAmount = true
+
         return true
     }
 
@@ -514,7 +502,7 @@
             return
         }
         var value = e.target.value
-        e.target.value = value ? localStringToNumber(value) : '0'
+        e.target.value = value ? localStringToNumber(value) : ''
     }
 
     function onBlur(e) {

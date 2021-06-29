@@ -343,6 +343,8 @@ class Wpsd_Front
 	function wpsd_create_customer_handler() {
 		$payload = @file_get_contents('php://input');
 		$data = json_decode($payload, true);
+		// debugging data...
+		//$this->dc($data);
 		$required_fields = array(
 			'donation_id',
 			'payment_method_id',

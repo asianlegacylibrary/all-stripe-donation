@@ -30,14 +30,22 @@ textarea {
     font-family: Roboto, sans-serif !important;
 }
 
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0 0 0 30px white inset !important;
+}
+
 /* alert started */
 body.rtl .wpsd-wrapper-content {
     direction: rtl;
-}
-
-.wpsd-wrapper-content {
-    /* font-family: Roboto, Optima LT W10 Roman !important; */
-    /* background-color: burlywood; */
 }
 
 .flex-row {
@@ -137,8 +145,8 @@ img.wpsd-form-banner {
 
 .wpsd-master-wrapper .wpsd-wrapper-content {
     text-align: left;
-    border: 1px solid #222;
-    /* background: #f3f3f3;
+    /* border: 1px solid #222;
+     background: #f3f3f3;
     padding: 0;
     border-radius: 0; */
 }
@@ -280,6 +288,10 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_in_memory_of_con {
 }
 .nudge-pad {
     padding: 2em;
+}
+
+.nudge-pad-no-top {
+    padding: 0em 2em 2em 2em;
 }
 
 .wpsd_flex_con.wpsd_is_recurring_wrapper .wpsd_flex_item {

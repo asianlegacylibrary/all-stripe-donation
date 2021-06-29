@@ -1,5 +1,5 @@
 === ALL Stripe Donation ===
-Contributors: jessewaitz
+Contributors: jessewaitz, joelcrawford
 Donate link: https://asianlegacylibrary.org/
 Tags: all asianlegacylibrary stripe donation
 Requires at least: 5.0
@@ -24,6 +24,27 @@ How to install the ALL Stripe Donation plugin and get it working.
 
 == Changelog ==
 
+= 1.0.8 =
+- NOTE: Joel Crawford edits, June 2021 // not sure how the version numbering works here // new branch feature/nf_css (Jesse to merge into master)
+ 
+* CSS updates to integrate with NoFormat design (wpsd-front-style.css)
+
+* removal of FC_POST_ID code in as it was causing some issues on admin side (probably missing some state?) (wpsd_front_view.php)
+<?php if (in_array(FC_POST_ID, array(3722, 4357, 4391, 3925, 3791))) { ?>
+    <p class="wpsd-donation-sponsor-volume"><?php esc_html_e( $wpsd_donate_sponsor_volume, 'wp-stripe-donation' ); ?></p>
+<?php } ?> 
+
+* testing shortcode with no campaign or fund variables from kindful. Not sure how to proceed...is this link useful?
+* possibly, but how do you access / edit the amounts? should provide defaults
+[wp_stripe_donation custom_amount="true" campaign="ALL General" campaign_id="1085081" fund="ALL General Fund" fund_id="153434"]
+
+* js listener for 'choose amount' radio btns, IIFE called on window with a bunch of jQuery (wpsd-front-script.js)
+* rewrote the radio btns and how they interact with the 'other amount', when you click radio btn the 'other amount'
+* populates and when you submit the form, the form just takes whatever is in 'other amount'
+
+
+
+
 = 1.0.7 =
 * added a redirect from the donation form (to https://asianlegacylibrary.org/donate/thank-you/) on a successfull order.
 
@@ -44,9 +65,3 @@ How to install the ALL Stripe Donation plugin and get it working.
 * Initial release, setting up plugin-update-checker for future plugin releases.
 
 
-Joel Crawford edits, June 2021
-- CSS updates to integrate with NoFormat design
-- removal of FC_POST_ID code in wpsd_front_view.PHP
-<?php if (in_array(FC_POST_ID, array(3722, 4357, 4391, 3925, 3791))) { ?>
-    <p class="wpsd-donation-sponsor-volume"><?php esc_html_e( $wpsd_donate_sponsor_volume, 'wp-stripe-donation' ); ?></p>
-<?php } ?> 
