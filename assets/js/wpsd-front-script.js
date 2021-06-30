@@ -45,9 +45,14 @@
             if (amounts_array.includes(parseInt(this.value))) {
                 // target.id = checked
                 console.log('other in radios', this.value, amounts_array)
+                $(`#${this.value}`).prop('checked', true)
             } else {
                 // all radios unchecked
                 console.log('not in radios', this.value, amounts_array)
+                $('input[name="wpsd_donate_amount_radio"]').prop(
+                    'checked',
+                    false
+                )
             }
 
             if (this.value < 0.5) {
