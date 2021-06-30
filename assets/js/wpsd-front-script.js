@@ -35,15 +35,12 @@
         })
 
         $('#wpsd_donate_other_amount').on('blur', function () {
+            // obviously you've got to make this dynamic somehow
             let amounts_array = [10, 20, 50, 250]
-
-            //$('#wpsd_donate_other_amount_wrapper').addClass('bg-white')
-            //$('input[name="wpsd_donate_amount"]').prop('checked', false)
 
             // check to see if other_amount matches any of the radio values
             // if it does or doesn't update CSS accordingly
             if (amounts_array.includes(parseInt(this.value))) {
-                // target.id = checked
                 console.log('other in radios', this.value, amounts_array)
                 $(`#${this.value}`).prop('checked', true)
             } else {
@@ -102,7 +99,7 @@
                 target.value
             ).toLocaleString(undefined, options)
 
-            console.log(updated_value, target.id)
+            //console.log(updated_value, target.id)
             $('#wpsd_donate_other_amount').val(updated_value)
         })
     }
