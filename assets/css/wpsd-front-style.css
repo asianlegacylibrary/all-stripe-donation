@@ -1,23 +1,5 @@
+/* ----------------- These first CSS are only for dev --------------------------------*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
-/* DO WE TAKE PRECEDENCE OVER MAIN CSS? */
-@media screen and (min-width: 768px) {
-    /* .entry-content > * {
-        max-width: 80% !important;
-    } */
-    .wpsd-wrapper-content .flex-column {
-        flex: 1;
-    }
-    .wpsd-wrapper-content label {
-        font-size: 0.8em;
-    }
-}
-
-@media screen and (min-width: 1062px) {
-    .entry-content > * {
-        max-width: 80% !important;
-    }
-}
 
 body {
     font-family: Roboto, sans-serif !important;
@@ -30,7 +12,36 @@ textarea {
     font-family: Roboto, sans-serif !important;
 }
 
-/* Change the white to any color */
+:root {
+    --markiter-accent-color: #222 !important;
+}
+.site-title {
+    font-size: 2em !important;
+    color: #222 !important;
+}
+
+@media screen and (min-width: 1062px) {
+    .entry-content > * {
+        max-width: 80% !important;
+    }
+}
+
+/* ----------------- END OF UNNECESSARY CSS --------------------------------*/
+
+/* Media Queries, expand once we have No Format theme */
+@media screen and (min-width: 768px) {
+    /* .entry-content > * {
+        max-width: 80% !important;
+    } */
+    .wpsd-wrapper-content .flex-column {
+        flex: 1;
+    }
+    .wpsd-wrapper-content label {
+        font-size: 0.8em;
+    }
+}
+
+/* Auto-fill on forms */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -41,11 +52,6 @@ select:-webkit-autofill:focus,
 select:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
     box-shadow: 0 0 0 30px white inset !important;
-}
-
-/* alert started */
-body.rtl .wpsd-wrapper-content {
-    direction: rtl;
 }
 
 .flex-row {
@@ -62,55 +68,15 @@ body.rtl .wpsd-wrapper-content {
     margin: 2em;
 }
 
-/* .wpsd-wrapper-content form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-} */
-
-.wpsd-alert {
-    color: white;
-    display: inline-block;
-    width: 80%;
-    height: auto;
-    font-size: 20px;
-    line-height: 1.2;
-    border-radius: 0;
-    transition: all 0.3s linear;
-    padding: 5% 10%;
-    margin: 10px 0 20px;
+.bg-grey {
+    background-color: #f8f8f8;
 }
-.wpsd-alert ul {
-    margin-bottom: 0;
-    padding: 0;
-}
-.wpsd-alert ul li {
-    margin: 0;
-    padding: 0;
-    text-align: left;
+.nudge-pad {
+    padding: 2em;
 }
 
-body.rtl .wpsd-alert ul li {
-    text-align: right;
-}
-
-.wpsd-alert.success {
-    background-color: #a50034;
-}
-
-.wpsd-alert.error {
-    background-color: #a50034;
-}
-
-.wpsd-alert.warning {
-    background-color: #ffaa2b;
-}
-
-/* alert ended */
-
-.wpsd-wrapper-content .dashicons,
-.dashicons-before::before {
-    font-size: 12px;
-    line-height: 46px;
+.nudge-pad-no-top {
+    padding: 0em 2em 2em 2em;
 }
 
 /* MASTER RAPPER YO */
@@ -283,17 +249,6 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_in_memory_of_con {
     justify-content: flex-start;
 }
 
-.bg-grey {
-    background-color: #f8f8f8;
-}
-.nudge-pad {
-    padding: 2em;
-}
-
-.nudge-pad-no-top {
-    padding: 0em 2em 2em 2em;
-}
-
 .wpsd_flex_con.wpsd_is_recurring_wrapper .wpsd_flex_item {
     padding: 0;
     width: auto;
@@ -396,53 +351,6 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
     text-align: center;
 }
 
-.wpsd-master-wrapper .wpsd-wrapper-content .wpsd-donate-button:hover,
-.wpsd-master-wrapper.wpsd-template-1
-    .wpsd-wrapper-content
-    .wpsd-donate-button:hover,
-.wpsd-master-wrapper.wpsd-template-2
-    .wpsd-wrapper-content
-    .wpsd-donate-button:hover,
-.wpsd-master-wrapper.wpsd-template-3
-    .wpsd-wrapper-content
-    .wpsd-donate-button:hover,
-.wpsd-master-wrapper.wpsd-template-4
-    .wpsd-wrapper-content
-    .wpsd-donate-button:hover,
-.wpsd-master-wrapper.wpsd-template-5
-    .wpsd-wrapper-content
-    .wpsd-donate-button:hover,
-.wpsd-master-wrapper.wpsd-template-6
-    .wpsd-wrapper-content
-    .wpsd-donate-button:hover {
-    /* background: white;
-    color: #a50034;
-    text-decoration: none;
-    border: #a50034 solid 1px; */
-}
-.wpsd-master-wrapper .wpsd-wrapper-content .wpsd-donate-button:focus,
-.wpsd-master-wrapper.wpsd-template-1
-    .wpsd-wrapper-content
-    .wpsd-donate-button:focus,
-.wpsd-master-wrapper.wpsd-template-2
-    .wpsd-wrapper-content
-    .wpsd-donate-button:focus,
-.wpsd-master-wrapper.wpsd-template-3
-    .wpsd-wrapper-content
-    .wpsd-donate-button:focus,
-.wpsd-master-wrapper.wpsd-template-4
-    .wpsd-wrapper-content
-    .wpsd-donate-button:focus,
-.wpsd-master-wrapper.wpsd-template-5
-    .wpsd-wrapper-content
-    .wpsd-donate-button:focus,
-.wpsd-master-wrapper.wpsd-template-6
-    .wpsd-wrapper-content
-    .wpsd-donate-button:focus {
-    background: #a50034;
-    color: white;
-    text-decoration: none;
-}
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-donate-button.disabled:hover {
     cursor: not-allowed;
 }
@@ -460,136 +368,60 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
     color: #ff0000;
 }
 
-/*=============================
-Template 1
-===============================*/
-
-.wpsd-master-wrapper.wpsd-template-1 {
-    box-shadow: 0 3px 20px #ffc0cb;
+/* alert started */
+body.rtl .wpsd-wrapper-content {
+    direction: rtl;
 }
 
-.wpsd-master-wrapper.wpsd-template-1 .wpsd-wrapper-header {
-    background: #ff69b4;
-    background: -moz-linear-gradient(top, #ff69b4 0%, #ffc0cb 100%);
-    background: -webkit-linear-gradient(top, #ff69b4 0%, #ffc0cb 100%);
-    background: linear-gradient(to bottom, #ff69b4 0%, #ffc0cb 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#FF69B4', endColorstr='#FFC0CB', GradientType=1);
+/* .wpsd-wrapper-content form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+} */
+
+.wpsd-alert {
+    color: white;
+    display: inline-block;
+    width: 80%;
+    height: auto;
+    font-size: 20px;
+    line-height: 1.2;
+    border-radius: 0;
+    transition: all 0.3s linear;
+    padding: 5% 10%;
+    margin: 10px 0 20px;
+}
+.wpsd-alert ul {
+    margin-bottom: 0;
+    padding: 0;
+}
+.wpsd-alert ul li {
+    margin: 0;
+    padding: 0;
+    text-align: left;
 }
 
-.wpsd-master-wrapper.wpsd-template-1 .wpsd-wrapper-content {
-    background: #fefdfa;
+body.rtl .wpsd-alert ul li {
+    text-align: right;
 }
 
-.wpsd-master-wrapper.wpsd-template-1 .wpsd-wrapper-content .wpsd-donate-button {
-    background: #ff69b4;
+.wpsd-alert.success {
+    background-color: #a50034;
 }
 
-.wpsd-master-wrapper.wpsd-template-1 .wpsd-wrapper-content .wpsd-text-field {
-    border-color: #ff69b4;
+.wpsd-alert.error {
+    background-color: #a50034;
 }
 
-.wpsd-master-wrapper.wpsd-template-1
-    .wpsd-wrapper-content
-    #wpsd-donation-form-id
-    #wpsd_donate_other_amount {
-    border-color: #ff69b4;
+.wpsd-alert.warning {
+    background-color: #ffaa2b;
 }
 
-/*=============================
-Template 2
-===============================*/
+/* alert ended */
 
-.wpsd-master-wrapper.wpsd-template-2 {
-    box-shadow: 0 3px 20px #40e0d0;
-}
-
-.wpsd-master-wrapper.wpsd-template-2 .wpsd-wrapper-header {
-    background: #008b8b;
-    background: -moz-linear-gradient(top, #008b8b 0%, #40e0d0 100%);
-    background: -webkit-linear-gradient(top, #008b8b 0%, #40e0d0 100%);
-    background: linear-gradient(to bottom, #008b8b 0%, #40e0d0 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#008B8B', endColorstr='#40E0D0', GradientType=1);
-}
-
-.wpsd-master-wrapper.wpsd-template-2 .wpsd-wrapper-content {
-    background: #effaff;
-}
-
-.wpsd-master-wrapper.wpsd-template-2 .wpsd-wrapper-content .wpsd-donate-button {
-    background: #008b8b;
-}
-
-.wpsd-master-wrapper.wpsd-template-2 .wpsd-wrapper-content .wpsd-text-field {
-    border-color: #008b8b;
-}
-
-.wpsd-master-wrapper.wpsd-template-2
-    .wpsd-wrapper-content
-    #wpsd-donation-form-id
-    #wpsd_donate_other_amount {
-    border-color: #008b8b;
-}
-
-/*=============================
-Template 3
-===============================*/
-
-.wpsd-master-wrapper.wpsd-template-3 {
-    box-shadow: 0 3px 20px #87cefa;
-}
-
-.wpsd-master-wrapper.wpsd-template-3 .wpsd-wrapper-header {
-    background: #1e90ff;
-    background: -moz-linear-gradient(top, #1e90ff 0%, #87cefa 100%);
-    background: -webkit-linear-gradient(top, #1e90ff 0%, #87cefa 100%);
-    background: linear-gradient(to bottom, #1e90ff 0%, #87cefa 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#1E90FF', endColorstr='#87CEFA', GradientType=1);
-}
-
-.wpsd-master-wrapper.wpsd-template-3 .wpsd-wrapper-content {
-    background: #f1feff;
-}
-
-.wpsd-master-wrapper.wpsd-template-3 .wpsd-wrapper-content .wpsd-donate-button {
-    background: #1e90ff;
-}
-
-.wpsd-master-wrapper.wpsd-template-3
-    .wpsd-wrapper-content
-    #wpsd-donation-form-id
-    #wpsd_donate_other_amount {
-    border-color: #1e90ff;
-}
-
-/*=============================
-Template 4
-===============================*/
-
-.wpsd-master-wrapper.wpsd-template-4 {
-    box-shadow: 0 3px 20px #deb887;
-}
-
-.wpsd-master-wrapper.wpsd-template-4 .wpsd-wrapper-header {
-    background: #deb887;
-    background: -moz-linear-gradient(top, #deb887 0%, #ffdead 100%);
-    background: -webkit-linear-gradient(top, #deb887 0%, #ffdead 100%);
-    background: linear-gradient(to bottom, #deb887 0%, #ffdead 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#DEB887', endColorstr='#FFDEAD', GradientType=1);
-}
-
-.wpsd-master-wrapper.wpsd-template-4 .wpsd-wrapper-content {
-    background: #fff8dc;
-}
-
-.wpsd-master-wrapper.wpsd-template-4 .wpsd-wrapper-content .wpsd-donate-button {
-    background: #deb887;
-}
-
-.wpsd-master-wrapper.wpsd-template-4
-    .wpsd-wrapper-content
-    #wpsd-donation-form-id
-    #wpsd_donate_other_amount {
-    border-color: #deb887;
+.wpsd-wrapper-content .dashicons,
+.dashicons-before::before {
+    font-size: 12px;
+    line-height: 46px;
 }
 
 /* ==== Custom Radio === */
