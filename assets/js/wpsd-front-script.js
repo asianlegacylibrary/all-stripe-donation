@@ -201,7 +201,7 @@
             in_memory_of: $('#wpsd_in_memory_of').val(),
             is_recurring: parseInt($('#wpsd_is_recurring:checked').val())
         }
-
+        console.log('sendDonationInfo', requestData)
         return await request('wpsd_donation', 'POST', requestData)
     }
 
@@ -254,6 +254,7 @@
                 }
             }
         }
+        console.log('createPaymentMethod', paymentMethodData)
         const result = await stripe.createPaymentMethod(paymentMethodData)
         // Handle result.error or result.paymentMethod
         if (result.error) {
@@ -276,10 +277,6 @@
 
         console.log('createPaymentIntent', requestData)
         return await request('wpsd_payment_intent', 'POST', requestData)
-    }
-
-    function meow() {
-        console.log('meow!')
     }
 
     async function request(action, type, data = null, params = null) {
