@@ -2,12 +2,11 @@
 
 /**
  * Plugin Name: 	ALL Stripe Donation
- * Text Domain:   all-stripe-donation
+ * Text Domain:     all-stripe-donation
  * Description: 	This WordPress Stripe Donation is a simple plugin that allows you to collect donations on your website 
- *                via Stripe payment method and send the donation info to Kindful.
- * Plugin URI: https://asianlegacylibrary.org/
- * Description: Adds the FC Gutenberg Blocks to the page editor
- * Author: Jesse Waitz
+ *                  via Stripe payment method and send the donation info to Kindful.
+ * Plugin URI:      https://github.com/asianlegacylibrary/all-stripe-donation
+ * Author: devvly.com, Jesse Waitz, joelcrawford
  * Author URI: http://flagstaffconnection.com
  * Version: 1.0.7
  * License: GPL2+

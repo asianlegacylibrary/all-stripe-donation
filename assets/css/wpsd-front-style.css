@@ -164,6 +164,9 @@ img.wpsd-form-banner {
     border: 0;
     border-bottom: solid 1px #444;
 }
+.wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field.other_amount {
+    font-size: 1.4em;
+}
 
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-select-field {
     height: auto;

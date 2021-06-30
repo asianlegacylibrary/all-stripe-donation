@@ -1,5 +1,5 @@
 === ALL Stripe Donation ===
-Contributors: jessewaitz, joelcrawford
+Contributors: devvly.com, jessewaitz, joelcrawford
 Donate link: https://asianlegacylibrary.org/
 Tags: all asianlegacylibrary stripe donation
 Requires at least: 5.0

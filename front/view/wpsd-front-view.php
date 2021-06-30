@@ -188,7 +188,7 @@ $this->dc($amounts);
 
 							<?php if($custom_amount){ ?>
 								<div class="wpsd_flex_item w-100" id="wpsd_donate_other_amount_wrapper">
-									<input id="wpsd_donate_other_amount" type="currency" class="wpsd_donate_amount wpsd-text-field" name="wpsd_donate_other_amount" placeholder="<?php esc_html_e($wpsd_custom_amount_label, 'wp-stripe-donation'); ?>">
+									<input id="wpsd_donate_other_amount" type="currency" class="wpsd_donate_amount wpsd-text-field other_amount" name="wpsd_donate_other_amount" placeholder="<?php esc_html_e($wpsd_custom_amount_label, 'wp-stripe-donation'); ?>">
 								</div>
 							<?php } ?>
 							
