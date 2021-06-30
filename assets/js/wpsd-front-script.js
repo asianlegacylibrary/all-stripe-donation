@@ -34,10 +34,26 @@
             fetchStates(ev.target.value).catch((e) => console.log(e))
         })
 
-        $('#wpsd_donate_other_amount').on('keyup', function () {
-            this.value = this.value.replace(/[^0-9\.]/g, '')
-            $('#wpsd_donate_other_amount_wrapper').addClass('bg-white')
-            $('input[name="wpsd_donate_amount"]').prop('checked', false)
+        $('#wpsd_donate_other_amount').on('blur', function () {
+            let amounts_array = [10, 20, 50, 250]
+
+            //$('#wpsd_donate_other_amount_wrapper').addClass('bg-white')
+            //$('input[name="wpsd_donate_amount"]').prop('checked', false)
+
+            // check to see if other_amount matches any of the radio values
+            // if it does or doesn't update CSS accordingly
+            if (amounts_array.includes(parseInt(this.value))) {
+                // target.id = checked
+                console.log('other in radios', this.value, amounts_array)
+            } else {
+                // all radios unchecked
+                console.log('not in radios', this.value, amounts_array)
+            }
+
+            if (this.value < 0.5) {
+                // this should be a warning state....stripe requires at least 0.5 donation
+                console.log('you cheap sob')
+            }
         })
 
         // $("input[name='wpsd_donate_amount_radio']").on('click', function () {
@@ -81,7 +97,7 @@
                 target.value
             ).toLocaleString(undefined, options)
 
-            console.log(updated_value)
+            console.log(updated_value, target.id)
             $('#wpsd_donate_other_amount').val(updated_value)
         })
     }
