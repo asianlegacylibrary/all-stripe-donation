@@ -38,6 +38,10 @@ class Wpsd_Webhooks {
 		$endpoint_secret = $wpsdKeySettings['wpsd_webhooks_key'];
 
 		$payload = @file_get_contents('php://input');
+		
+		// adding some simple debug....
+		$this->dc($payload);
+		
 		$sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
 		\Stripe\Stripe::setApiKey($secret_key);
 		try {

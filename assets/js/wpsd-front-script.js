@@ -229,6 +229,7 @@
             donation_id: donation_id,
             payment_method_id: paymentMethod
         }
+        console.log('wpsd_create_customer', requestData)
         const data = await request('wpsd_create_customer', 'POST', requestData)
         return data.customer_id
     }
