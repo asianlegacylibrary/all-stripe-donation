@@ -28,7 +28,6 @@
                 createCardForm()
             }
         }
-        meow()
     }
     function addListeners() {
         $('#wpsd_donator_country').on('change', function (ev) {
