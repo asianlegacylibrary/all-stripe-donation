@@ -385,10 +385,13 @@
             $('#wpsd_donate_other_amount').val()
         )
 
-        if (!other_amount || other_amount == 0) {
+        other_amount = (other_amount * 100).toFixed(0)
+        console.log(other_amount)
+        if (!other_amount || other_amount < 50) {
             console.log(
-                'this is not valid donation yo!',
-                $('#wpsd_donate_other_amount').val()
+                `this is not valid donation, ${$(
+                    '#wpsd_donate_other_amount'
+                ).val()}, must be at least 0.50`
             )
             showError(wpsdAdminScriptObj.validation.not_valid.donation_amount)
             return false
