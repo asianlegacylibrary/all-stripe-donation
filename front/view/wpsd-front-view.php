@@ -24,6 +24,10 @@ $wpsd_donator_zip_label = $options->get_value("template", "wpsd_donator_zip_labe
 $wpsd_donator_address_label = $options->get_value("template", "wpsd_donator_address_label", "Address", false);
 $wpsd_donate_amount_label = $options->get_value("template", "wpsd_donate_amount_label", "Choose Your Amount", false);
 $wpsd_donate_details_label = $options->get_value("template", "wpsd_donate_details_label", "Personal Details", false);
+$wpsd_donate_req_fields_msg_label = $options->get_value("template", "wpsd_donate_req_fields_msg_label", "Please be sure to fill out all required fields", false);
+$wpsd_donate_assistance_label = $options->get_value("template", "wpsd_donate_assistance_label", "If you need assistance with your donation, please email", false);
+$wpsd_donate_assistance_email = $options->get_value("template", "wpsd_donate_assistance_email", "donations@asianlegacylibrary.org", false);
+
 $wpsd_donate_sponsor_volume = $options->get_value("template", "wpsd_donate_sponsor_volume", "Donations that total $120 USD sponsor a volume in your name.", false);
 //$wpsd_in_memory_of_label = $options->get_value("template", "wpsd_in_memory_of_label", "In memory of", false);
 $wpsd_one_time_label = $options->get_value("template", "wpsd_one_time_label", "One Time", false);
@@ -44,6 +48,7 @@ $wpsdTranslations = array(
 	'wpsd_donor_address'		    => esc_html__('Address', 'wp-stripe-donation'),
 	'wpsd_donor_address2'	=> esc_html__('Address 2', 'wp-stripe-donation'),
 	'wpsd_donor_choose_amount'		=> esc_html__('Choose Your Amount', 'wp-stripe-donation'),
+	'wpsd_donor_personal_details'		=> esc_html__('Personal Details', 'wp-stripe-donation'),
 	//'wpsd_donor_memory'		    => esc_html__('In memory of', 'wp-stripe-donation'),
 	'wpsd_donor_one'	=> esc_html__('One Time', 'wp-stripe-donation'),
 	'wpsd_donor_monthly'		=> esc_html__('Monthly', 'wp-stripe-donation'),
@@ -159,7 +164,9 @@ $this->dc($amounts);
 					<div class="wpsd_flex_item w-100">
 						<div id="card-element"><!--Stripe.js injects the Card Element--></div>
 					</div>
-						
+					<div>
+						<p class="wpsd-metadata"><?php esc_html_e( $wpsd_donate_req_fields_msg_label, 'wp-stripe-donation' ); ?></p>
+					</div>
 				</div>
 				<div class="flex-column">	
 					<!-- DONATION AMOUNT / TYPE -->
@@ -184,7 +191,8 @@ $this->dc($amounts);
 									<input id="wpsd_donate_other_amount" type="currency" class="wpsd_donate_amount wpsd-text-field" name="wpsd_donate_other_amount" placeholder="<?php esc_html_e($wpsd_custom_amount_label, 'wp-stripe-donation'); ?>">
 								</div>
 							<?php } ?>
-
+							
+						
 						</div>
 					
 					
@@ -208,6 +216,17 @@ $this->dc($amounts);
 							<div class="w-100">
 								<input type="submit" name="wpsd-donate-button" class="wpsd-donate-button" value="<?php echo esc_html__('Donate Now', 'wp-stripe-donation'); ?>">
 							</div>
+						</div>
+
+						<div>
+							<p class="wpsd-metadata">
+								<?php esc_html_e( $wpsd_donate_assistance_label, 'wp-stripe-donation' ); ?>
+								<span>
+									<a href="mailto:<?php esc_html_e( $wpsd_donate_assistance_email, 'wp-stripe-donation' ); ?>">
+										<?php esc_html_e( $wpsd_donate_assistance_email, 'wp-stripe-donation' ); ?>
+									</a>
+								</span>
+							</p>
 						</div>
 
 						<!-- Find location for these, related to submission success -->

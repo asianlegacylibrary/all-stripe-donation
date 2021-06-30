@@ -79,6 +79,12 @@ select:-webkit-autofill:active {
     padding: 0em 2em 2em 2em;
 }
 
+.wpsd-metadata {
+    padding: 0.4em 0.2em;
+    font-size: 0.6em;
+    font-weight: bold;
+}
+
 /* MASTER RAPPER YO */
 .wpsd-master-wrapper input,
 .wpsd-master-wrapper select,

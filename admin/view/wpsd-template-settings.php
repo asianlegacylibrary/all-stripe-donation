@@ -23,6 +23,9 @@ if( isset( $_POST['updateTempSettings'] ) ) {
         'wpsd_card_agreement'  => ( sanitize_text_field( $_POST['wpsd_card_agreement'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_card_agreement'] ) : '',
         'wpsd_donate_amount_label'  => ( sanitize_text_field( $_POST['wpsd_donate_amount_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_amount_label'] ) : 'Donate Amount',
         'wpsd_donate_details_label'  => ( sanitize_text_field( $_POST['wpsd_donate_details_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_details_label'] ) : 'Personal Details',
+        'wpsd_donate_assistance_label'  => ( sanitize_text_field( $_POST['wpsd_donate_assistance_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_assistance_label'] ) : 'If you need assistance with your donation, please email',
+        'wpsd_donate_assistance_email'  => ( sanitize_text_field( $_POST['wpsd_donate_assistance_email'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_assistance_email'] ) : 'donations@asianlegacylibrary.org',
+        'wpsd_donate_req_fields_msg_label'  => ( sanitize_text_field( $_POST['wpsd_donate_req_fields_msg_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_req_fields_msg_label'] ) : 'Please be sure to fill out all required fields',
     );
 
     $wpsdTempShowMessage = update_option('wpsd_temp_settings', serialize( $wpsdTempSettingsInfo ) );
@@ -50,7 +53,13 @@ $wpsd_donator_address_label = $options->get_value('template','wpsd_donator_addre
 $wpsd_donator_email_label = $options->get_value('template','wpsd_donator_email_label', 'Email', false);
 $wpsd_in_memory_of_label = $options->get_value('template','wpsd_in_memory_of_label', 'In memory of', false);
 $wpsd_donate_amount_label = $options->get_value('template','wpsd_donate_amount_label', 'Choose Your Amount', false);
+
+// added more template fields, JC 2021
 $wpsd_donate_details_label = $options->get_value('template','wpsd_donate_details_label', 'Personal Details', false);
+$wpsd_donate_req_fields_msg_label = $options->get_value('template','wpsd_donate_req_fields_msg_label', 'Please be sure to fill out all required fields', false);
+$wpsd_donate_assistance_label = $options->get_value('template','wpsd_donate_assistance_label', 'If you need assistance with your donation, please email', false);
+$wpsd_donate_assistance_email = $options->get_value('template','wpsd_donate_assistance_email', 'donations@asianlegacylibrary.org', false);
+
 $wpsd_one_time_label = $options->get_value('template','wpsd_one_time_label', 'One Time', false);
 $wpsd_monthly_label = $options->get_value('template','wpsd_one_monthly_label', 'Monthly', false);
 $wpsd_card_label = $options->get_value('template','wpsd_card_label', 'Credit Card Details', false);
@@ -213,6 +222,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
                         value="<?php echo $wpsd_donate_amount_label; ?>">
                 </td>
             </tr>
+            <!-- Addition of template fields, JC 2021 -->
             <tr class="wpsd_donate_details_label">
                 <th scope="row">
                     <label for="wpsd_donate_details_label"><?php _e('Personal Details Label', 'wp-stripe-donation'); ?>:</label>
@@ -222,6 +232,34 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
                         value="<?php echo $wpsd_donate_details_label; ?>">
                 </td>
             </tr>
+            <tr class="wpsd_donate_req_fields_msg_label">
+                <th scope="row">
+                    <label for="wpsd_donate_req_fields_msg_label"><?php _e('Required Fields Label', 'wp-stripe-donation'); ?>:</label>
+                </th>
+                <td>
+                    <input type="text" name="wpsd_donate_req_fields_msg_label" class="medium-text" placeholder="Please be sure to fill out all required fields..."
+                        value="<?php echo $wpsd_donate_req_fields_msg_label; ?>">
+                </td>
+            </tr>
+            <tr class="wpsd_donate_assistance_label">
+                <th scope="row">
+                    <label for="wpsd_donate_assistance_label"><?php _e('Assistance Label', 'wp-stripe-donation'); ?>:</label>
+                </th>
+                <td>
+                    <input type="text" name="wpsd_donate_assistance_label" class="medium-text" placeholder="If you need assistance with your donation, please email..."
+                        value="<?php echo $wpsd_donate_assistance_label; ?>">
+                </td>
+            </tr>
+            <tr class="wpsd_donate_assistance_email">
+                <th scope="row">
+                    <label for="wpsd_donate_assistance_email"><?php _e('Assistance Email', 'wp-stripe-donation'); ?>:</label>
+                </th>
+                <td>
+                    <input type="text" name="wpsd_donate_assistance_email" class="medium-text" placeholder="donations@asianlegacylibrary.org..."
+                        value="<?php echo $wpsd_donate_assistance_email; ?>">
+                </td>
+            </tr>
+
             <tr class="wpsd_one_time_label">
                 <th scope="row">
                     <label for="wpsd_one_time_label"><?php _e('One Time Label', 'wp-stripe-donation'); ?>:</label>
