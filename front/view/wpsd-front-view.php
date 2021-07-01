@@ -63,6 +63,7 @@ $fund = $params['fund'];
 $fund_id = $params['fund_id'];
 //$in_memory_of_field_id = $params['imof'];
 $custom_amount = $params['custom_amount'] === "true";
+$donation_amounts = $params['donation_amounts'];
 $countries = $this->wpsd_get_countries();
 //$amounts = $this->wpsd_get_all_amounts();  //$this->dc($amounts);
 
@@ -70,6 +71,7 @@ $amounts = array(10, 20, 50, 250);
 
 // note this is awesome function to console.log
 $this->dc($amounts);
+$this->dc($params);
 
 // foreach ( $amounts as $wpsd_amount ) {
 // 	$last_2 = substr($wpsd_amount->wpsd_amount, strlen($wpsd_amount->wpsd_amount) -2);

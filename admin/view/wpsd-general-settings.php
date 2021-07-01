@@ -13,6 +13,7 @@ if (isset($_POST['updateGeneralSettings'])) {
         'wpsd_in_memory_of_field' => (sanitize_textarea_field($_POST['wpsd_in_memory_of_field']) != '') ? sanitize_textarea_field($_POST['wpsd_in_memory_of_field']) : '',
         'wpsd_donate_button_text' => (sanitize_text_field($_POST['wpsd_donate_button_text']) != '') ? sanitize_text_field($_POST['wpsd_donate_button_text']) : '',
         'wpsd_donate_currency' => (sanitize_text_field($_POST['wpsd_donate_currency']) != '') ? sanitize_text_field($_POST['wpsd_donate_currency']) : 'USD',
+        'wpsd_donation_amounts' => (sanitize_text_field($_POST['wpsd_donation_amounts']) != '') ? sanitize_text_field($_POST['wpsd_donation_amounts']) : '',
     );
 	$updated = update_option('wpsd_general_settings', serialize($wpsdGeneralSettingsInfo));
     if($updated){
@@ -33,6 +34,7 @@ if (is_array($wpsdGeneralSettings)) {
 	$wpsdInMemoryOfField = $wpsdGeneralSettings['wpsd_in_memory_of_field'];
     $wpsdDonateButtonText = $wpsdGeneralSettings['wpsd_donate_button_text'];
     $wpsdDonateCurrency = $wpsdGeneralSettings['wpsd_donate_currency'];
+    $wpsdDonateAmounts = $wpsdGeneralSettings['wpsd_donation_amounts'];
 } else {
     $wpsdDonationEmail = "";
     $wpsdPaymentTitle = esc_html__("Donate Us", 'wp-stripe-donation');
@@ -45,6 +47,7 @@ if (is_array($wpsdGeneralSettings)) {
 	$wpsdDonateButtonText = esc_html__("Donate Now", 'wp-stripe-donation');
     $wpsdPaymentLogo = "";
     $wpsdDonateCurrency = "USD";
+    $wpsdDonateAmounts = "";
 }
 
 $wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
@@ -244,6 +247,15 @@ if ($result['response']['code'] === 200) {
                 </th>
                 <td>
                     <input type="checkbox" id="wpsd_allow_custom_amount" name="wpsd_allow_custom_amount" checked>
+                </td>
+            </tr>
+            <tr class="wpsd_donation_amounts">
+                <th scope="row">
+                    <label for="wpsd_donation_amounts"><?php _e('Donation amounts','wp-stripe-donation'); ?>:</label>
+                </th>
+                <td>
+                    <input type="text" id="wpsd_donation_amounts" name="wpsd_donation_amounts"
+                    value="<?php echo esc_attr($wpsdDonateAmounts); ?>" />
                 </td>
             </tr>
             <tr class="wpsd_shortcode">

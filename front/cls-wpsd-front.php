@@ -132,7 +132,15 @@ class Wpsd_Front
 	public function wpsd_load_shortcode_view($atts)
 	{
 		$output = '';
+
+		// added the ability to set donation amounts in short code
+		$default_donation_amounts = [10,20,50,100];
+		if(array_key_exists('donation_amounts', $atts)) {
+			$atts['donation_amounts'] = array_map('intval', explode(',', $atts['donation_amounts']));
+		} 
+			
 		ob_start();
+		
 		$expected_attr = array(
 			"campaign" => "General",
 			'campaign_id' => "",
@@ -140,8 +148,11 @@ class Wpsd_Front
 			"fund" => "General",
 			"fund_id" => "",
 			"imof" => "",
+			"donation_amounts" => $default_donation_amounts,
 		);
+
 		$params = shortcode_atts($expected_attr, $atts);
+		
 		include(plugin_dir_path(__FILE__) . '/view/wpsd-front-view.php');
 		$output .= ob_get_clean();
 		return $output;
