@@ -1,6 +1,9 @@
 /* ----------------- These first CSS are only for dev --------------------------------*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
+html {
+    font-size: 16px !important;
+}
 body {
     font-family: Roboto, sans-serif !important;
 }
@@ -30,15 +33,15 @@ textarea {
 
 /* Media Queries, expand once we have No Format theme */
 @media screen and (min-width: 768px) {
-    /* .entry-content > * {
-        max-width: 80% !important;
-    } */
+    .entry-content > * {
+        max-width: 90% !important;
+    }
     .wpsd-wrapper-content .flex-column {
         flex: 1;
     }
-    .wpsd-wrapper-content label {
-        font-size: 0.8em;
-    }
+    /* .wpsd-wrapper-content label {
+        font-size: 0.8rem;
+    } */
 }
 
 /* Auto-fill on forms */
@@ -65,23 +68,23 @@ select:-webkit-autofill:active {
     display: flex;
     flex-direction: column;
     flex-basis: 100%;
-    margin: 2em;
+    margin: 2rem;
 }
 
 .bg-grey {
     background-color: #f8f8f8;
 }
 .nudge-pad {
-    padding: 2em;
+    padding: 2rem;
 }
 
 .nudge-pad-no-top {
-    padding: 0em 2em 2em 2em;
+    padding: 0rem 2rem 2rem 2rem;
 }
 
 .wpsd-metadata {
-    padding: 0.4em 0.2em;
-    font-size: 0.6em;
+    padding: 0.4rem 0.2rem;
+    font-size: 0.6rem;
     font-weight: bold;
 }
 
@@ -143,8 +146,14 @@ img.wpsd-form-banner {
     height: auto;
     margin: 0px;
     text-transform: uppercase;
-    font-size: 0.8em;
+    font-size: 1.375rem;
     font-weight: bold;
+}
+
+.wpsd-donation-form-label.radio-label {
+    font-size: 2rem;
+    text-transform: none;
+    letter-spacing: 0.015rem;
 }
 
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field,
@@ -157,15 +166,15 @@ img.wpsd-form-banner {
     background: transparent;
     border-radius: 0;
     display: block;
-    font-size: 16px;
-    letter-spacing: -0.015em;
+    font-size: 1.125rem;
+    letter-spacing: -0.015rem;
     max-width: 100%;
     padding: 15px 0;
     border: 0;
     border-bottom: solid 1px #444;
 }
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field.other_amount {
-    font-size: 1.4em;
+    font-size: 1.4rem;
 }
 
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-select-field {
@@ -175,7 +184,7 @@ img.wpsd-form-banner {
     color: #222;
     text-transform: uppercase;
     font-size: 12px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.05rem;
 }
 
 body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field {
@@ -186,7 +195,7 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field {
     color: #222;
     font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.15rem;
 }
 
 .wpsd-master-wrapper
@@ -336,7 +345,7 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
 .wpsd-master-wrapper button[type='submit'],
 .wpsd-master-wrapper input[type='submit'] {
     border: none;
-    line-height: 4em;
+    line-height: 4rem;
     text-transform: uppercase;
     text-align: right;
     color: #222;

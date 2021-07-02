@@ -174,7 +174,7 @@ $this->dc($params);
 					<!-- DONATION AMOUNT / TYPE -->
 					<div id="wpsd_donate_amount">
 						<div class="wpsd_flex_con bg-grey nudge-pad">
-							<label for="wpsd_donate_amount" class="wpsd-donation-form-label"><?php esc_html_e( $wpsd_donate_amount_label, 'wp-stripe-donation' ); ?></label>
+							<label for="wpsd_donate_amount" class="wpsd-donation-form-label radio-label"><?php esc_html_e( $wpsd_donate_amount_label, 'wp-stripe-donation' ); ?></label>
 							<!-- FC_POST_ID array location, look in README to find it -->
 							<!-- for loop for amounts associated with campaigns -->
 
