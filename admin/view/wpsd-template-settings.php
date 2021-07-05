@@ -237,8 +237,10 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
                     <label for="wpsd_donate_req_fields_msg_label"><?php _e('Required Fields Label', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
-                    <input type="text" name="wpsd_donate_req_fields_msg_label" class="medium-text" placeholder="Please be sure to fill out all required fields..."
+                    <input type="text" name="wpsd_donate_req_fields_msg_label" class="long-text" placeholder="Please be sure to fill out all required fields..."
                         value="<?php echo $wpsd_donate_req_fields_msg_label; ?>">
+                       
+                    </input>
                 </td>
             </tr>
             <tr class="wpsd_donate_assistance_label">
@@ -246,7 +248,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
                     <label for="wpsd_donate_assistance_label"><?php _e('Assistance Label', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
-                    <input type="text" name="wpsd_donate_assistance_label" class="medium-text" placeholder="If you need assistance with your donation, please email..."
+                    <input type="text" name="wpsd_donate_assistance_label" class="long-text" placeholder="If you need assistance with your donation, please email..."
                         value="<?php echo $wpsd_donate_assistance_label; ?>">
                 </td>
             </tr>

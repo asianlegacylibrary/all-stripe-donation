@@ -41,11 +41,11 @@
             // check to see if other_amount matches any of the radio values
             // if it does or doesn't update CSS accordingly
             if (amounts_array.includes(parseInt(this.value))) {
-                console.log('other in radios', this.value, amounts_array)
+                //console.log('other in radios', this.value, amounts_array)
                 $(`#${this.value}`).prop('checked', true)
             } else {
                 // all radios unchecked
-                console.log('not in radios', this.value, amounts_array)
+                //console.log('not in radios', this.value, amounts_array)
                 $('input[name="wpsd_donate_amount_radio"]').prop(
                     'checked',
                     false

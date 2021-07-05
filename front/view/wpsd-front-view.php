@@ -65,21 +65,17 @@ $fund_id = $params['fund_id'];
 $custom_amount = $params['custom_amount'] === "true";
 $donation_amounts = $params['donation_amounts'];
 $countries = $this->wpsd_get_countries();
-//$amounts = $this->wpsd_get_all_amounts();  //$this->dc($amounts);
+//$amountsb = $this->wpsd_get_all_amounts();
 
-$amounts = array(10, 20, 50, 250);
-
-// note this is awesome function to console.log
-$this->dc($amounts);
+// note this is function to console.log
 $this->dc($params);
 
-// foreach ( $amounts as $wpsd_amount ) {
-// 	$last_2 = substr($wpsd_amount->wpsd_amount, strlen($wpsd_amount->wpsd_amount) -2);
-// 	if ($last_2 === "00") { $formatted = number_format($wpsd_amount->wpsd_amount/100, 0); }
-// 	else { $formatted = number_format($wpsd_amount->wpsd_amount/100, 2); }
-// 	$wpsd_amount->wpsd_amount = $formatted;
-// }
-
+$new_amounts = array();
+foreach($donation_amounts as $a) {
+	if(intval($a) != 0) {
+		array_push($new_amounts, intval($a));
+	}
+}
 
 // THIS WAS CAUSING FATAL ERROR, Fatal error: Cannot redeclare compareByAmount()
 // function compareByAmount($a, $b) {
@@ -179,7 +175,7 @@ $this->dc($params);
 							<!-- for loop for amounts associated with campaigns -->
 
 							<!-- NEW amounts array for defaults, will add previous back once I understand -->
-							<?php foreach($amounts as $a) { ?>
+							<?php foreach($new_amounts as $a) { ?>
 								<label class="wpsd_flex_item w-25 wpsd_radio_con">
 								<input type="radio" id="<?php echo esc_html($a); ?>" name="wpsd_donate_amount_radio" value="<?php esc_attr_e($a, 'wp-stripe-donation' ); ?>">
 								<span class="label_text">
@@ -190,7 +186,7 @@ $this->dc($params);
 
 							<?php if($custom_amount){ ?>
 								<div class="wpsd_flex_item w-100" id="wpsd_donate_other_amount_wrapper">
-									<input id="wpsd_donate_other_amount" type="currency" class="wpsd_donate_amount wpsd-text-field other_amount" name="wpsd_donate_other_amount" placeholder="<?php esc_html_e($wpsd_custom_amount_label, 'wp-stripe-donation'); ?>">
+									<input id="wpsd_donate_other_amount" type="currency" class="wpsd_donate_amount no-transform wpsd-text-field other_amount" name="wpsd_donate_other_amount" placeholder="<?php esc_html_e($wpsd_custom_amount_label, 'wp-stripe-donation'); ?>">
 								</div>
 							<?php } ?>
 							
@@ -231,7 +227,7 @@ $this->dc($params);
 							</p>
 						</div>
 
-						<!-- Find location for these, related to submission success -->
+						<!-- These alerts are server side...need to update styles, also add client side error checking pre-submit -->
 						<div class="wpsd_flex_item w-100 wpsd-donation-message-con message-hidden">
 							<br>
 							<div id="wpsd-donation-message" class="wpsd-alert">&nbsp</div>

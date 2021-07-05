@@ -133,8 +133,9 @@ class Wpsd_Front
 	{
 		$output = '';
 
-		// added the ability to set donation amounts in short code
+		// temporary, set this via general settings!
 		$default_donation_amounts = [10,20,50,100];
+
 		if(array_key_exists('donation_amounts', $atts)) {
 			$atts['donation_amounts'] = array_map('intval', explode(',', $atts['donation_amounts']));
 		} 
