@@ -11,11 +11,21 @@
     var payment_method_id = null
     var customer_id = null
     var recurring = false
+    let amounts_array = []
     var stripeFormPresent = document.getElementById('card-element') //console.log("Form Present:", stripeFormPresent);
     init()
     async function init() {
         if (stripeFormPresent != null) {
             addListeners()
+
+            // creating dynamic amounts listing, for blur in addListeners
+            // could be a better way to do this...
+            $('input:radio').each(function (i, obj) {
+                if ($(this).attr('name') == 'wpsd_donate_amount_radio') {
+                    amounts_array.push(parseInt(obj.value))
+                }
+            })
+
             if (wpsdAdminScriptObj.publishable_key == '') {
                 showError(
                     wpsdAdminScriptObj.validation.not_valid.publishable_key
@@ -36,8 +46,8 @@
 
         $('#wpsd_donate_other_amount').on('blur', function () {
             // obviously you've got to make this dynamic somehow
-            let amounts_array = [10, 20, 50, 250]
-
+            //let amounts_array = [10, 20, 50, 250]
+            console.log(amounts_array)
             // check to see if other_amount matches any of the radio values
             // if it does or doesn't update CSS accordingly
             if (amounts_array.includes(parseInt(this.value))) {
@@ -54,7 +64,9 @@
 
             if (this.value < 0.5) {
                 // this should be a warning state....stripe requires at least 0.5 donation
-                console.log('you cheap sob')
+                console.log(
+                    'This should be warning state, stripe requires at least 0.5 donation...'
+                )
             }
         })
 
