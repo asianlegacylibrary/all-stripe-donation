@@ -45,9 +45,6 @@
         })
 
         $('#wpsd_donate_other_amount').on('blur', function () {
-            // obviously you've got to make this dynamic somehow
-            //let amounts_array = [10, 20, 50, 250]
-            console.log(amounts_array)
             // check to see if other_amount matches any of the radio values
             // if it does or doesn't update CSS accordingly
             if (amounts_array.includes(parseInt(this.value))) {
