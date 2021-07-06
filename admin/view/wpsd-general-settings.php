@@ -249,6 +249,14 @@ if ($result['response']['code'] === 200) {
                     <input type="checkbox" id="wpsd_allow_custom_amount" name="wpsd_allow_custom_amount" checked>
                 </td>
             </tr>
+            <tr class="wpsd_allow_recurring">
+                <th scope="row">
+                    <label for="wpsd_allow_recurring"><?php _e('Allow recurring','wp-stripe-donation'); ?>:</label>
+                </th>
+                <td>
+                    <input type="checkbox" id="wpsd_allow_recurring" name="wpsd_allow_recurring" checked>
+                </td>
+            </tr>
             <tr class="wpsd_donation_amounts">
                 <th scope="row">
                     <label for="wpsd_donation_amounts"><?php _e('Donation amounts','wp-stripe-donation'); ?>:</label>

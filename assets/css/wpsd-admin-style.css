@@ -166,8 +166,6 @@ table#wpc_data_table > tbody > tr > td.wpsd-donated-amount {
 .long-text {
     width: 80%;
 }
-@media screen and (min-width: 768px) {
-}
 @media screen and (min-width: 1062px) {
     .medium-text {
         width: 70%;

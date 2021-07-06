@@ -2,6 +2,7 @@
 
 $options = new OptionsHelper();
 $wpsdDonateCurrency = $options->get_value("general", "wpsd_donate_currency", "USD", false);
+$wpsd_donation_amounts = $options->get_value("general", "wpsd_donation_amounts", "", false);
 $currencies = $this->hm_get_all_currency();
 $currency_symbol = null;
 foreach ( $currencies as $item ) {
@@ -63,12 +64,15 @@ $fund = $params['fund'];
 $fund_id = $params['fund_id'];
 //$in_memory_of_field_id = $params['imof'];
 $custom_amount = $params['custom_amount'] === "true";
-$donation_amounts = $params['donation_amounts'];
+$allow_recurring = $params['allow_recurring'] === "true";
+
 $countries = $this->wpsd_get_countries();
 //$amountsb = $this->wpsd_get_all_amounts();
 
-// note this is function to console.log
-$this->dc($params);
+$donation_amounts = array_key_exists('donation_amounts', $params) ? $params['donation_amounts'] : $wpsd_donation_amounts;
+$donation_amounts = gettype($donation_amounts) === 'array' 
+	? array_map('intval', $donation_amounts) 
+	: array_map('intval', explode(',', $donation_amounts));
 
 $new_amounts = array();
 foreach($donation_amounts as $a) {
@@ -76,6 +80,13 @@ foreach($donation_amounts as $a) {
 		array_push($new_amounts, intval($a));
 	}
 }
+$new_amounts = array_unique($new_amounts);
+sort($new_amounts);
+
+// note this is function to console.log
+//$this->dc($wpsd_donation_amounts);
+
+
 
 // THIS WAS CAUSING FATAL ERROR, Fatal error: Cannot redeclare compareByAmount()
 // function compareByAmount($a, $b) {
@@ -193,7 +204,7 @@ foreach($donation_amounts as $a) {
 						
 						</div>
 					
-					
+						<?php if($allow_recurring){ ?>
 						<div class="wpsd_flex_left_con bg-grey nudge-pad-no-top wpsd_is_recurring_wrapper">
 							<div class="wpsd_flex_item wpsd_radio_btn_con">
 								<label class="wpsd_radio_con">
@@ -208,6 +219,7 @@ foreach($donation_amounts as $a) {
 								</label>
 							</div>
 						</div>
+						<?php } ?>
 				
 						<!-- SUBMIT! -->
 						<div id="wpsd_donate_submit">

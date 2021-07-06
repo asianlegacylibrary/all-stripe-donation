@@ -40,9 +40,6 @@ textarea {
     .wpsd-wrapper-content .flex-column {
         flex: 1;
     }
-    /* .wpsd-wrapper-content label {
-        font-size: 0.8rem;
-    } */
 }
 
 /* Auto-fill on forms */
@@ -234,12 +231,6 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-text-field {
     right: 0;
     color: #fff;
 }
-.wpsd-master-wrapper
-    .wpsd-wrapper-content
-    #wpsd-donation-form-id
-    #wpsd_donate_other_amount_wrapper.bg-white::after {
-    /* color: #a50034; */
-}
 
 .wpsd-master-wrapper
     .wpsd-wrapper-content
@@ -367,11 +358,11 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
 }
 .wpsd-donation-sponsor-volume {
     font-size: 13px;
-    border: #a50034 solid 1px;
+    border: #e6fa05 solid 1px;
     border-radius: 0;
     padding: 5px 10px;
     margin: -10px 0 0 0 !important;
-    color: #a50034;
+    color: #e6fa05;
     text-transform: uppercase;
     text-align: center;
 }
@@ -390,7 +381,7 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
     .wpsd-wrapper-content
     .wpsd-total-donation-today
     span#wpsd-total-donation-number {
-    color: #ff0000;
+    color: #e6fa05;
 }
 
 /* alert started */
@@ -430,7 +421,7 @@ body.rtl .wpsd-alert ul li {
 }
 
 .wpsd-alert.success {
-    background-color: #a50034;
+    background-color: #8aaf71;
 }
 
 .wpsd-alert.error {

@@ -2,6 +2,7 @@
     // USE STRICT
     'use strict'
     var allow_custom_amount = true
+    var allow_recurring = true
     var donation_amounts = $('#wpsd_donation_amounts').val()
     var campaign = $('#wpsd_campaign').val()
     var campaign_id = $('#wpsd_campaign_id').val()
@@ -83,6 +84,10 @@
         allow_custom_amount = $(this).prop('checked')
         changeParams()
     })
+    $('#wpsd_allow_recurring').on('change', function () {
+        allow_recurring = $(this).prop('checked')
+        changeParams()
+    })
     $('#wpsd_donation_amounts').on('change', function () {
         donation_amounts = $(this).val()
         changeParams()
@@ -126,7 +131,7 @@
     })
 
     function changeParams() {
-        var code = `[wp_stripe_donation custom_amount="${allow_custom_amount}"`
+        var code = `[wp_stripe_donation custom_amount="${allow_custom_amount}" allow_recurring="${allow_recurring}" `
         const campaignOptions = getSelectedCampaignOptions()
         const fundOptions = getSelectedFundOptions()
         if (campaignOptions) {

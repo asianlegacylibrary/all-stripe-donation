@@ -133,9 +133,16 @@ class Wpsd_Front
 	{
 		$output = '';
 
-		// temporary, set this via general settings!
+		// temporary...until I figure out how to call the function above...
 		$default_donation_amounts = [10,20,50,100];
+		$wpsdGeneralSettings = stripslashes_deep( unserialize( get_option('wpsd_general_settings') ) );
+		if (is_array($wpsdGeneralSettings)) {
+			if(array_key_exists('wpsd_donation_amounts', $wpsdGeneralSettings) && !empty($wpsdGeneralSettings['wpsd_donation_amounts'])) {
+				$default_donation_amounts = $wpsdGeneralSettings['wpsd_donation_amounts'];
+			}
+		}
 
+		// donation amounts to int values
 		if(array_key_exists('donation_amounts', $atts)) {
 			$atts['donation_amounts'] = array_map('intval', explode(',', $atts['donation_amounts']));
 		} 
@@ -146,6 +153,7 @@ class Wpsd_Front
 			"campaign" => "General",
 			'campaign_id' => "",
 			'custom_amount' => "true",
+			'allow_recurring' => "true",
 			"fund" => "General",
 			"fund_id" => "",
 			"imof" => "",

@@ -115,11 +115,16 @@
 
     async function onSubmit() {
         var valid = validateForm()
-        console.log('donation amount onSubmit', wpsdDonateAmount)
+        //console.log('donation amount onSubmit', wpsdDonateAmount)
+
         if (!valid) {
             return false
         }
+
+        // adding check for NaN, new shortcode option to allow recurring
         recurring = parseInt($('#wpsd_is_recurring:checked').val())
+        recurring = isNaN(recurring) ? 0 : recurring
+
         var err = null
         await charge().catch((e) => (err = e))
         if (err) {
@@ -128,6 +133,7 @@
         }
         return true
     }
+
     async function charge() {
         disableSubmitBtn()
         // 1. send donation info to the back-end.
@@ -168,6 +174,7 @@
         showMessage(donation_message)
         return true
     }
+
     async function fetchStates(country) {
         $('#wpsd_donator_country').prop('disabled', true)
         disableSubmitBtn()
@@ -183,6 +190,7 @@
         })
         addStates(data.states)
     }
+
     function addStates(states) {
         if (!states.length) {
             $('#wpsd_donator_state').parent().css('display', 'none')
@@ -204,6 +212,12 @@
     }
 
     async function sendDonationInfo() {
+        let is_recurring = isNaN(
+            parseInt($('#wpsd_is_recurring:checked').val())
+        )
+            ? 0
+            : parseInt($('#wpsd_is_recurring:checked').val())
+
         const requestData = {
             action: 'wpsd_donation',
             wpsdSecretKey: wpsdAdminScriptObj.publishable_key,
@@ -225,7 +239,7 @@
             fund_id: $('#wpsd_fund_id').val(),
             in_memory_of_field_id: $('#wpsd_in_memory_of_field_id').val(),
             in_memory_of: $('#wpsd_in_memory_of').val(),
-            is_recurring: parseInt($('#wpsd_is_recurring:checked').val())
+            is_recurring: is_recurring
         }
         console.log('sendDonationInfo', requestData)
         return await request('wpsd_donation', 'POST', requestData)
