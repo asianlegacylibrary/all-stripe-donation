@@ -13,6 +13,12 @@
     var recurring = false
     let amounts_array = []
     var stripeFormPresent = document.getElementById('card-element') //console.log("Form Present:", stripeFormPresent);
+
+    // get currency as soon as window, and set to USD if undefined (not set in settings)
+    var currency = wpsdAdminScriptObj.currency
+        ? wpsdAdminScriptObj.currency
+        : 'USD2'
+
     init()
     async function init() {
         if (stripeFormPresent != null) {
@@ -96,7 +102,7 @@
         $("input[name='wpsd_donate_amount_radio']").on('change', function (e) {
             let target = e.target
             //let updated_value = target.value.replace(/[^0-9\.]/g, '')
-
+            console.log('currency: ', currency)
             var options = {
                 maximumFractionDigits: 2,
                 currency: currency,
@@ -521,7 +527,6 @@
         return emailReg.test($email)
     }
 
-    var currency = wpsdAdminScriptObj.currency
     addCurrencyFieldType()
     function addCurrencyFieldType() {
         // amount:
