@@ -17,7 +17,7 @@
     // get currency as soon as window, and set to USD if undefined (not set in settings)
     var currency = wpsdAdminScriptObj.currency
         ? wpsdAdminScriptObj.currency
-        : 'USD2'
+        : 'USD'
 
     init()
     async function init() {
