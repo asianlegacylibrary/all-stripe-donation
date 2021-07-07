@@ -3,6 +3,8 @@
 $options = new OptionsHelper();
 $wpsdDonateCurrency = $options->get_value("general", "wpsd_donate_currency", "USD", false);
 $wpsd_donation_amounts = $options->get_value("general", "wpsd_donation_amounts", "", false);
+
+
 $currencies = $this->hm_get_all_currency();
 $currency_symbol = null;
 foreach ( $currencies as $item ) {
@@ -25,7 +27,7 @@ $wpsd_donator_zip_label = $options->get_value("template", "wpsd_donator_zip_labe
 $wpsd_donator_address_label = $options->get_value("template", "wpsd_donator_address_label", "Address", false);
 $wpsd_donate_amount_label = $options->get_value("template", "wpsd_donate_amount_label", "Choose Your Amount", false);
 $wpsd_donate_details_label = $options->get_value("template", "wpsd_donate_details_label", "Personal Details", false);
-$wpsd_donate_req_fields_msg_label = $options->get_value("template", "wpsd_donate_req_fields_msg_label", "Please be sure to fill out all required fields", false);
+$wpsd_donate_req_fields_msg_label = $options->get_value("template", "wpsd_donate_req_fields_msg_label", "Required Fields Label", false);
 $wpsd_donate_assistance_label = $options->get_value("template", "wpsd_donate_assistance_label", "If you need assistance with your donation, please email", false);
 $wpsd_donate_assistance_email = $options->get_value("template", "wpsd_donate_assistance_email", "donations@asianlegacylibrary.org", false);
 
@@ -38,6 +40,8 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
 $wpsd_custom_amount_label = $options->get_value('template','wpsd_custom_amount_label', 'Enter Your Amount', false);
 
 // Let's trick WPLM into translating everything because WPLM can't read variables we set in the Admin.
+// this is a real workaround because it has to match the current english translation
+// if you change the english translation in settings then you have to change here.
 $wpsdTranslations = array(
 	'wpsd_donate_now' 		=> esc_html__('Donate Now', 'wp-stripe-donation'),
 	'wpsd_donor_phone'	=> esc_html__('Phone', 'wp-stripe-donation'),
@@ -49,14 +53,20 @@ $wpsdTranslations = array(
 	'wpsd_donor_address'		    => esc_html__('Address', 'wp-stripe-donation'),
 	'wpsd_donor_address2'	=> esc_html__('Address 2', 'wp-stripe-donation'),
 	'wpsd_donor_choose_amount'		=> esc_html__('Choose Your Amount', 'wp-stripe-donation'),
-	'wpsd_donor_personal_details'		=> esc_html__('Personal Details', 'wp-stripe-donation'),
+	'wpsd_donor_personal_details'		=> esc_html__('Personal Details Label', 'wp-stripe-donation'),
 	//'wpsd_donor_memory'		    => esc_html__('In memory of', 'wp-stripe-donation'),
 	'wpsd_donor_one'	=> esc_html__('One Time', 'wp-stripe-donation'),
 	'wpsd_donor_monthly'		=> esc_html__('Monthly', 'wp-stripe-donation'),
 	'wpsd_donor_card_details'		    => esc_html__('Credit Card Details', 'wp-stripe-donation'),
 	'wpsd_donor_enter_amount'	=> esc_html__('Enter Your Amount', 'wp-stripe-donation'),
-	'wpsd_donor_agreement'	=> esc_html__('Agreement', 'wp-stripe-donation')
+	'wpsd_donor_agreement'	=> esc_html__('Agreement', 'wp-stripe-donation'),
+	'wpsd_donate_assistance_label' => esc_html__('Assistance Label', 'wp-stripe-donation'),
+	'wpsd_donate_req_fields_msg_label' => esc_html__('Required Fields Label', 'wp-stripe-donation'),
+	'dontmatterwhatcalled' => esc_html__('If you need assistance with your donation, please email', 'wp-stripe-donation'),
+	'reallyitdoesnt' => esc_html__('Please be sure to fill out all required fields, * denotes a required field', 'wp-stripe-donation')
 );
+
+// could fix this above by looping through template settings
 
 $campaign = $params['campaign'];
 $campaign_id = $params['campaign_id'];  //$this->dc($campaign_id);
@@ -69,6 +79,7 @@ $allow_recurring = $params['allow_recurring'] === "true";
 $countries = $this->wpsd_get_countries();
 //$amountsb = $this->wpsd_get_all_amounts();
 
+// added section to allow shortcode option to choose default donation amounts, pulls from general settings if no short code
 $donation_amounts = array_key_exists('donation_amounts', $params) ? $params['donation_amounts'] : $wpsd_donation_amounts;
 $donation_amounts = gettype($donation_amounts) === 'array' 
 	? array_map('intval', $donation_amounts) 
@@ -180,6 +191,7 @@ sort($new_amounts);
 				<div class="flex-column">	
 					<!-- DONATION AMOUNT / TYPE -->
 					<div id="wpsd_donate_amount">
+						
 						<div class="wpsd_flex_con bg-grey nudge-pad">
 							<label for="wpsd_donate_amount" class="wpsd-donation-form-label radio-label"><?php esc_html_e( $wpsd_donate_amount_label, 'wp-stripe-donation' ); ?></label>
 							<!-- FC_POST_ID array location, look in README to find it -->
@@ -240,6 +252,8 @@ sort($new_amounts);
 						</div>
 
 						<!-- These alerts are server side...need to update styles, also add client side error checking pre-submit -->
+						<!-- check out stripe docs, they have a pre-submit that just tricks / pretends it's submitting to validate -->
+						<!-- https://github.com/stripe/elements-examples/blob/master/js/index.js >>> triggerBrowserValidation -->
 						<div class="wpsd_flex_item w-100 wpsd-donation-message-con message-hidden">
 							<br>
 							<div id="wpsd-donation-message" class="wpsd-alert">&nbsp</div>

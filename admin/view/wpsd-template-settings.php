@@ -25,7 +25,7 @@ if( isset( $_POST['updateTempSettings'] ) ) {
         'wpsd_donate_details_label'  => ( sanitize_text_field( $_POST['wpsd_donate_details_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_details_label'] ) : 'Personal Details',
         'wpsd_donate_assistance_label'  => ( sanitize_text_field( $_POST['wpsd_donate_assistance_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_assistance_label'] ) : 'If you need assistance with your donation, please email',
         'wpsd_donate_assistance_email'  => ( sanitize_text_field( $_POST['wpsd_donate_assistance_email'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_assistance_email'] ) : 'donations@asianlegacylibrary.org',
-        'wpsd_donate_req_fields_msg_label'  => ( sanitize_text_field( $_POST['wpsd_donate_req_fields_msg_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_req_fields_msg_label'] ) : 'Please be sure to fill out all required fields',
+        'wpsd_donate_req_fields_msg_label'  => ( sanitize_text_field( $_POST['wpsd_donate_req_fields_msg_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_req_fields_msg_label'] ) : 'Required Fields Label',
     );
 
     $wpsdTempShowMessage = update_option('wpsd_temp_settings', serialize( $wpsdTempSettingsInfo ) );
@@ -56,7 +56,7 @@ $wpsd_donate_amount_label = $options->get_value('template','wpsd_donate_amount_l
 
 // added more template fields, JC 2021
 $wpsd_donate_details_label = $options->get_value('template','wpsd_donate_details_label', 'Personal Details', false);
-$wpsd_donate_req_fields_msg_label = $options->get_value('template','wpsd_donate_req_fields_msg_label', 'Please be sure to fill out all required fields', false);
+$wpsd_donate_req_fields_msg_label = $options->get_value('template','wpsd_donate_req_fields_msg_label', 'Required Fields Label', false);
 $wpsd_donate_assistance_label = $options->get_value('template','wpsd_donate_assistance_label', 'If you need assistance with your donation, please email', false);
 $wpsd_donate_assistance_email = $options->get_value('template','wpsd_donate_assistance_email', 'donations@asianlegacylibrary.org', false);
 
@@ -125,7 +125,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donator_first_name_label">
                 <th scope="row">
-                    <label for="wpsd_donator_first_name_label"><?php _e('First Name Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donator_first_name_label"><?php _e('First Name', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donator_first_name_label" class="medium-text" placeholder="First Name"
@@ -134,7 +134,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donator_last_name_label">
                 <th scope="row">
-                    <label for="wpsd_donator_last_name_label"><?php _e('Last Name Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donator_last_name_label"><?php _e('Last Name', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donator_last_name_label" class="medium-text" placeholder="Last Name"
@@ -143,7 +143,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donator_email_label">
                 <th scope="row">
-                    <label for="wpsd_donator_email_label"><?php _e('Email Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donator_email_label"><?php _e('Email', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donator_email_label" class="medium-text" placeholder="Email"
@@ -152,7 +152,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donator_phone_label">
                 <th scope="row">
-                    <label for="wpsd_donator_phone_label"><?php _e('Phone Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donator_phone_label"><?php _e('Phone', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donator_phone_label" class="medium-text" placeholder="Phone"
@@ -161,7 +161,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donator_country_label">
                 <th scope="row">
-                    <label for="wpsd_donator_country_label"><?php _e('Country Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donator_country_label"><?php _e('Country', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donator_country_label" class="medium-text" placeholder="Country"
@@ -170,7 +170,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donator_state_label">
                 <th scope="row">
-                    <label for="wpsd_donator_state_label"><?php _e('State Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donator_state_label"><?php _e('State', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donator_state_label" class="medium-text" placeholder="State"
@@ -179,7 +179,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donator_city_label">
                 <th scope="row">
-                    <label for="wpsd_donator_city_label"><?php _e('City Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donator_city_label"><?php _e('City', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donator_city_label" class="medium-text" placeholder="City"
@@ -188,7 +188,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donator_zip_label">
                 <th scope="row">
-                    <label for="wpsd_donator_zip_label"><?php _e('ZIP Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donator_zip_label"><?php _e('ZIP', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donator_zip_label" class="medium-text" placeholder="ZIP"
@@ -197,7 +197,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donator_address_label">
                 <th scope="row">
-                    <label for="wpsd_donator_address_label"><?php _e('Address Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donator_address_label"><?php _e('Address', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donator_address_label" class="medium-text" placeholder="Address"
@@ -206,7 +206,7 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_in_memory_of_label">
                 <th scope="row">
-                    <label for="wpsd_in_memory_of_label"><?php _e('In memory of Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_in_memory_of_label"><?php _e('In memory of', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_in_memory_of_label" class="medium-text" placeholder="In memory of"
@@ -215,17 +215,18 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
             </tr>
             <tr class="wpsd_donate_amount_label">
                 <th scope="row">
-                    <label for="wpsd_donate_amount_label"><?php _e('Donate Amount Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donate_amount_label"><?php _e('Donate Amount', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donate_amount_label" class="medium-text" placeholder="Donate Amount"
                         value="<?php echo $wpsd_donate_amount_label; ?>">
                 </td>
             </tr>
+            
             <!-- Addition of template fields, JC 2021 -->
             <tr class="wpsd_donate_details_label">
                 <th scope="row">
-                    <label for="wpsd_donate_details_label"><?php _e('Personal Details Label', 'wp-stripe-donation'); ?>:</label>
+                    <label for="wpsd_donate_details_label"><?php _e('Personal Details', 'wp-stripe-donation'); ?>:</label>
                 </th>
                 <td>
                     <input type="text" name="wpsd_donate_details_label" class="medium-text" placeholder="Personal Details"
