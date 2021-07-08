@@ -54,11 +54,9 @@
             // check to see if other_amount matches any of the radio values
             // if it does or doesn't update CSS accordingly
             if (amounts_array.includes(parseInt(this.value))) {
-                //console.log('other in radios', this.value, amounts_array)
                 $(`#${this.value}`).prop('checked', true)
             } else {
                 // all radios unchecked
-                //console.log('not in radios', this.value, amounts_array)
                 $('input[name="wpsd_donate_amount_radio"]').prop(
                     'checked',
                     false
@@ -113,15 +111,12 @@
             let updated_value = localStringToNumber(
                 target.value
             ).toLocaleString(undefined, options)
-
-            //console.log(updated_value, target.id)
             $('#wpsd_donate_other_amount').val(updated_value)
         })
     }
 
     async function onSubmit() {
         var valid = validateForm()
-        //console.log('donation amount onSubmit', wpsdDonateAmount)
 
         if (!valid) {
             return false
@@ -247,7 +242,8 @@
             in_memory_of: $('#wpsd_in_memory_of').val(),
             is_recurring: is_recurring
         }
-        console.log('sendDonationInfo', requestData)
+        //
+        //console.log('sendDonationInfo', requestData)
         return await request('wpsd_donation', 'POST', requestData)
     }
 
@@ -434,12 +430,12 @@
         )
 
         other_amount = (other_amount * 100).toFixed(0)
-        console.log(other_amount)
+
         if (!other_amount || other_amount < 50) {
             console.log(
-                `this is not valid donation, ${$(
+                `this is not a valid amount, ${$(
                     '#wpsd_donate_other_amount'
-                ).val()}, must be at least 0.50`
+                ).val()}, our provider requires it be at least 0.50`
             )
             showError(wpsdAdminScriptObj.validation.not_valid.donation_amount)
             return false
