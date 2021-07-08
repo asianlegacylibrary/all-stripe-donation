@@ -272,7 +272,7 @@
             donation_id: donation_id,
             payment_method_id: paymentMethod
         }
-        console.log('wpsd_create_customer', requestData)
+        //console.log('wpsd_create_customer', requestData)
         const data = await request('wpsd_create_customer', 'POST', requestData)
         return data.customer_id
     }
@@ -297,7 +297,7 @@
                 }
             }
         }
-        console.log('createPaymentMethod', paymentMethodData)
+        //console.log('createPaymentMethod', paymentMethodData)
         const result = await stripe.createPaymentMethod(paymentMethodData)
         // Handle result.error or result.paymentMethod
         if (result.error) {
@@ -318,7 +318,7 @@
             customer_id: customerId
         }
 
-        console.log('createPaymentIntent', requestData)
+        //console.log('createPaymentIntent', requestData)
         return await request('wpsd_payment_intent', 'POST', requestData)
     }
 
