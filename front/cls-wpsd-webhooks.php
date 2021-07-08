@@ -29,6 +29,7 @@ class Wpsd_Webhooks {
 			'status' => 'error',
 			'message' => null,
 		);
+		
 		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
 		if(!is_array($wpsdKeySettings)){
 			$result['message'] = esc_html__("Please fill the Webhooks Key field for WPSD Stripe Donation plugin.", 'wp-stripe-donation');
