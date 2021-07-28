@@ -524,6 +524,7 @@
     }
 
     addCurrencyFieldType()
+
     function addCurrencyFieldType() {
         // amount:
         var currencyInput = document.querySelector('input[type="currency"]')

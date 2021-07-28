@@ -26,7 +26,7 @@ class Wpsd_Webhooks {
 	 */
 	function wpsd_stripe_webhooks_handler(){
 		$result = array(
-			'status' => 'error',
+			'statusy' => 'error',
 			'message' => null,
 		);
 		
@@ -41,7 +41,7 @@ class Wpsd_Webhooks {
 		$payload = @file_get_contents('php://input');
 		
 		// adding some simple debug....
-		$this->dc($payload);
+		//$this->dc($endpoint_secret);
 		
 		$sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
 		\Stripe\Stripe::setApiKey($secret_key);
@@ -50,14 +50,15 @@ class Wpsd_Webhooks {
 			$this->wpsd_stripe_handle_stripe_event($event);
 		} catch(\UnexpectedValueException $e) {
 			// Invalid payload
-			$result['message'] = esc_html__("Invalid payload", 'wp-stripe-donation');
+			$result['message'] = esc_html__("Invalid paydude", 'wp-stripe-donation');
 			wp_send_json_error($result, 400);
 		} catch(\Stripe\Exception\SignatureVerificationException $e) {
 			// Invalid signature
-			$result['message'] = esc_html__("Invalid signature", 'wp-stripe-donation');
+			$result['message'] = esc_html__("Invalid signature yo", 'wp-stripe-donation');
+			$this->dc($result);
 			wp_send_json_error($result, 400);
 		}
-		$result['message'] = esc_html__("Hook ran successfully", 'wp-stripe-donation');
+		$result['message'] = esc_html__("Hook ran successfully it did", 'wp-stripe-donation');
 		wp_send_json_success($result, 200);
 	}
 
@@ -74,6 +75,12 @@ class Wpsd_Webhooks {
 					$this->wpsd_handle_payment_success($payment_intent);
 				}
 				break;
+			case "payment_intent.created":
+				$payment_intents = $event->data->values();
+				foreach ( $payment_intents as $payment_intent ) {
+					$this->wpsd_handle_payment_created($payment_intent);
+				}
+				break;	
 			default:
 				//
 				break;
@@ -99,6 +106,29 @@ class Wpsd_Webhooks {
 			}
 			$this->wpsd_update_donation_subscription($donation, $subscription);
 		}
+	}
+
+	/**
+	 * Handles the payment created event.
+	 *
+	 * @param \Stripe\PaymentIntent $paymentIntent: the payment inent
+	 */
+	function wpsd_handle_payment_created($paymentIntent){
+		$this->dc('inside the wpsd_handle_payment_created function');
+		$this->dc($paymentIntent);
+		// $this->wpsd_update_payment_status($paymentIntent);
+		// $donation = $this->wpsd_get_donation($paymentIntent->id);
+		// $this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
+		// $recurring = (int) $donation->wpsd_is_recurring;
+		// $is_subscribed = $donation->wpsd_subscription && !empty($donation->wpsd_subscription);
+		// // if this is a recurring payment, and there is no subscription, create one so that we charge the user monthly:
+		// if ($recurring && !$is_subscribed) {
+		// 	$subscription = $this->wpsd_create_stripe_subscription($donation);
+		// 	if (is_string($subscription)) {
+		// 		wp_send_json_error($subscription, 500);
+		// 	}
+		// 	$this->wpsd_update_donation_subscription($donation, $subscription);
+		// }
 	}
 	
 	function wpsd_update_donation_subscription($donation, $subscription){

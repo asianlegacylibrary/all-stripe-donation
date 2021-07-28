@@ -95,7 +95,7 @@ $new_amounts = array_unique($new_amounts);
 sort($new_amounts);
 
 // note this is function to console.log
-//$this->dc($wpsd_donation_amounts);
+$this->dc('hi there');
 
 
 
