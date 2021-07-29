@@ -306,7 +306,7 @@ class Wpsd_Front
 	function wpsd_payment_intent_handler(){
 		$payload = @file_get_contents('php://input');
 		$data = json_decode($payload, true);
-		$this->dc($data);
+		$this->dc('wpsd_payment_intent_handler');
 		$required = [
 			'donation_id',
 			'payment_method_id',
@@ -365,7 +365,7 @@ class Wpsd_Front
 		$payload = @file_get_contents('php://input');
 		$data = json_decode($payload, true);
 		// debugging data...
-		//$this->dc($data);
+		$this->dc('wpsd_create_customer_handler');
 		$required_fields = array(
 			'donation_id',
 			'payment_method_id',
@@ -459,6 +459,7 @@ class Wpsd_Front
 	 * @return string|\Stripe\PaymentIntent
 	 */
 	function wpsd_create_payment_intent($donation, $amountObj, $customer = null, $paymentMethod = null){
+		$this->dc('wpsd_create_payment_intent');
 		$amount_val = $amountObj;
 		if(is_object($amountObj)){
 			$amount_val = $amountObj->wpsd_amount;

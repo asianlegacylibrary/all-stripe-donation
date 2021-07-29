@@ -25,14 +25,16 @@ class Wpsd_Webhooks {
 	 * Handles stripe webhooks.
 	 */
 	function wpsd_stripe_webhooks_handler(){
+		$this->dc('inside wpsd_stripe_webhooks_handler');
+
 		$result = array(
-			'statusy' => 'error',
+			'status' => 'error',
 			'message' => null,
 		);
 		
 		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
 		if(!is_array($wpsdKeySettings)){
-			$result['message'] = esc_html__("Please fill the Webhooks Key field for WPSD Stripe Donation plugin.", 'wp-stripe-donation');
+			$result['message'] = esc_html__("Please filly the Webhooks Key field for WPSD Stripe Donation plugin.", 'wp-stripe-donation');
 			wp_send_json_error($result, 400);
 		}
 		$secret_key = base64_decode($wpsdKeySettings['wpsd_secret_key']);
@@ -55,7 +57,6 @@ class Wpsd_Webhooks {
 		} catch(\Stripe\Exception\SignatureVerificationException $e) {
 			// Invalid signature
 			$result['message'] = esc_html__("Invalid signature yo", 'wp-stripe-donation');
-			$this->dc($result);
 			wp_send_json_error($result, 400);
 		}
 		$result['message'] = esc_html__("Hook ran successfully it did", 'wp-stripe-donation');
@@ -116,19 +117,6 @@ class Wpsd_Webhooks {
 	function wpsd_handle_payment_created($paymentIntent){
 		$this->dc('inside the wpsd_handle_payment_created function');
 		$this->dc($paymentIntent);
-		// $this->wpsd_update_payment_status($paymentIntent);
-		// $donation = $this->wpsd_get_donation($paymentIntent->id);
-		// $this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
-		// $recurring = (int) $donation->wpsd_is_recurring;
-		// $is_subscribed = $donation->wpsd_subscription && !empty($donation->wpsd_subscription);
-		// // if this is a recurring payment, and there is no subscription, create one so that we charge the user monthly:
-		// if ($recurring && !$is_subscribed) {
-		// 	$subscription = $this->wpsd_create_stripe_subscription($donation);
-		// 	if (is_string($subscription)) {
-		// 		wp_send_json_error($subscription, 500);
-		// 	}
-		// 	$this->wpsd_update_donation_subscription($donation, $subscription);
-		// }
 	}
 	
 	function wpsd_update_donation_subscription($donation, $subscription){
