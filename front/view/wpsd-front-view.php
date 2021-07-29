@@ -95,7 +95,7 @@ $new_amounts = array_unique($new_amounts);
 sort($new_amounts);
 
 // note this is function to console.log
-$this->dc('hi there');
+$this->dc('hi there again');
 
 
 

@@ -84,6 +84,7 @@
 
         $('.wpsd-donate-button').on('click', function (e) {
             e.preventDefault()
+            console.log('i submit!')
             onSubmit()
                 .then(() => {})
                 .catch((e) => console.log(e))
@@ -116,6 +117,7 @@
     }
 
     async function onSubmit() {
+        console.log('onSubmit')
         var valid = validateForm()
 
         if (!valid) {
@@ -127,6 +129,7 @@
         recurring = isNaN(recurring) ? 0 : recurring
 
         var err = null
+        console.log('still on submit')
         await charge().catch((e) => (err = e))
         if (err) {
             showError(err)
@@ -137,23 +140,27 @@
 
     async function charge() {
         disableSubmitBtn()
+        console.log('charge')
         // 1. send donation info to the back-end.
         if (!donation_id) {
             const donation_result = await sendDonationInfo()
             donation_id = donation_result.donation_id
             donation_message = donation_result.message
         }
-
+        console.log('donation msg', donation_message)
         // 2. create payment method.
         if (!payment_method_id) {
             const payment_method = await createPaymentMethod(donation_id)
             payment_method_id = payment_method.id
         }
-
+        console.log('payment method', payment_method_id)
+        console.log('client key?')
         // 3. create customer.
         if (!customer_id) {
             customer_id = await createCustomer(payment_method_id)
         }
+
+        console.log('customer', customer_id)
 
         // 4. create payment intent.
         if (!client_key) {
@@ -243,7 +250,7 @@
             is_recurring: is_recurring
         }
         //
-        //console.log('sendDonationInfo', requestData)
+        console.log('sendDonationInfo', requestData)
         return await request('wpsd_donation', 'POST', requestData)
     }
 
@@ -270,9 +277,10 @@
             action: 'wpsd_create_customer',
             wpsdSecretKey: wpsdAdminScriptObj.publishable_key,
             donation_id: donation_id,
-            payment_method_id: paymentMethod
+            payment_method_id: paymentMethod,
+            metadata: { order_id: '67889' }
         }
-        //console.log('wpsd_create_customer', requestData)
+        console.log('wpsd_create_customer', requestData)
         const data = await request('wpsd_create_customer', 'POST', requestData)
         return data.customer_id
     }
@@ -327,6 +335,7 @@
             disableSubmitBtn()
             // get current locale to prevent a bug in wordpress:
             var url = wpsdAdminScriptObj.ajaxurl + '?action=' + action
+            console.log('in request', url, data)
             var lang = window.location.href.match(/lang=\w+/g)
             if (lang && lang.length) {
                 lang = lang[0]
@@ -337,6 +346,7 @@
                 url: url,
                 dataType: 'JSON',
                 success: function (response) {
+                    console.log('success', response)
                     activateSubmitBtn()
                     resolve(response.data)
                 },
@@ -362,6 +372,7 @@
                     requestOptions.url += '&' + field + '=' + params[field]
                 }
             }
+            console.log(requestOptions)
             $.ajax(requestOptions)
         })
     }

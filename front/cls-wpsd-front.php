@@ -81,8 +81,10 @@ class Wpsd_Front
 			'donation_for'  => $wpsdGeneralSettings['wpsd_donation_for']? $wpsdGeneralSettings['wpsd_donation_for']: get_bloginfo('name'),
 			'countries' => $this->wpsd_get_countries(),
 		);
+
 		$js_strings = $this->wpsd_get_js_strings();
 		$wpsdAdminArray = array_merge($wpsdAdminArray, $js_strings);
+		$this->dc($wpsdAdminArray);
 		wp_localize_script($this->wpsd_assets_prefix . 'front-script', 'wpsdAdminScriptObj', $wpsdAdminArray);
 	}
 
@@ -306,7 +308,7 @@ class Wpsd_Front
 	function wpsd_payment_intent_handler(){
 		$payload = @file_get_contents('php://input');
 		$data = json_decode($payload, true);
-		$this->dc('wpsd_payment_intent_handler');
+		
 		$required = [
 			'donation_id',
 			'payment_method_id',
@@ -334,6 +336,7 @@ class Wpsd_Front
 			$amount_val = intval(str_replace('.', '', $donation->wpsd_donated_amount));
 		}
 		$paymentMethod = sanitize_text_field($data['payment_method_id']);
+		$this->dc($paymentMethod);
 		$customer = sanitize_text_field($data['customer_id']);
 		$paymentIntent = $this->wpsd_create_payment_intent($donation, $amount_val, $customer, $paymentMethod);
 		if(is_string($paymentIntent)) {
@@ -350,6 +353,7 @@ class Wpsd_Front
 			'wpsd_payment_method' => $paymentMethod,
 			'wpsd_payment_intent_id' => $paymentIntent->id
 		);
+	
 		$where = array(
 			'wpsd_id' => $donation->wpsd_id
 		);
@@ -364,8 +368,7 @@ class Wpsd_Front
 	function wpsd_create_customer_handler() {
 		$payload = @file_get_contents('php://input');
 		$data = json_decode($payload, true);
-		// debugging data...
-		$this->dc('wpsd_create_customer_handler');
+		
 		$required_fields = array(
 			'donation_id',
 			'payment_method_id',
@@ -386,6 +389,7 @@ class Wpsd_Front
 		}
 		// try to find existing customer with the email to prevent duplicates:
 		$customer = $this->wpsd_get_stripe_customer($donation->wpsd_donator_email);
+		$this->dc($data);
 		if($customer && !is_string($customer)){
 			// attach payment:
 			$res = $this->wpsd_attach_payment_method($paymentMethodId, $customer->id);
@@ -409,6 +413,7 @@ class Wpsd_Front
 				'country' => $country->toArray()['code'],
 				'address' => $donation->wpsd_donator_address,
 				'zip' => $donation->wpsd_donator_zip,
+				'metadata' => $data['metadata']
 			);
 			if($donation->wpsd_donator_state){
 				$states = $country->getStates();
@@ -459,7 +464,6 @@ class Wpsd_Front
 	 * @return string|\Stripe\PaymentIntent
 	 */
 	function wpsd_create_payment_intent($donation, $amountObj, $customer = null, $paymentMethod = null){
-		$this->dc('wpsd_create_payment_intent');
 		$amount_val = $amountObj;
 		if(is_object($amountObj)){
 			$amount_val = $amountObj->wpsd_amount;
@@ -483,6 +487,13 @@ class Wpsd_Front
 		if($paymentMethod){
 			$paymentIntentData['payment_method'] = $paymentMethod;
 		}
+
+		// attempting to add metadata to the data sent to stripe
+		$metadata = array(
+			'order'=> '88921'
+		);
+		$paymentIntentData['metadata'] = $metadata;
+
 		$stripe = $this->wpsd_get_stripe_client();
 		try {
 			$paymentIntent = $stripe->paymentIntents->create($paymentIntentData);
