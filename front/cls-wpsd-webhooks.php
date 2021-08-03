@@ -30,23 +30,20 @@ class Wpsd_Webhooks {
 			'message' => null,
 		);
 		
-		// $wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
-		// if(!is_array($wpsdKeySettings)){
-		// 	$result['message'] = esc_html__("Please fill the Webhooks Key field for WPSD Stripe Donation plugin.", 'wp-stripe-donation');
-		// 	wp_send_json_error($result, 400);
-		// }
-		//$secret_key = base64_decode($wpsdKeySettings['wpsd_secret_key']);
-		//$endpoint_secret = $wpsdKeySettings['wpsd_webhooks_key'];
-		//$endpoint_secret = "whsec_yArESytCV3ivayG0GeqgStZcsqkjms0s";
+		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
+		if(!is_array($wpsdKeySettings)){
+			$result['message'] = esc_html__("Please fill the Webhooks Key field for WPSD Stripe Donation plugin.", 'wp-stripe-donation');
+			wp_send_json_error($result, 400);
+		}
+		$secret_key = base64_decode($wpsdKeySettings['wpsd_secret_key']);
+		$endpoint_secret = $wpsdKeySettings['wpsd_webhooks_key'];
 		
-		$secret_key = "sk_test_51Hqjf0BJ6cz979G2JCCA6OsJSzW61G8kyGk8E3yXkMCBCqBAy4mHSN6KPDEvcPmaBhzHSQBQgLEnnIA3fsjVbvmz007SfpmmRo";
 		$payload = @file_get_contents('php://input');
-		//$endpoint_secret = "whsec_yArESytCV3ivayG0GeqgStZcsqkjms0s";
-		$endpoint_secret = "whsec_5TJVoD3jLt8Lr1WtVbe3iNAWXXW5QHgv";
+		
 		$sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
 
 		\Stripe\Stripe::setApiKey($secret_key);
-		// sk_test_51Hqjf0BJ6cz979G2JCCA6OsJSzW61G8kyGk8E3yXkMCBCqBAy4mHSN6KPDEvcPmaBhzHSQBQgLEnnIA3fsjVbvmz007SfpmmRo
+
 		try {
 			$event = \Stripe\Webhook::constructEvent($payload, $sig_header, $endpoint_secret);
 			$this->wpsd_stripe_handle_stripe_event($event);
