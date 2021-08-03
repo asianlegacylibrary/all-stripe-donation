@@ -83,7 +83,7 @@ class Wpsd_Webhooks {
 					$this->wpsd_handle_payment_success($payment_intent);
 				}
 				break;
-			case "customer.created":
+			case "customer.updated":
 				$customer_id = $event->data->object->id;
 				$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
 				echo var_dump('CUSTOMER!', $customer);
