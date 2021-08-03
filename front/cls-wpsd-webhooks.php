@@ -83,14 +83,6 @@ class Wpsd_Webhooks {
 					$this->wpsd_handle_payment_success($payment_intent);
 				}
 				break;
-			case "payment_intent.created":
-				$payment_intents = $event->data->values();
-				foreach ( $payment_intents as $payment_intent ) {
-					$this->wpsd_handle_payment_created($payment_intent);
-				}
-				break;	
-			case "customer.created":
-				echo var_dump('meow');
 			default:
 				//
 				break;
@@ -114,19 +106,11 @@ class Wpsd_Webhooks {
 			if (is_string($subscription)) {
 				wp_send_json_error($subscription, 500);
 			}
-			$this->wpsd_update_donation_subscription($donation, $subscription);
+			$this->($donation, $subscription);
 		}
 	}
 
-	/**
-	 * Handles the payment created event.
-	 *
-	 * @param \Stripe\PaymentIntent $paymentIntent: the payment inent
-	 */
-	function wpsd_handle_payment_created($paymentIntent){
-		//$this->dc('inside the wpsd_handle_payment_created function');
-		//$this->dc($paymentIntent);
-	}
+	
 	
 	function wpsd_update_donation_subscription($donation, $subscription){
 		// save subscription to db:
@@ -345,6 +329,7 @@ class Wpsd_Webhooks {
 	 * @return string|\Stripe\Subscription
 	 */
 	private function wpsd_create_stripe_subscription($donation){
+		echo var_dump($donation);
 		// 1. get or create product:
 		$product = $this->wpsd_get_stripe_product($donation);
 		if (is_string($product)) {
