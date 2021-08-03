@@ -103,7 +103,7 @@ class Wpsd_Webhooks {
 		// try to find existing customer with the email to prevent duplicates:
 		$customer_id = $paymentIntent->charges->data[0]->customer;
 		if(isset($customer_id) || !trim($customer_id) === '') {
-			$customer = $this->wpsd_get_stripe_customer_by_id($paymentIntent->data->object->customer);
+			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
 			echo var_dump('payment intent customer data', $customer);
 		}
 		

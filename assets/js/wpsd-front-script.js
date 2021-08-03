@@ -539,8 +539,9 @@
                 $(this).css('visibility', 'visible')
                 $(this).html(message)
             })
-            window.location.href =
-                'https://asianlegacylibrary.org/donate/thank-you/'
+            // pausing the redirect until after testing
+            // window.location.href =
+            //     'https://asianlegacylibrary.org/donate/thank-you/'
             setTimeout(function () {
                 $('#wpsd-donation-message').fadeIn(function () {
                     $(this).removeClass('success')
