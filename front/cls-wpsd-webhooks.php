@@ -106,7 +106,7 @@ class Wpsd_Webhooks {
 			if (is_string($subscription)) {
 				wp_send_json_error($subscription, 500);
 			}
-			$this->($donation, $subscription);
+			$this->wpsd_update_donation_subscription($donation, $subscription);
 		}
 	}
 
