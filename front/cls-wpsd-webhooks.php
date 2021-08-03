@@ -124,7 +124,7 @@ class Wpsd_Webhooks {
 
 		// if this is a recurring payment, and there is no subscription, create one so that we charge the user monthly:
 		if ($recurring && !$is_subscribed) {
-			$subscription = $this->wpsd_create_stripe_subscription($donation, $metadata);
+			$subscription = $this->wpsd_create_stripe_subscription($donation);
 			if (is_string($subscription)) {
 				wp_send_json_error($subscription, 500);
 			}
@@ -358,7 +358,7 @@ class Wpsd_Webhooks {
 	 *
 	 * @return string|\Stripe\Subscription
 	 */
-	private function wpsd_create_stripe_subscription($donation, $metadata){
+	private function wpsd_create_stripe_subscription($donation){
 		
 		// 1. get or create product:
 		$product = $this->wpsd_get_stripe_product($donation);
@@ -380,6 +380,14 @@ class Wpsd_Webhooks {
 		$trial_end = strtotime("+1 month");
 		$error = null;
 		$subscription = null;
+
+		$metadata = array(
+			'campaign' => $donation['wpsd_campaign'],
+			'campaign_id' => $donation['wpsd_campaign_id'],
+			'fund' => $donation['wpsd_fund'],
+			'fund_id' => $donation['wpsd_fund_id']
+		);
+
 		try {
 			$subscription = $stripe->subscriptions->create( [
 				'customer' => $customer,
