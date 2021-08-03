@@ -130,10 +130,7 @@ trait StripeHelper{
 		$error = null;
 		$customer = null;
 		try {
-			$stripe->customers->retrieve(
-				$customer_id,
-				[]
-			  );
+			$customer = $stripe->customers->retrieve($customer_id, []);
 			
 		} catch ( \Exception $e ) {
 			return $e->getMessage();
