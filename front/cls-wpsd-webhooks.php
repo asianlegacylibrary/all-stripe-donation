@@ -79,6 +79,7 @@ class Wpsd_Webhooks {
 			case "payment_intent.succeeded":
 				$payment_intents = $event->data->values();
 				foreach ( $payment_intents as $payment_intent ) {
+					echo var_dump($payment_intent);
 					$this->wpsd_handle_payment_success($payment_intent);
 				}
 				break;

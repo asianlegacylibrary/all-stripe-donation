@@ -341,7 +341,7 @@ class Wpsd_Front
 			$amount_val = intval(str_replace('.', '', $donation->wpsd_donated_amount));
 		}
 		$paymentMethod = sanitize_text_field($data['payment_method_id']);
-		$this->dc($paymentMethod);
+		
 		$customer = sanitize_text_field($data['customer_id']);
 		$paymentIntent = $this->wpsd_create_payment_intent($donation, $amount_val, $customer, $paymentMethod);
 		if(is_string($paymentIntent)) {
@@ -493,7 +493,7 @@ class Wpsd_Front
 			$paymentIntentData['payment_method'] = $paymentMethod;
 		}
 
-		// attempting to add metadata to the data sent to stripe
+		// add metadata to the payment intent data sent to stripe, get campaign
 		$metadata = array(
 			'order'=> '88921'
 		);
