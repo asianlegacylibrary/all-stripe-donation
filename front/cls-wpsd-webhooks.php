@@ -111,9 +111,13 @@ class Wpsd_Webhooks {
 		$this->wpsd_update_payment_status($paymentIntent);
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
 		echo var_dump('payment intent DONATION DATA', $donation);
-		$this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
+
+		
+
+		// for some reason we check subscription status after sending to kindful
 		$recurring = (int) $donation->wpsd_is_recurring;
 		$is_subscribed = $donation->wpsd_subscription && !empty($donation->wpsd_subscription);
+
 		// if this is a recurring payment, and there is no subscription, create one so that we charge the user monthly:
 		if ($recurring && !$is_subscribed) {
 			$subscription = $this->wpsd_create_stripe_subscription($donation);
@@ -121,7 +125,13 @@ class Wpsd_Webhooks {
 				wp_send_json_error($subscription, 500);
 			}
 			$this->wpsd_update_donation_subscription($donation, $subscription);
+			// re-fetch the updated donation data from db
+			$donation = $this->wpsd_get_donation($paymentIntent->id);
 		}
+
+		// KINDFUL - finally we send the data to kindful CMS --------------------
+		// send to kindful
+		$this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
 	}
 
 	

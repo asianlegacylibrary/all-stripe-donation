@@ -343,7 +343,7 @@ class Wpsd_Front
 		$paymentMethod = sanitize_text_field($data['payment_method_id']);
 		
 		$customer = sanitize_text_field($data['customer_id']);
-		$paymentIntent = $this->wpsd_create_payment_intent($donation, $amount_val, $customer, $paymentMethod);
+		$paymentIntent = $this->wpsd_create_payment_intent($donation, $amount_val, $customer, $paymentMethod, $data['metadata']);
 		if(is_string($paymentIntent)) {
 			$err = array(
 				"status" => "error",
@@ -468,7 +468,7 @@ class Wpsd_Front
 	 *
 	 * @return string|\Stripe\PaymentIntent
 	 */
-	function wpsd_create_payment_intent($donation, $amountObj, $customer = null, $paymentMethod = null){
+	function wpsd_create_payment_intent($donation, $amountObj, $customer = null, $paymentMethod = null, $metadata = null){
 		$amount_val = $amountObj;
 		if(is_object($amountObj)){
 			$amount_val = $amountObj->wpsd_amount;
@@ -494,9 +494,7 @@ class Wpsd_Front
 		}
 
 		// add metadata to the payment intent data sent to stripe, get campaign
-		$metadata = array(
-			'order'=> '88921'
-		);
+		//$metadata = $metadata;
 		$paymentIntentData['metadata'] = $metadata;
 
 		$stripe = $this->wpsd_get_stripe_client();

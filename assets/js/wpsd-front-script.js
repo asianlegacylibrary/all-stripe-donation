@@ -343,7 +343,13 @@
         const requestData = {
             donation_id: donation_id,
             payment_method_id: paymentMethodId,
-            customer_id: customerId
+            customer_id: customerId,
+            metadata: {
+                campaign: settings.wpsd_campaign,
+                campaign_id: settings.wpsd_campaign_id,
+                fund: settings.wpsd_fund,
+                fund_id: settings.wpsd_fund_id
+            }
         }
 
         //console.log('createPaymentIntent', requestData)
