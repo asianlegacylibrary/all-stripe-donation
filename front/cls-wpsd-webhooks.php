@@ -102,10 +102,11 @@ class Wpsd_Webhooks {
 		// try to find existing customer with the customer id from stripe, to retrieve metadata
 		// note that this doesn't make sense, the campaign should be attached to the subscription
 		// change this when you get to it
+		$metadata = null;
 		$customer_id = $paymentIntent->charges->data[0]->customer;
 		if(isset($customer_id) || !trim($customer_id) === '') {
 			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
-			echo var_dump('payment intent customer METADATA', $customer->metadata);
+			$metadata = $customer->metadata;
 		}
 		
 		$this->wpsd_update_payment_status($paymentIntent);
@@ -120,7 +121,7 @@ class Wpsd_Webhooks {
 
 		// if this is a recurring payment, and there is no subscription, create one so that we charge the user monthly:
 		if ($recurring && !$is_subscribed) {
-			$subscription = $this->wpsd_create_stripe_subscription($donation);
+			$subscription = $this->wpsd_create_stripe_subscription($donation, $metadata);
 			if (is_string($subscription)) {
 				wp_send_json_error($subscription, 500);
 			}
@@ -252,6 +253,7 @@ class Wpsd_Webhooks {
 		else {
 			$amount_val =  $donation->wpsd_donated_amount;
 		}
+		// this fails when the country is null or empty, added the || with null, but check back
 		if ($donation->wpsd_donator_country !== "ZZ" || $donation->wpsd_donator_country !== null) {
 			$countries = $this->wpsd_init_countries();
 			// this fails when 
@@ -353,7 +355,7 @@ class Wpsd_Webhooks {
 	 *
 	 * @return string|\Stripe\Subscription
 	 */
-	private function wpsd_create_stripe_subscription($donation){
+	private function wpsd_create_stripe_subscription($donation, $metadata){
 		
 		// 1. get or create product:
 		$product = $this->wpsd_get_stripe_product($donation);
@@ -385,9 +387,7 @@ class Wpsd_Webhooks {
 				],
 				'trial_end' => $trial_end,
 				'expand'   => [ 'latest_invoice.payment_intent' ],
-				'metadata' => array(
-					'subs' => 'this is it'
-				)
+				'metadata' => $metadata
 			] );
 		} catch ( \Stripe\Exception\ApiErrorException $e ) {
 			$error = $e->getMessage();
