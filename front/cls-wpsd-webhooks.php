@@ -84,7 +84,8 @@ class Wpsd_Webhooks {
 				}
 				break;
 			case "customer.created":
-				$customer = $event->data->object->id;
+				$customer_id = $event->data->object->id;
+				$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
 				echo var_dump('CUSTOMER!', $customer);
 			default:
 				//
