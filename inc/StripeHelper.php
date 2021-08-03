@@ -139,7 +139,8 @@ trait StripeHelper{
 				'country' => $data['country'],
 				'line1' => $data['address'],
 				'postal_code' => $data['zip'],
-			)
+			),
+			'metadata' => $data['metadata']
 		);
 		if(isset($data['state'])){
 			$customer_details['address']['state'] = $data['state'];

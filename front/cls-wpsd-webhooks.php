@@ -25,41 +25,49 @@ class Wpsd_Webhooks {
 	 * Handles stripe webhooks.
 	 */
 	function wpsd_stripe_webhooks_handler(){
-		$this->dc('inside wpsd_stripe_webhooks_handler');
-
 		$result = array(
 			'status' => 'error',
 			'message' => null,
 		);
 		
-		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
-		if(!is_array($wpsdKeySettings)){
-			$result['message'] = esc_html__("Please filly the Webhooks Key field for WPSD Stripe Donation plugin.", 'wp-stripe-donation');
-			wp_send_json_error($result, 400);
-		}
-		$secret_key = base64_decode($wpsdKeySettings['wpsd_secret_key']);
-		$endpoint_secret = $wpsdKeySettings['wpsd_webhooks_key'];
-
+		// $wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
+		// if(!is_array($wpsdKeySettings)){
+		// 	$result['message'] = esc_html__("Please fill the Webhooks Key field for WPSD Stripe Donation plugin.", 'wp-stripe-donation');
+		// 	wp_send_json_error($result, 400);
+		// }
+		//$secret_key = base64_decode($wpsdKeySettings['wpsd_secret_key']);
+		//$endpoint_secret = $wpsdKeySettings['wpsd_webhooks_key'];
+		//$endpoint_secret = "whsec_yArESytCV3ivayG0GeqgStZcsqkjms0s";
+		
+		$secret_key = "sk_test_51Hqjf0BJ6cz979G2JCCA6OsJSzW61G8kyGk8E3yXkMCBCqBAy4mHSN6KPDEvcPmaBhzHSQBQgLEnnIA3fsjVbvmz007SfpmmRo";
 		$payload = @file_get_contents('php://input');
-		
-		// adding some simple debug....
-		//$this->dc($endpoint_secret);
-		
+		//$endpoint_secret = "whsec_yArESytCV3ivayG0GeqgStZcsqkjms0s";
+		$endpoint_secret = "whsec_5TJVoD3jLt8Lr1WtVbe3iNAWXXW5QHgv";
 		$sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+
 		\Stripe\Stripe::setApiKey($secret_key);
+		// sk_test_51Hqjf0BJ6cz979G2JCCA6OsJSzW61G8kyGk8E3yXkMCBCqBAy4mHSN6KPDEvcPmaBhzHSQBQgLEnnIA3fsjVbvmz007SfpmmRo
 		try {
 			$event = \Stripe\Webhook::constructEvent($payload, $sig_header, $endpoint_secret);
 			$this->wpsd_stripe_handle_stripe_event($event);
 		} catch(\UnexpectedValueException $e) {
 			// Invalid payload
-			$result['message'] = esc_html__("Invalid paydude", 'wp-stripe-donation');
+			$result['message'] = esc_html__("Invalid payload", 'wp-stripe-donation');
 			wp_send_json_error($result, 400);
 		} catch(\Stripe\Exception\SignatureVerificationException $e) {
 			// Invalid signature
-			$result['message'] = esc_html__("Invalid signature yo", 'wp-stripe-donation');
+			$result['message'] = esc_html__("Invalid signature yo yo", 'wp-stripe-donation');
+			$result['secrets'] = array(
+				'secret' => $secret_key,
+				'endpoint_secret' => $endpoint_secret,
+				'sig_header' => $sig_header,
+				'payload' => $payload
+			);
+			
 			wp_send_json_error($result, 400);
 		}
-		$result['message'] = esc_html__("Hook ran successfully it did", 'wp-stripe-donation');
+		$result['message'] = esc_html__("Hook ran successfully", 'wp-stripe-donation');
+		
 		wp_send_json_success($result, 200);
 	}
 
@@ -82,6 +90,8 @@ class Wpsd_Webhooks {
 					$this->wpsd_handle_payment_created($payment_intent);
 				}
 				break;	
+			case "customer.created":
+				echo var_dump('meow');
 			default:
 				//
 				break;
@@ -115,8 +125,8 @@ class Wpsd_Webhooks {
 	 * @param \Stripe\PaymentIntent $paymentIntent: the payment inent
 	 */
 	function wpsd_handle_payment_created($paymentIntent){
-		$this->dc('inside the wpsd_handle_payment_created function');
-		$this->dc($paymentIntent);
+		//$this->dc('inside the wpsd_handle_payment_created function');
+		//$this->dc($paymentIntent);
 	}
 	
 	function wpsd_update_donation_subscription($donation, $subscription){
@@ -157,6 +167,12 @@ class Wpsd_Webhooks {
 		// if there is no record in the database for this payment intent, then add the record now
 		// This is a hack for donorbox, where the donation was not submitted through the form on the ALL site.
 		$idExists = $this->wpsd_get_donation($paymentIntent->id);
+
+		// if there's nothing in the database then just quit already! donorbox going through zapier... 
+		// if($idExists === null) {
+		// 	return false;
+		// }
+
 		if ($idExists === null) {
 			$tableName = WPSD_TABLE;
 			list($first_name, $last_name) = explode(" ", $paymentIntent->charges->data[0]->billing_details->name, 2);
@@ -202,11 +218,12 @@ class Wpsd_Webhooks {
 			$result = $wpdb->insert($tableName, $values, $formats);
 			if($result){ $insertedID = $wpdb->insert_id; }
 		}
-
 		// now that we know that a DB record exists, update the payment complete field and return true;
+		
 		$data = array( 'wpsd_payment_complete' => 1, );
 		$where = array( 'wpsd_payment_intent_id' => $paymentIntent->id, );
 		$result = $wpdb->update($tableName, $data, $where, array('%d'));
+
 		return false !== $result;
 	}
 
@@ -231,8 +248,9 @@ class Wpsd_Webhooks {
 		if ($donation->wpsd_donator_country != "ZZ") {
 			$countries = $this->wpsd_init_countries();
 			/** @var  Country $country */
-			$country = $countries->findOne(array('code' => $donation->wpsd_donator_country));
-			$country_long = $country->getName();
+			//$country = $countries->findOne(array('code' => $donation->wpsd_donator_country));
+			//$country_long = $country->getName();
+			$country_long = "ZZ";
 			$stateCode = null;
 			if($donation->wpsd_donator_state){
 				$states = $country->getStates();

@@ -11,13 +11,27 @@
     var payment_method_id = null
     var customer_id = null
     var recurring = false
+
     let amounts_array = []
     var stripeFormPresent = document.getElementById('card-element') //console.log("Form Present:", stripeFormPresent);
 
+    // rename to the shortcode keys to be like general settings, with the wpsd_ prefix
+    let shortcodes = Object.assign(
+        {},
+        ...Object.keys(wpsdSetShortcodes).map((key) => ({
+            [`wpsd_${key}`]: wpsdSetShortcodes[key]
+        }))
+    )
+
+    // merge all the keys together, with the shortcodes overwriting anything from general
+    const settings = {
+        ...wpsdGeneralSettings,
+        ...shortcodes
+    }
+
+    console.log(settings)
     // get currency as soon as window, and set to USD if undefined (not set in settings)
-    var currency = wpsdAdminScriptObj.currency
-        ? wpsdAdminScriptObj.currency
-        : 'USD'
+    var currency = settings.wpsd_currency ? settings.wpsd_currency : 'USD'
 
     init()
     async function init() {
@@ -84,7 +98,6 @@
 
         $('.wpsd-donate-button').on('click', function (e) {
             e.preventDefault()
-            console.log('i submit!')
             onSubmit()
                 .then(() => {})
                 .catch((e) => console.log(e))
@@ -160,6 +173,8 @@
             customer_id = await createCustomer(payment_method_id)
         }
 
+        // script never makes it past the await createCustomer...when testing from different URLs
+        // not sure what it is about this
         console.log('customer', customer_id)
 
         // 4. create payment intent.
@@ -231,7 +246,7 @@
             wpsdSecretKey: wpsdAdminScriptObj.publishable_key,
             amount: wpsdDonateAmount,
             custom_amount: wpsdCustomAmount ? 1 : 0,
-            currency: wpsdAdminScriptObj.currency,
+            currency: currency,
             first_name: $('#wpsd_donator_first_name').val(),
             last_name: $('#wpsd_donator_last_name').val(),
             email: $('#wpsd_donator_email').val(),
@@ -241,12 +256,10 @@
             city: $('#wpsd_donator_city').val(),
             zip: $('#wpsd_donator_zip').val(),
             address: $('#wpsd_donator_address').val(),
-            campaign: $('#wpsd_campaign').val(),
-            campaign_id: $('#wpsd_campaign_id').val(),
-            fund: $('#wpsd_fund').val(),
-            fund_id: $('#wpsd_fund_id').val(),
-            in_memory_of_field_id: $('#wpsd_in_memory_of_field_id').val(),
-            in_memory_of: $('#wpsd_in_memory_of').val(),
+            campaign: settings.wpsd_campaign,
+            campaign_id: settings.wpsd_campaign_id,
+            fund: settings.wpsd_fund,
+            fund_id: settings.wpsd_fund_id,
             is_recurring: is_recurring
         }
         //
@@ -278,12 +291,19 @@
             wpsdSecretKey: wpsdAdminScriptObj.publishable_key,
             donation_id: donation_id,
             payment_method_id: paymentMethod,
-            metadata: { order_id: '67889' }
+            metadata: {
+                campaign: settings.wpsd_campaign,
+                campaign_id: settings.wpsd_campaign_id,
+                fund: settings.wpsd_fund,
+                fund_id: settings.wpsd_fund_id
+            }
         }
         console.log('wpsd_create_customer', requestData)
         const data = await request('wpsd_create_customer', 'POST', requestData)
+        console.log('after await wpsd_create_customer', data)
         return data.customer_id
     }
+
     async function createPaymentMethod() {
         const name =
             $('#wpsd_donator_first_name').val() +
@@ -335,13 +355,15 @@
             disableSubmitBtn()
             // get current locale to prevent a bug in wordpress:
             var url = wpsdAdminScriptObj.ajaxurl + '?action=' + action
-            console.log('in request', url, data)
+            console.log('in request', action, type, url, data)
             var lang = window.location.href.match(/lang=\w+/g)
+
             if (lang && lang.length) {
                 lang = lang[0]
                 lang = lang.replace('lang=', '')
                 url += '&lang=' + lang
             }
+
             const requestOptions = {
                 url: url,
                 dataType: 'JSON',
@@ -359,20 +381,24 @@
                     }
                 }
             }
+
             if (type === 'POST') {
                 requestOptions.type = type
                 requestOptions.contentType = 'application/json'
             }
+
             if (data) {
                 requestOptions.data = JSON.stringify(data)
             }
+
             if (params) {
                 const fields = Object.keys(params)
                 for (let field of fields) {
                     requestOptions.url += '&' + field + '=' + params[field]
                 }
             }
-            console.log(requestOptions)
+
+            console.log('right before the ajax request', requestOptions)
             $.ajax(requestOptions)
         })
     }

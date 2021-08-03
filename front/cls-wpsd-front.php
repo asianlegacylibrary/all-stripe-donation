@@ -68,7 +68,7 @@ class Wpsd_Front
 			$wpsdPaymentTitle = esc_html__($wpsdGeneralSettings['wpsd_payment_title'], 'wp-stripe-donation');
 			$wpsdDonateCurrency = $wpsdGeneralSettings['wpsd_donate_currency'];
 		} else {
-			$wpsdPaymentTitle = esc_html__('Donate Us', 'wp-stripe-donation');
+			$wpsdPaymentTitle = esc_html__('Donate', 'wp-stripe-donation');
 			$wpsdDonateCurrency = "USD";
 		}
 
@@ -84,8 +84,9 @@ class Wpsd_Front
 
 		$js_strings = $this->wpsd_get_js_strings();
 		$wpsdAdminArray = array_merge($wpsdAdminArray, $js_strings);
-		$this->dc($wpsdAdminArray);
 		wp_localize_script($this->wpsd_assets_prefix . 'front-script', 'wpsdAdminScriptObj', $wpsdAdminArray);
+		// made general settings accessible from client side (wpsd-front-script.js)
+		wp_localize_script($this->wpsd_assets_prefix . 'front-script', 'wpsdGeneralSettings', $wpsdGeneralSettings);
 	}
 
 	function wpsd_get_countries(){
@@ -135,6 +136,8 @@ class Wpsd_Front
 	{
 		$output = '';
 
+		wp_localize_script($this->wpsd_assets_prefix . 'front-script', 'wpsdSetShortcodes', $atts);
+
 		// temporary...until I figure out how to call the function above...
 		$default_donation_amounts = [10,20,50,100];
 		$wpsdGeneralSettings = stripslashes_deep( unserialize( get_option('wpsd_general_settings') ) );
@@ -164,6 +167,8 @@ class Wpsd_Front
 
 		$params = shortcode_atts($expected_attr, $atts);
 		
+		
+
 		include(plugin_dir_path(__FILE__) . '/view/wpsd-front-view.php');
 		$output .= ob_get_clean();
 		return $output;
@@ -389,7 +394,7 @@ class Wpsd_Front
 		}
 		// try to find existing customer with the email to prevent duplicates:
 		$customer = $this->wpsd_get_stripe_customer($donation->wpsd_donator_email);
-		$this->dc($data);
+		//$this->dc($data);
 		if($customer && !is_string($customer)){
 			// attach payment:
 			$res = $this->wpsd_attach_payment_method($paymentMethodId, $customer->id);
