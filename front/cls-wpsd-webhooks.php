@@ -100,8 +100,12 @@ class Wpsd_Webhooks {
 	 */
 	function wpsd_handle_payment_success($paymentIntent){
 		// try to find existing customer with the email to prevent duplicates:
-		$customer = $this->wpsd_get_stripe_customer_by_id($paymentIntent->data->object->customer);
-		echo var_dump('payment intent customer data', $customer);
+		$customer_id = $paymentIntent->data->object->customer;
+		if(isset($customer_id) || !trim($customer_id) === '') {
+			$customer = $this->wpsd_get_stripe_customer_by_id($paymentIntent->data->object->customer);
+			echo var_dump('payment intent customer data', $customer);
+		}
+		
 		$this->wpsd_update_payment_status($paymentIntent);
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
 		echo var_dump('payment intent DONATION DATA', $donation);
