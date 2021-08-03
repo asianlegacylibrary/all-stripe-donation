@@ -83,6 +83,9 @@ class Wpsd_Webhooks {
 					$this->wpsd_handle_payment_success($payment_intent);
 				}
 				break;
+			case "customer.created":
+				$customer = $event->data;
+				echo var_dump('CUSTOMER!', $customer);
 			default:
 				//
 				break;
