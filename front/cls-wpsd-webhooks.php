@@ -95,6 +95,7 @@ class Wpsd_Webhooks {
 	 * @param \Stripe\PaymentIntent $paymentIntent: the payment inent
 	 */
 	function wpsd_handle_payment_success($paymentIntent){
+
 		$this->wpsd_update_payment_status($paymentIntent);
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
 		$this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
@@ -329,7 +330,7 @@ class Wpsd_Webhooks {
 	 * @return string|\Stripe\Subscription
 	 */
 	private function wpsd_create_stripe_subscription($donation){
-		echo var_dump($donation);
+		
 		// 1. get or create product:
 		$product = $this->wpsd_get_stripe_product($donation);
 		if (is_string($product)) {
