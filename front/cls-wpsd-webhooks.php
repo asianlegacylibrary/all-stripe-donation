@@ -382,10 +382,10 @@ class Wpsd_Webhooks {
 		$subscription = null;
 
 		$metadata = array(
-			'campaign' => $donation['wpsd_campaign'],
-			'campaign_id' => $donation['wpsd_campaign_id'],
-			'fund' => $donation['wpsd_fund'],
-			'fund_id' => $donation['wpsd_fund_id']
+			'campaign' => $donation->wpsd_campaign,
+			'campaign_id' => $donation->wpsd_campaign_id,
+			'fund' => $donation->wpsd_fund,
+			'fund_id' => $donation->wpsd_fund_id
 		);
 
 		try {
@@ -397,7 +397,8 @@ class Wpsd_Webhooks {
 					],
 				],
 				'trial_end' => $trial_end,
-				'expand'   => [ 'latest_invoice.payment_intent' ]
+				'expand'   => [ 'latest_invoice.payment_intent' ],
+				'metadata' => $metadata
 			] );
 		} catch ( \Stripe\Exception\ApiErrorException $e ) {
 			$error = $e->getMessage();
