@@ -99,7 +99,7 @@ class Wpsd_Webhooks {
 	 * @param \Stripe\PaymentIntent $paymentIntent: the payment inent
 	 */
 	function wpsd_handle_payment_success($paymentIntent){
-		echo var_dump('payment intent DATA', $paymentIntent);
+		echo var_dump('payment intent DATA', $paymentIntent->charges->data[0]);
 		// try to find existing customer with the email to prevent duplicates:
 		$customer_id = $paymentIntent->charges->data[0]->customer;
 		if(isset($customer_id) || !trim($customer_id) === '') {
