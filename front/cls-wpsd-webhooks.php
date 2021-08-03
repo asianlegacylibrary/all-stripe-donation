@@ -107,7 +107,10 @@ class Wpsd_Webhooks {
 		if(isset($customer_id) || !trim($customer_id) === '') {
 			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
 			$metadata = $customer->metadata;
+			
 		}
+		
+		echo var_dump('METADATA!', $metadata);
 		
 		$this->wpsd_update_payment_status($paymentIntent);
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
