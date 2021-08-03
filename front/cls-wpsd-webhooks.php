@@ -99,7 +99,9 @@ class Wpsd_Webhooks {
 	 * @param \Stripe\PaymentIntent $paymentIntent: the payment inent
 	 */
 	function wpsd_handle_payment_success($paymentIntent){
-		// try to find existing customer with the customer id from stripe
+		// try to find existing customer with the customer id from stripe, to retrieve metadata
+		// note that this doesn't make sense, the campaign should be attached to the subscription
+		// change this when you get to it
 		$customer_id = $paymentIntent->charges->data[0]->customer;
 		if(isset($customer_id) || !trim($customer_id) === '') {
 			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
@@ -372,6 +374,9 @@ class Wpsd_Webhooks {
 				],
 				'trial_end' => $trial_end,
 				'expand'   => [ 'latest_invoice.payment_intent' ],
+				'metadata' => array(
+					'subs' => 'this is it'
+				)
 			] );
 		} catch ( \Stripe\Exception\ApiErrorException $e ) {
 			$error = $e->getMessage();
