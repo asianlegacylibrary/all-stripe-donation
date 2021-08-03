@@ -84,7 +84,7 @@ class Wpsd_Webhooks {
 				}
 				break;
 			case "customer.created":
-				$customer = $event->data;
+				$customer = $event->data->object->id;
 				echo var_dump('CUSTOMER!', $customer);
 			default:
 				//

@@ -121,6 +121,27 @@ trait StripeHelper{
 	}
 	
 	/**
+	 * @param $customer_id
+	 *
+	 * @return string|\Stripe\CustomerById
+	 */
+	public function wpsd_get_stripe_customer_by_id($customer_id){
+		$stripe = $this->wpsd_get_stripe_client();
+		$error = null;
+		$customer = null;
+		try {
+			$stripe->customers->retrieve(
+				$customer_id,
+				[]
+			  );
+			
+		} catch ( \Exception $e ) {
+			return $e->getMessage();
+		}
+		return $customer;
+	}
+
+	/**
 	 * @param $email
 	 * @param $data
 	 * @param $paymentMethodId
