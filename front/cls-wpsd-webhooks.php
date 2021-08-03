@@ -79,7 +79,7 @@ class Wpsd_Webhooks {
 			case "payment_intent.succeeded":
 				$payment_intents = $event->data->values();
 				foreach ( $payment_intents as $payment_intent ) {
-					echo var_dump('payment intent', $payment_intent);
+					//echo var_dump('payment intent', $payment_intent);
 					$this->wpsd_handle_payment_success($payment_intent);
 				}
 				break;
@@ -95,7 +95,9 @@ class Wpsd_Webhooks {
 	 * @param \Stripe\PaymentIntent $paymentIntent: the payment inent
 	 */
 	function wpsd_handle_payment_success($paymentIntent){
-
+		// try to find existing customer with the email to prevent duplicates:
+		$customer = $this->wpsd_get_stripe_customer($donation->wpsd_donator_email);
+		echo var_dump('payment intent customer data', $customer);
 		$this->wpsd_update_payment_status($paymentIntent);
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
 		$this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
