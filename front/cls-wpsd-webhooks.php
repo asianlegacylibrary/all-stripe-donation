@@ -97,9 +97,10 @@ class Wpsd_Webhooks {
 	function wpsd_handle_payment_success($paymentIntent){
 		// try to find existing customer with the email to prevent duplicates:
 		$customer = $this->wpsd_get_stripe_customer($donation->wpsd_donator_email);
-		echo var_dump('payment intent customer data', $donation);
+		
 		$this->wpsd_update_payment_status($paymentIntent);
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
+		echo var_dump('payment intent customer data', $donation);
 		$this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
 		$recurring = (int) $donation->wpsd_is_recurring;
 		$is_subscribed = $donation->wpsd_subscription && !empty($donation->wpsd_subscription);
