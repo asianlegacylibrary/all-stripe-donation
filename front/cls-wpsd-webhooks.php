@@ -397,8 +397,7 @@ class Wpsd_Webhooks {
 					],
 				],
 				'trial_end' => $trial_end,
-				'expand'   => [ 'latest_invoice.payment_intent' ],
-				'metadata' => $metadata
+				'expand'   => [ 'latest_invoice.payment_intent' ]
 			] );
 		} catch ( \Stripe\Exception\ApiErrorException $e ) {
 			$error = $e->getMessage();
