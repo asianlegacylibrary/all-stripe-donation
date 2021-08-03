@@ -252,8 +252,9 @@ class Wpsd_Webhooks {
 		else {
 			$amount_val =  $donation->wpsd_donated_amount;
 		}
-		if ($donation->wpsd_donator_country != "ZZ") {
+		if ($donation->wpsd_donator_country !== "ZZ" || $donation->wpsd_donator_country !== null) {
 			$countries = $this->wpsd_init_countries();
+			// this fails when 
 			/** @var  Country $country */
 			$country = $countries->findOne(array('code' => $donation->wpsd_donator_country));
 			$country_long = $country->getName();
