@@ -102,6 +102,9 @@ class Wpsd_Webhooks {
 		// try to find existing customer with the customer id from stripe, to retrieve metadata
 		// note that this doesn't make sense, the campaign should be attached to the subscription
 		// change this when you get to it
+		
+		
+		
 		$metadata = null;
 		$customer_id = $paymentIntent->charges->data[0]->customer;
 		if(isset($customer_id) || !trim($customer_id) === '') {
@@ -112,7 +115,10 @@ class Wpsd_Webhooks {
 		
 		echo var_dump('METADATA!', $metadata);
 		
-		$this->wpsd_update_payment_status($paymentIntent);
+		// if this returns false then quit the function
+		$updating_payment_status = $this->wpsd_update_payment_status($paymentIntent);
+		echo var_dump('UPDATING?', $updating_payment_status);
+
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
 		echo var_dump('payment intent DONATION DATA', $donation);
 
@@ -248,7 +254,7 @@ class Wpsd_Webhooks {
 	//private function wpsd_send_to_kindful($donation, $charge){
 	private function wpsd_send_to_kindful($donation, $paymentIntent, $metadata){
 		$charge = $paymentIntent->charges->first();
-		
+
 		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
 		
 		$currency = $this->wpsd_get_currency();
@@ -279,17 +285,21 @@ class Wpsd_Webhooks {
 				$stateCode = substr($isoCode, strlen($isoCode) -2, 2);
 			}
 		}
+
+		echo var_dump('METADATA IN KINDFUL', $metadata);
 			
+		// returned data from Stripe takes precedence over what's held in donation obj from form
 		$campaign = $metadata == null ? $donation->wpsd_campaign : $metadata['campaign'];
 		$campaign_id = $metadata == null ? $donation->wpsd_campaign_id : $metadata['campaign_id'];
 		$fund = $metadata == null ? $donation->wpsd_fund : $metadata['fund'];
 		$fund_id = $metadata == null ? $donation->wpsd_fund_id : $metadata['fund_id'];
-		
+		$customer = ($charge->customer !== null) ? $charge->customer : $donation->wpsd_customer_id;
+		$description = $charge->description;
 		
 		$recurring = (bool) $donation->wpsd_is_recurring;
 		$transaction_type = $recurring ? "offline_recurring": "credit";
 		
-		
+		echo var_dump('recurring for this...', $recurring, $transaction_type);
 		
 		$data = array(
 			array(
