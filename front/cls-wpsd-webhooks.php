@@ -111,18 +111,21 @@ class Wpsd_Webhooks {
 		}
 		
 		
-		$metadata = array();
+		$metadata = null;
 		$test = array();
 		$customer_id = $paymentIntent->charges->data[0]->customer;
 		if(isset($customer_id) || !trim($customer_id) === '') {
 			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
-			$metadata = (array)$customer->metadata;
-			$test = get_object_vars($metadata);
+			$metadata = $customer->metadata;
+		}
+		$c = null;
+		if(isset($metadata)) {
+			$c = $metadata->campaign;
 		}
 		echo var_dump('customer info from stripe', $customer);
 		echo var_dump('METADATA!', $metadata);
-		$arr = get_object_vars($metadata);
-		echo var_dump('get_object_vars', $arr, $test);
+		
+		echo var_dump('campaign?', $c);
 		
 
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
