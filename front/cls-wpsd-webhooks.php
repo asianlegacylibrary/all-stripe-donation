@@ -306,18 +306,6 @@ class Wpsd_Webhooks {
 			}
 		}
 
-
-		echo var_dump('METADATA IN KINDFUL', (array)$metadata, count((array)$metadata), !(array)$metadata);
-		// if(!$metadata) {
-		// 	$campaign = $donation->wpsd_campaign;
-		// 	$campaign_id = $donation->wpsd_campaign_id;
-		// 	$fund = $donation->wpsd_fund;
-		// 	$fund_id = $donation->wpsd_fund_id;
-		// } 
-
-		// returned data from Stripe takes precedence over what's held in donation obj from form
-		
-
 		$customer = ($charge->customer !== null) ? $charge->customer : $donation->wpsd_customer_id;
 		$description = $charge->description;
 		
@@ -342,10 +330,11 @@ class Wpsd_Webhooks {
 				"transaction_id"                     => null,
 				"amount_in_cents"                    => $amount_val,
 				"currency"                           => strtolower($currency),
-				"campaign"                           => $campaign,
-				"campaign_id"                        => $campaign_id,
-				"fund"                               => $fund,
-				"fund_id"                            => $fund_id,
+				"campaign"                           => $metadata['campaign'],
+				"campaign_id"                        => $metadata['campaign_id'],
+				"fund"                               => $metadata['fund'],
+				"fund_id"                            => $metadata['fund_id'],
+				"description"						 => $description,	
 				"stripe_charge_id"                   => $charge->id,
 				"transaction_type"                   => $transaction_type,
 			)
