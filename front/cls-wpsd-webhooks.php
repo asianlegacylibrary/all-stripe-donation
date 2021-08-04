@@ -257,6 +257,7 @@ class Wpsd_Webhooks {
 	 */
 	//private function wpsd_send_to_kindful($donation, $charge){
 	private function wpsd_send_to_kindful($donation, $paymentIntent, $metadata){
+		echo var_dump('METADATA at first', (array)$metadata, count((array)$metadata), !(array)$metadata);
 		// pull out charge obj from payment_intent
 		$charge = $paymentIntent->charges->first();
 
