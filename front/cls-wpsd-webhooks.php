@@ -112,15 +112,17 @@ class Wpsd_Webhooks {
 		
 		
 		$metadata = null;
+		$test = array();
 		$customer_id = $paymentIntent->charges->data[0]->customer;
 		if(isset($customer_id) || !trim($customer_id) === '') {
 			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
 			$metadata = $customer->metadata;
-			
+			$test = get_object_vars($metadata);
 		}
 		echo var_dump('customer info from stripe', $customer);
 		echo var_dump('METADATA!', $metadata);
-		
+		$arr = get_object_vars($metadata);
+		echo var_dump('get_object_vars', $arr, $test);
 		
 
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
@@ -258,7 +260,7 @@ class Wpsd_Webhooks {
 	//private function wpsd_send_to_kindful($donation, $charge){
 	private function wpsd_send_to_kindful($donation, $paymentIntent, $metadata){
 		//echo var_dump('METADATA at first', (array)$metadata, count((array)$metadata), !(array)$metadata, $metadata == new stdClass());
-		echo var_dump('get_object_vars', get_object_vars($metadata), $metadata->values(), count($metadata->values()));
+		
 		// pull out charge obj from payment_intent
 		$charge = $paymentIntent->charges->first();
 
