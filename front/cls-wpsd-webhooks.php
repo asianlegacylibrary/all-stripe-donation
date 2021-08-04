@@ -119,7 +119,7 @@ class Wpsd_Webhooks {
 			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
 			$metadata = $this->client->customers->retrieve($customer);
 			//$metadata = $customer->metadata->_toArray();
-			echo var_dump('METADATA straight up', empty((array)$metadata->metadata), count((array)$metadata->metadata), !(array)$metadata->metadata, $metadata->metadata == new stdClass());
+			echo var_dump('METADATA straight up', empty((array)$metadata->metadata), count($metadata->metadata), !(array)$metadata->metadata, $metadata->metadata == new stdClass());
 			$metadata_array = array(
 				'campaign' => $metadata->campaign,
 				'campaign_id' => $metadata->campaign_id,
