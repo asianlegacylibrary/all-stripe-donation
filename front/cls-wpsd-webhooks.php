@@ -118,13 +118,13 @@ class Wpsd_Webhooks {
 			$metadata = $customer->metadata;
 			
 		}
-		
+		echo var_dump('customer info from stripe', $customer);
 		echo var_dump('METADATA!', $metadata);
 		
 		
 
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
-		echo var_dump('payment intent DONATION DATA', $donation);
+		//echo var_dump('payment intent DONATION DATA', $donation);
 
 		
 
