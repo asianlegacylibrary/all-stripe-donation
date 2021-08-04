@@ -348,10 +348,10 @@ class Wpsd_Webhooks {
 				'fund' => 'id',
 				'campaign' => 'id',
 				'contact' => 'email',
-				"custom_field" => "id",
+				//"custom_field" => "id",
 			),
-			"funds" => array($fund_id),
-			"campaigns" => array($campaign_id),
+			"funds" => array($metadata['fund_id']),
+			"campaigns" => array($metadata['campaign_id']),
 			"contacts" => array($donation->wpsd_donator_email),
 		);
 		
