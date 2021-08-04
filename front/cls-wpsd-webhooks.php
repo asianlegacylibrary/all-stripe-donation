@@ -116,7 +116,7 @@ class Wpsd_Webhooks {
 		$customer_id = $paymentIntent->charges->data[0]->customer;
 		if(isset($customer_id) || !trim($customer_id) === '') {
 			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
-			$metadata = get_object_vars($customer->metadata);
+			$metadata = (array)$customer->metadata;
 			$test = get_object_vars($metadata);
 		}
 		echo var_dump('customer info from stripe', $customer);
