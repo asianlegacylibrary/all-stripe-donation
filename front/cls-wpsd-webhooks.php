@@ -296,14 +296,21 @@ class Wpsd_Webhooks {
 			}
 		}
 
-		
+
 		echo var_dump('METADATA IN KINDFUL', $metadata);
-			
+		// if(!$metadata) {
+		// 	$campaign = $donation->wpsd_campaign;
+		// 	$campaign_id = $donation->wpsd_campaign_id;
+		// 	$fund = $donation->wpsd_fund;
+		// 	$fund_id = $donation->wpsd_fund_id;
+		// } 
+
 		// returned data from Stripe takes precedence over what's held in donation obj from form
-		$campaign = $metadata == null ? $donation->wpsd_campaign : $metadata['campaign'];
-		$campaign_id = $metadata == null ? $donation->wpsd_campaign_id : $metadata['campaign_id'];
-		$fund = $metadata == null ? $donation->wpsd_fund : $metadata['fund'];
-		$fund_id = $metadata == null ? $donation->wpsd_fund_id : $metadata['fund_id'];
+		$campaign = !$metadata ? $donation->wpsd_campaign : $metadata['campaign'];
+		$campaign_id = !$metadata ? $donation->wpsd_campaign_id : $metadata['campaign_id'];
+		$fund = !$metadata ? $donation->wpsd_fund : $metadata['fund'];
+		$fund_id = !$metadata ? $donation->wpsd_fund_id : $metadata['fund_id'];
+
 		$customer = ($charge->customer !== null) ? $charge->customer : $donation->wpsd_customer_id;
 		$description = $charge->description;
 		
