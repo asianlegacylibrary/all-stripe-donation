@@ -247,6 +247,8 @@ class Wpsd_Webhooks {
 	 */
 	//private function wpsd_send_to_kindful($donation, $charge){
 	private function wpsd_send_to_kindful($donation, $paymentIntent, $metadata){
+		$charge = $paymentIntent->charges->first();
+		
 		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
 		
 		$currency = $this->wpsd_get_currency();
