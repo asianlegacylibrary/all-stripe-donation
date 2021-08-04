@@ -257,10 +257,13 @@ class Wpsd_Webhooks {
 	 */
 	//private function wpsd_send_to_kindful($donation, $charge){
 	private function wpsd_send_to_kindful($donation, $paymentIntent, $metadata){
+		// pull out charge obj from payment_intent
 		$charge = $paymentIntent->charges->first();
 
+		// get the key settings
 		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
 		
+		// get donation amount and currency
 		$currency = $this->wpsd_get_currency();
 		$amount_val = null;
 		if($donation->wpsd_amount_id){
@@ -270,7 +273,10 @@ class Wpsd_Webhooks {
 		else {
 			$amount_val =  $donation->wpsd_donated_amount;
 		}
-		// this fails when the country is null or empty, added the || with null and empty, but check back
+
+
+		// get country / state etc from menara solutions project (this is used to provide states in different languages)
+		// NOTE: this fails when the country is null or empty => added the || with null and empty, but check for further errors
 		if ($donation->wpsd_donator_country !== "ZZ" 
 				|| $donation->wpsd_donator_country !== null 
 				|| $donation->wpsd_donator_country !== '') {
@@ -290,6 +296,7 @@ class Wpsd_Webhooks {
 			}
 		}
 
+		
 		echo var_dump('METADATA IN KINDFUL', $metadata);
 			
 		// returned data from Stripe takes precedence over what's held in donation obj from form
