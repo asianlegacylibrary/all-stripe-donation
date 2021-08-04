@@ -297,7 +297,7 @@ class Wpsd_Webhooks {
 		}
 
 
-		echo var_dump('METADATA IN KINDFUL', $metadata);
+		echo var_dump('METADATA IN KINDFUL', $metadata, count((array)$metadata, !(array)$metadata));
 		// if(!$metadata) {
 		// 	$campaign = $donation->wpsd_campaign;
 		// 	$campaign_id = $donation->wpsd_campaign_id;
