@@ -140,7 +140,7 @@ class Wpsd_Webhooks {
 			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
 		}
 		
-		echo var_dump('customer info from stripe', $customer);
+		echo var_dump('customer info from stripe', $customer, count($customer->metadata));
 		echo var_dump('METADATA!', $metadata);
 		
 		$metadata = array(
