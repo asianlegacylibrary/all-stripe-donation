@@ -135,7 +135,8 @@ class Wpsd_Webhooks {
 
 		// KINDFUL - finally we send the data to kindful CMS --------------------
 		// send to kindful
-		$this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
+		//$this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
+		$this->wpsd_send_to_kindful($donation, $paymentIntent, $metadata);
 	}
 
 	
@@ -244,7 +245,8 @@ class Wpsd_Webhooks {
 	 * @param $donation
 	 * @param \Stripe\Charge $charge
 	 */
-	private function wpsd_send_to_kindful($donation, $charge){
+	//private function wpsd_send_to_kindful($donation, $charge){
+	private function wpsd_send_to_kindful($donation, $paymentIntent, $metadata){
 		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
 		
 		$currency = $this->wpsd_get_currency();
@@ -256,10 +258,12 @@ class Wpsd_Webhooks {
 		else {
 			$amount_val =  $donation->wpsd_donated_amount;
 		}
-		// this fails when the country is null or empty, added the || with null, but check back
-		if ($donation->wpsd_donator_country !== "ZZ" || $donation->wpsd_donator_country !== null) {
+		// this fails when the country is null or empty, added the || with null and empty, but check back
+		if ($donation->wpsd_donator_country !== "ZZ" 
+				|| $donation->wpsd_donator_country !== null 
+				|| $donation->wpsd_donator_country !== '') {
 			$countries = $this->wpsd_init_countries();
-			// this fails when 
+			
 			/** @var  Country $country */
 			$country = $countries->findOne(array('code' => $donation->wpsd_donator_country));
 			$country_long = $country->getName();
@@ -273,12 +277,18 @@ class Wpsd_Webhooks {
 				$stateCode = substr($isoCode, strlen($isoCode) -2, 2);
 			}
 		}
-		$campaign = $donation->wpsd_campaign;
-		$campaign_id = $donation->wpsd_campaign_id;
-		$fund = $donation->wpsd_fund;
-		$fund_id = $donation->wpsd_fund_id;
+			
+		$campaign = $metadata == null ? $donation->wpsd_campaign : $metadata['campaign'];
+		$campaign_id = $metadata == null ? $donation->wpsd_campaign_id : $metadata['campaign_id'];
+		$fund = $metadata == null ? $donation->wpsd_fund : $metadata['fund'];
+		$fund_id = $metadata == null ? $donation->wpsd_fund_id : $metadata['fund_id'];
+		
+		
 		$recurring = (bool) $donation->wpsd_is_recurring;
 		$transaction_type = $recurring ? "offline_recurring": "credit";
+		
+		
+		
 		$data = array(
 			array(
 				"id"                                 => $donation->wpsd_donator_email,
@@ -303,6 +313,7 @@ class Wpsd_Webhooks {
 				"transaction_type"                   => $transaction_type,
 			)
 		);
+
 		$body_data = array(
 			"data_format"  => "contact_with_transaction",
 			"action_type" => "update",
@@ -317,14 +328,17 @@ class Wpsd_Webhooks {
 			"campaigns" => array($campaign_id),
 			"contacts" => array($donation->wpsd_donator_email),
 		);
+		
 		// set the custom fields values:
-		$in_memory_of_field_id = $donation->wpsd_in_memory_of_field_id;
-		if ($in_memory_of_field_id) {
-			$body_data['match_by']['custom_field'] = 'id';
-			$body_data['custom_fields'] = array($in_memory_of_field_id);
-			$data[0][$in_memory_of_field_id] = $donation->wpsd_in_memory_of;
-		}
+		// $in_memory_of_field_id = $donation->wpsd_in_memory_of_field_id;
+		// if ($in_memory_of_field_id) {
+		// 	$body_data['match_by']['custom_field'] = 'id';
+		// 	$body_data['custom_fields'] = array($in_memory_of_field_id);
+		// 	$data[0][$in_memory_of_field_id] = $donation->wpsd_in_memory_of;
+		// }
+		
 		$body_data['data'] = $data;
+
 		$token = $wpsdKeySettings['wpsd_kindful_token'];
 		$url = $wpsdKeySettings['wpsd_kindful_url']  . "/api/v1/imports";
 		$args = array(
@@ -334,7 +348,10 @@ class Wpsd_Webhooks {
                 'Content-Type' => 'application/json'
 			)
 		);
-		$result = wp_remote_post($url, $args);
+
+		echo var_dump('pre-kindful body', $body_data);
+
+		//$result = wp_remote_post($url, $args);
 	}
 	
 	/**
