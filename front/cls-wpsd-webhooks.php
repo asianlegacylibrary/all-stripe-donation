@@ -117,7 +117,7 @@ class Wpsd_Webhooks {
 		
 		// if this returns false then quit the function
 		$updating_payment_status = $this->wpsd_update_payment_status($paymentIntent);
-		echo var_dump('UPDATING?', $updating_payment_status);
+		echo var_dump('UPDATING?', $updating_payment_status, $paymentIntent->id);
 
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
 		echo var_dump('payment intent DONATION DATA', $donation);
