@@ -326,7 +326,7 @@ class Wpsd_Webhooks {
 				"postal"                             => $donation->wpsd_donator_zip,
 				"country"                            => $country_long,
 				"primary_phone"                      => $donation->wpsd_donator_phone,
-				"stripe_customer_id"                 => $donation->wpsd_customer_id,
+				"stripe_customer_id"                 => $customer,
 				"transaction_id"                     => null,
 				"amount_in_cents"                    => $amount_val,
 				"currency"                           => strtolower($currency),
