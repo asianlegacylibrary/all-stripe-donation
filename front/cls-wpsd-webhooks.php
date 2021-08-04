@@ -117,9 +117,9 @@ class Wpsd_Webhooks {
 		$customer_id = $paymentIntent->charges->data[0]->customer;
 		if(isset($customer_id) || !trim($customer_id) === '') {
 			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
-			$metadata = $this->client->customers->retrieve($customer);
-			//$metadata = $customer->metadata->_toArray();
-			echo var_dump('METADATA straight up', empty((array)$metadata->metadata), count($metadata->metadata), !(array)$metadata->metadata, $metadata->metadata == new stdClass());
+			//$metadata = $this->client->customers->retrieve($customer);
+			$metadata = $customer->metadata;
+			echo var_dump('METADATA straight up', empty((array)$customer->metadata), count($customer->metadata), !(array)$customer->metadata, $customer->metadata == new stdClass());
 			$metadata_array = array(
 				'campaign' => $metadata->campaign,
 				'campaign_id' => $metadata->campaign_id,
