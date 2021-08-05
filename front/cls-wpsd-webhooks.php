@@ -377,7 +377,7 @@ class Wpsd_Webhooks {
 
 		echo var_dump('pre-kindful body', $body_data);
 
-		//$result = wp_remote_post($url, $args);
+		$result = wp_remote_post($url, $args);
 	}
 	
 	/**
