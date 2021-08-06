@@ -25,7 +25,8 @@ How to install the ALL Stripe Donation plugin and get it working.
 == Changelog ==
 
 = 1.0.8 =
-- NOTE: Joel Crawford edits, June 2021 // not sure how the version numbering works here // new branch feature/nf_css (pull request...)
+- NOTE: Joel Crawford edits, June-Aug 2021 // not sure how the version numbering works here // new branch feature/nf_css until merged
+- Huge updates, new logic in Stripe calls.
  
 * CSS updates to integrate with NoFormat design (wpsd-front-style.css, some wpsd-admin-style.css)
 
