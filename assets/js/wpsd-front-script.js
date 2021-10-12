@@ -4,6 +4,7 @@
     let stripe
     var wpsdDonateAmount = 0
     var wpsdCustomAmount = false
+    var wpsdSetShortcodes = []
     var card = null
     var donation_id = null
     var donation_message = null
