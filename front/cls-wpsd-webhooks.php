@@ -153,7 +153,7 @@ class Wpsd_Webhooks {
 		# don't think we need anything about fund or the campaign id
 		$metadata = array(
 			'campaign' => count($customer->metadata) > 0 ? $metadata['campaign'] : $donation->wpsd_campaign,
-			'recurring' => count($customer->metadata) > 0 ? $metadata['fund'] : $donation->wpsd_is_recurring
+			'recurring' => count($customer->metadata) > 0 ? $metadata['recurring'] : $donation->wpsd_is_recurring
 		);
 
 		// KINDFUL - finally we send the data to kindful CMS --------------------
@@ -451,9 +451,10 @@ class Wpsd_Webhooks {
 
 		$metadata = array(
 			'campaign' => $donation->wpsd_campaign,
-			'campaign_id' => $donation->wpsd_campaign_id,
-			'fund' => $donation->wpsd_fund,
-			'fund_id' => $donation->wpsd_fund_id
+			'recurring' => $donation->wpsd_is_recurring
+			#'campaign_id' => $donation->wpsd_campaign_id,
+			#'fund' => $donation->wpsd_fund,
+			#'fund_id' => $donation->wpsd_fund_id
 		);
 
 		try {
