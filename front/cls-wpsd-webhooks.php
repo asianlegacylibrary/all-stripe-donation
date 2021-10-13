@@ -142,6 +142,20 @@ class Wpsd_Webhooks {
 		
 		echo var_dump('customer info from stripe', $customer, count($customer->metadata));
 		# echo var_dump('METADATA!', $metadata);
+
+		// if(count($customer->metadata) > 0) {
+		// 	$metadata = $customer->metadata;
+		// } else {
+		// 	$metadata = array(
+		// 		'campaign' => $donation->wpsd_campaign,
+		// 		'recurring' => $donation->wpsd_is_recurring
+		// 	);
+		// }
+
+		$metadata = array(
+			'campaign' => $donation->wpsd_campaign ? $donation->wpsd_campaign : $customer->metadata->campaign,
+			'is_recurring' => $recurring
+		);
 		
 		// $metadata = array(
 		// 	'campaign' => count($customer->metadata) > 0 ? $metadata['campaign'] : $donation->wpsd_campaign,
@@ -151,10 +165,10 @@ class Wpsd_Webhooks {
 		// );
 		
 		# don't think we need anything about fund or the campaign id
-		$metadata = array(
-			'campaign' => count($customer->metadata) > 0 ? $metadata['campaign'] : $donation->wpsd_campaign,
-			'recurring' => count($customer->metadata) > 0 ? $metadata['recurring'] : $donation->wpsd_is_recurring
-		);
+		// $metadata = array(
+		// 	'campaign' => count($customer->metadata) > 0 ? $metadata['campaign'] : $donation->wpsd_campaign,
+		// 	'recurring' => count($customer->metadata) > 0 ? $metadata['recurring'] : $donation->wpsd_is_recurring
+		// );
 
 		// KINDFUL - finally we send the data to kindful CMS --------------------
 		// send to kindful
@@ -314,7 +328,9 @@ class Wpsd_Webhooks {
 		$customer = ($charge->customer !== null) ? $charge->customer : $donation->wpsd_customer_id;
 		$description = $charge->description;
 		
-		$recurring = (bool) $donation->wpsd_is_recurring;
+		#$recurring = (bool) $donation->wpsd_is_recurring;
+		$recurring = (bool) $metadata['is_recurring'];
+		$this->dc($donation);
 		
 		# what is sam-heck is the value needed to make this thing recurring in kindful?
 		# their docs are wrong: https://developer.kindful.com/customer/reference/contact_with_transaction
