@@ -156,6 +156,8 @@ class Wpsd_Webhooks {
 		
 		if($subscription !== null && count($subscription->metadata) > 0) {
 			$metadata = $subscription->metadata;
+			$metadata['start_date'] = $subscription->start_date;
+			$metadata['status'] = $subscription->status;
 		} else {
 			$metadata = array(
 				'campaign' => $donation->wpsd_campaign,
@@ -347,10 +349,14 @@ class Wpsd_Webhooks {
 		
 		#$recurring = (bool) $donation->wpsd_is_recurring;
 		$recurring = (bool) $metadata['is_recurring'];
+
+		$status = $metadata['status'] ? $metadata['status'] : 'meow';
+		$start_date = $metadata['start_date'] ? $metadata['start_date'] : 'now'; 
 		
 		
 		# what is sam-heck is the value needed to make this thing recurring in kindful?
-		# their docs are wrong: https://developer.kindful.com/customer/reference/contact_with_transaction
+		# their docs are wrong?: https://developer.kindful.com/customer/reference/contact_with_transaction
+		# apparently you cannot send in the stripe_ fields without the transaction_type being forced to one-time, whaaaat?
 		$transaction_type = $recurring ? "offline_recurring": "credit";
 		# $transaction_type = $recurring ? "recurring": "credit";
 		
