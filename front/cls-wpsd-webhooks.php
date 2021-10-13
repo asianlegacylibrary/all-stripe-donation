@@ -339,7 +339,7 @@ class Wpsd_Webhooks {
 				"transaction_id"                     => null,
 				"amount_in_cents"                    => $amount_val,
 				"currency"                           => strtolower($currency),
-				#"campaign"                           => $metadata['campaign'],
+				"campaign"                           => $metadata['campaign'],
 				"campaign_name"                      => $metadata['campaign'],
 				#"campaign_id"                        => $metadata['campaign_id'],
 				#"fund"                               => $metadata['fund'],
