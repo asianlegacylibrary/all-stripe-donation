@@ -99,6 +99,21 @@ trait StripeHelper{
 		}
 		return $price;
 	}
+
+	function wpsd_get_stripe_subscription($subscription_id) {
+		$stripe = $this->wpsd_get_stripe_client();
+		$sub = null;
+		try {
+			$sub = $stripe->subscriptions->retrieve(
+				$subscription_id,
+				[]
+			  );
+		} catch ( \Exception $e ) {
+			$err = $e->getMessage();
+			return $err;
+		}
+		return $sub;
+	}
 	
 	/**
 	 * @param $email

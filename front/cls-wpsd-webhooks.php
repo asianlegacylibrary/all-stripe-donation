@@ -133,6 +133,9 @@ class Wpsd_Webhooks {
 			$donation = $this->wpsd_get_donation($paymentIntent->id);
 		}
 
+
+		
+
 		$metadata = null;
 		$customer = null;
 		$customer_id = $paymentIntent->charges->data[0]->customer;
@@ -152,10 +155,15 @@ class Wpsd_Webhooks {
 		// 	);
 		// }
 
-		$metadata = array(
-			'campaign' => $donation->wpsd_campaign ? $donation->wpsd_campaign : $customer->metadata->campaign,
-			'is_recurring' => $recurring
-		);
+		if($is_subscribed) {
+			$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
+			$metadata = $subscription->metadata;
+		} else {
+			$metadata = array(
+				'campaign' => $donation->wpsd_campaign ? $donation->wpsd_campaign : $customer->metadata->campaign,
+				'is_recurring' => $recurring
+			);
+		}
 		
 		// $metadata = array(
 		// 	'campaign' => count($customer->metadata) > 0 ? $metadata['campaign'] : $donation->wpsd_campaign,
