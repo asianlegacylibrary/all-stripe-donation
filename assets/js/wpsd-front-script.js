@@ -294,7 +294,7 @@
             payment_method_id: paymentMethod,
             metadata: {
                 campaign: settings.wpsd_campaign,
-                recurring: recurring === 1 ? true : false
+                is_recurring: recurring
                 //campaign_id: settings.wpsd_campaign_id,
                 //fund: settings.wpsd_fund,
                 //fund_id: settings.wpsd_fund_id
@@ -348,7 +348,7 @@
             customer_id: customerId,
             metadata: {
                 campaign: settings.wpsd_campaign,
-                recurring: recurring === 1 ? true : false
+                is_recurring: recurring
                 //campaign_id: settings.wpsd_campaign_id,
                 //fund: settings.wpsd_fund,
                 //fund_id: settings.wpsd_fund_id

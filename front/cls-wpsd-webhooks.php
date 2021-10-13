@@ -451,7 +451,7 @@ class Wpsd_Webhooks {
 
 		$metadata = array(
 			'campaign' => $donation->wpsd_campaign,
-			'recurring' => $donation->wpsd_is_recurring == 1 ? true : false
+			'is_recurring' => $donation->wpsd_is_recurring
 			#'campaign_id' => $donation->wpsd_campaign_id,
 			#'fund' => $donation->wpsd_fund,
 			#'fund_id' => $donation->wpsd_fund_id
