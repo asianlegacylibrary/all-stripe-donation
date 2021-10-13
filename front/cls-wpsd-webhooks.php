@@ -102,7 +102,10 @@ class Wpsd_Webhooks {
 		// try to find existing customer with the customer id from stripe, to retrieve metadata
 		// note that this doesn't make sense, the campaign should be attached to the subscription
 		// change this when you get to it
-		
+		$metadata = null;
+		$customer = null;
+		$subscription = null;
+
 		// if this returns false then quit the function
 		$updating_payment_status = $this->wpsd_update_payment_status($paymentIntent);
 		echo var_dump('UPDATING?', $updating_payment_status, $paymentIntent->id);
@@ -111,14 +114,10 @@ class Wpsd_Webhooks {
 		}
 		
 		
-		
-
+		# get donation from WP db -------------------------------
 		$donation = $this->wpsd_get_donation($paymentIntent->id);
-		//echo var_dump('payment intent DONATION DATA', $donation);
 
-		
-
-		// for some reason we check subscription status after sending to kindful
+		# set some vars based on WP db data
 		$recurring = (int) $donation->wpsd_is_recurring;
 		$is_subscribed = $donation->wpsd_subscription && !empty($donation->wpsd_subscription);
 
@@ -134,16 +133,13 @@ class Wpsd_Webhooks {
 		}
 
 
+		# get the customer data ------------------------------------------
+		// $customer_id = $paymentIntent->charges->data[0]->customer;
+		// if(isset($customer_id) || !trim($customer_id) === '') {
+		// 	$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
+		// }
 		
-
-		$metadata = null;
-		$customer = null;
-		$customer_id = $paymentIntent->charges->data[0]->customer;
-		if(isset($customer_id) || !trim($customer_id) === '') {
-			$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
-		}
-		
-		echo var_dump('customer info from stripe', $customer, count($customer->metadata));
+		// echo var_dump('customer info from stripe', $customer, count($customer->metadata));
 		# echo var_dump('METADATA!', $metadata);
 
 		// if(count($customer->metadata) > 0) {
@@ -154,9 +150,19 @@ class Wpsd_Webhooks {
 		// 		'recurring' => $donation->wpsd_is_recurring
 		// 	);
 		// }
-
-		$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
-		$metadata = $subscription->metadata;
+		if($subscription === null) {
+			$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
+		}
+		
+		if($subscription !== null && count($subscription->metadata) > 0) {
+			$metadata = $subscription->metadata;
+		} else {
+			$metadata = array(
+				'campaign' => $donation->wpsd_campaign,
+				'is_recurring' => $donation->wpsd_is_recurring
+			);
+		}
+		
 
 		// if($is_subscribed) {
 		// 	$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
