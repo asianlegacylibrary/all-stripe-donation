@@ -155,15 +155,18 @@ class Wpsd_Webhooks {
 		// 	);
 		// }
 
-		if($is_subscribed) {
-			$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
-			$metadata = $subscription->metadata;
-		} else {
-			$metadata = array(
-				'campaign' => $donation->wpsd_campaign ? $donation->wpsd_campaign : $customer->metadata->campaign,
-				'is_recurring' => $recurring
-			);
-		}
+		$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
+		$metadata = $subscription->metadata;
+
+		// if($is_subscribed) {
+		// 	$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
+		// 	$metadata = $subscription->metadata;
+		// } else {
+		// 	$metadata = array(
+		// 		'campaign' => $donation->wpsd_campaign ? $donation->wpsd_campaign : $customer->metadata->campaign,
+		// 		'is_recurring' => $recurring
+		// 	);
+		// }
 		
 		// $metadata = array(
 		// 	'campaign' => count($customer->metadata) > 0 ? $metadata['campaign'] : $donation->wpsd_campaign,
