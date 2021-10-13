@@ -330,7 +330,7 @@ class Wpsd_Webhooks {
 		
 		#$recurring = (bool) $donation->wpsd_is_recurring;
 		$recurring = (bool) $metadata['is_recurring'];
-		$this->dc($donation);
+		
 		
 		# what is sam-heck is the value needed to make this thing recurring in kindful?
 		# their docs are wrong: https://developer.kindful.com/customer/reference/contact_with_transaction
