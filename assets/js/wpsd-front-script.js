@@ -302,7 +302,7 @@
         }
         console.log('wpsd_create_customer', requestData)
         const data = await request('wpsd_create_customer', 'POST', requestData)
-        console.log('after await wpsd_create_customer', data)
+        //console.log('after await wpsd_create_customer', data)
         return data.customer_id
     }
 
@@ -364,7 +364,7 @@
             disableSubmitBtn()
             // get current locale to prevent a bug in wordpress:
             var url = wpsdAdminScriptObj.ajaxurl + '?action=' + action
-            console.log('in request', action, type, url, data)
+            //console.log('in request', action, type, url, data)
             var lang = window.location.href.match(/lang=\w+/g)
 
             if (lang && lang.length) {
@@ -407,7 +407,7 @@
                 }
             }
 
-            console.log('right before the ajax request', requestOptions)
+            //console.log('right before the ajax request', requestOptions)
             $.ajax(requestOptions)
         })
     }

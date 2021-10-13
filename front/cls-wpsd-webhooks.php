@@ -156,12 +156,12 @@ class Wpsd_Webhooks {
 		
 		if($subscription !== null && count($subscription->metadata) > 0) {
 			$metadata = $subscription->metadata;
-			$metadata['start_date'] = $subscription->start_date;
-			$metadata['status'] = $subscription->status;
+			$metadata['has_subscription'] = true;
 		} else {
 			$metadata = array(
 				'campaign' => $donation->wpsd_campaign,
-				'is_recurring' => $donation->wpsd_is_recurring
+				'is_recurring' => $donation->wpsd_is_recurring,
+				'has_subscription' => false
 			);
 		}
 		
@@ -350,8 +350,8 @@ class Wpsd_Webhooks {
 		#$recurring = (bool) $donation->wpsd_is_recurring;
 		$recurring = (bool) $metadata['is_recurring'];
 
-		$status = $metadata['status'] ? $metadata['status'] : 'meow';
-		$start_date = $metadata['start_date'] ? $metadata['start_date'] : 'now'; 
+		$has_subscription = $metadata['has_subscription'] ? $metadata['has_subscription'] : false;
+		
 		
 		
 		# what is sam-heck is the value needed to make this thing recurring in kindful?
@@ -386,8 +386,7 @@ class Wpsd_Webhooks {
 				"description"						 => $description,	
 				#"stripe_charge_id"                   => $charge->id,
 				"transaction_type"                   => $transaction_type,
-				"status_yo"							 => $status,
-				"start_date"						 => $start_date
+				"has_subscription"					 => $has_subscription
 			)
 		);
 
