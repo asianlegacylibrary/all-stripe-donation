@@ -294,9 +294,10 @@
             payment_method_id: paymentMethod,
             metadata: {
                 campaign: settings.wpsd_campaign,
-                campaign_id: settings.wpsd_campaign_id,
-                fund: settings.wpsd_fund,
-                fund_id: settings.wpsd_fund_id
+                recurring: recurring === 1 ? true : false
+                //campaign_id: settings.wpsd_campaign_id,
+                //fund: settings.wpsd_fund,
+                //fund_id: settings.wpsd_fund_id
             }
         }
         console.log('wpsd_create_customer', requestData)
@@ -347,13 +348,14 @@
             customer_id: customerId,
             metadata: {
                 campaign: settings.wpsd_campaign,
-                campaign_id: settings.wpsd_campaign_id,
-                fund: settings.wpsd_fund,
-                fund_id: settings.wpsd_fund_id
+                recurring: recurring === 1 ? true : false
+                //campaign_id: settings.wpsd_campaign_id,
+                //fund: settings.wpsd_fund,
+                //fund_id: settings.wpsd_fund_id
             }
         }
 
-        //console.log('createPaymentIntent', requestData)
+        console.log('createPaymentIntent', requestData)
         return await request('wpsd_payment_intent', 'POST', requestData)
     }
 
