@@ -386,6 +386,8 @@ class Wpsd_Webhooks {
 				"description"						 => $description,	
 				#"stripe_charge_id"                   => $charge->id,
 				"transaction_type"                   => $transaction_type,
+				"status_yo"							 => $status,
+				"start_date"						 => $start_date
 			)
 		);
 
