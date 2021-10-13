@@ -331,6 +331,7 @@ class Wpsd_Webhooks {
 				"amount_in_cents"                    => $amount_val,
 				"currency"                           => strtolower($currency),
 				"campaign"                           => $metadata['campaign'],
+				"campaign_name"                      => $metadata['campaign'],
 				"campaign_id"                        => $metadata['campaign_id'],
 				"fund"                               => $metadata['fund'],
 				"fund_id"                            => $metadata['fund_id'],
@@ -345,8 +346,7 @@ class Wpsd_Webhooks {
 			"action_type" => "update",
 			"data_type" => "json",
 			"match_by" => array(
-				'fund' => 'id',
-				'campaign' => 'id',
+				'campaign' => 'name',
 				'contact' => 'email',
 				//"custom_field" => "id",
 			),
@@ -354,6 +354,21 @@ class Wpsd_Webhooks {
 			"campaigns" => array($metadata['campaign_id']),
 			"contacts" => array($donation->wpsd_donator_email),
 		);
+
+		// $body_data = array(
+		// 	"data_format"  => "contact_with_transaction",
+		// 	"action_type" => "update",
+		// 	"data_type" => "json",
+		// 	"match_by" => array(
+		// 		'fund' => 'id',
+		// 		'campaign' => 'id',
+		// 		'contact' => 'email',
+		// 		//"custom_field" => "id",
+		// 	),
+		// 	"funds" => array($metadata['fund_id']),
+		// 	"campaigns" => array($metadata['campaign_id']),
+		// 	"contacts" => array($donation->wpsd_donator_email),
+		// );
 		
 		// set the custom fields values:
 		// $in_memory_of_field_id = $donation->wpsd_in_memory_of_field_id;
