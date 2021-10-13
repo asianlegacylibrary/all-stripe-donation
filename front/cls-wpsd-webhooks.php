@@ -141,15 +141,20 @@ class Wpsd_Webhooks {
 		}
 		
 		echo var_dump('customer info from stripe', $customer, count($customer->metadata));
-		echo var_dump('METADATA!', $metadata);
+		# echo var_dump('METADATA!', $metadata);
 		
+		// $metadata = array(
+		// 	'campaign' => count($customer->metadata) > 0 ? $metadata['campaign'] : $donation->wpsd_campaign,
+		// 	'campaign_id' => count($customer->metadata) > 0 ? $metadata['campaign_id'] : $donation->wpsd_campaign_id,
+		// 	'fund' => count($customer->metadata) > 0 ? $metadata['fund'] : $donation->wpsd_fund,
+		// 	'fund_id' => count($customer->metadata) > 0 ? $metadata['fund_id'] : $donation->wpsd_fund_id
+		// );
+		
+		# don't think we need anything about fund or the campaign id
 		$metadata = array(
 			'campaign' => count($customer->metadata) > 0 ? $metadata['campaign'] : $donation->wpsd_campaign,
-			'campaign_id' => count($customer->metadata) > 0 ? $metadata['campaign_id'] : $donation->wpsd_campaign_id,
-			'fund' => count($customer->metadata) > 0 ? $metadata['fund'] : $donation->wpsd_fund,
-			'fund_id' => count($customer->metadata) > 0 ? $metadata['fund_id'] : $donation->wpsd_fund_id
+			'recurring' => count($customer->metadata) > 0 ? $metadata['fund'] : $donation->wpsd_is_recurring
 		);
-		
 
 		// KINDFUL - finally we send the data to kindful CMS --------------------
 		// send to kindful
@@ -310,8 +315,11 @@ class Wpsd_Webhooks {
 		$description = $charge->description;
 		
 		$recurring = (bool) $donation->wpsd_is_recurring;
-		# $transaction_type = $recurring ? "offline_recurring": "credit";
-		$transaction_type = $recurring ? "recurring": "credit";
+		
+		# what is sam-heck is the value needed to make this thing recurring in kindful?
+		# their docs are wrong: https://developer.kindful.com/customer/reference/contact_with_transaction
+		$transaction_type = $recurring ? "offline_recurring": "credit";
+		# $transaction_type = $recurring ? "recurring": "credit";
 		
 		echo var_dump('recurring for this...', $recurring, $transaction_type);
 		
@@ -331,11 +339,11 @@ class Wpsd_Webhooks {
 				"transaction_id"                     => null,
 				"amount_in_cents"                    => $amount_val,
 				"currency"                           => strtolower($currency),
-				"campaign"                           => $metadata['campaign'],
+				#"campaign"                           => $metadata['campaign'],
 				"campaign_name"                      => $metadata['campaign'],
-				"campaign_id"                        => $metadata['campaign_id'],
-				"fund"                               => $metadata['fund'],
-				"fund_id"                            => $metadata['fund_id'],
+				#"campaign_id"                        => $metadata['campaign_id'],
+				#"fund"                               => $metadata['fund'],
+				#"fund_id"                            => $metadata['fund_id'],
 				"description"						 => $description,	
 				"stripe_charge_id"                   => $charge->id,
 				"transaction_type"                   => $transaction_type,
@@ -351,8 +359,8 @@ class Wpsd_Webhooks {
 				'contact' => 'email',
 				//"custom_field" => "id",
 			),
-			"funds" => array($metadata['fund_id']),
-			"campaigns" => array($metadata['campaign_id']),
+			#"funds" => array($metadata['fund_id']),
+			#"campaigns" => array($metadata['campaign_id']),
 			"contacts" => array($donation->wpsd_donator_email),
 		);
 
