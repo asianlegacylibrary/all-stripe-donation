@@ -310,7 +310,8 @@ class Wpsd_Webhooks {
 		$description = $charge->description;
 		
 		$recurring = (bool) $donation->wpsd_is_recurring;
-		$transaction_type = $recurring ? "offline_recurring": "credit";
+		# $transaction_type = $recurring ? "offline_recurring": "credit";
+		$transaction_type = $recurring ? "recurring": "credit";
 		
 		echo var_dump('recurring for this...', $recurring, $transaction_type);
 		
