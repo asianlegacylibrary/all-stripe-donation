@@ -340,7 +340,7 @@ class Wpsd_Webhooks {
 				"amount_in_cents"                    => $amount_val,
 				"currency"                           => strtolower($currency),
 				"campaign"                           => $metadata['campaign'],
-				"campaign_name"                      => $metadata['campaign'],
+				# "campaign_name"                      => $metadata['campaign'],
 				#"campaign_id"                        => $metadata['campaign_id'],
 				#"fund"                               => $metadata['fund'],
 				#"fund_id"                            => $metadata['fund_id'],
@@ -361,6 +361,7 @@ class Wpsd_Webhooks {
 			),
 			#"funds" => array($metadata['fund_id']),
 			#"campaigns" => array($metadata['campaign_id']),
+			"campaigns" => array($metadata['campaign']),
 			"contacts" => array($donation->wpsd_donator_email),
 		);
 
