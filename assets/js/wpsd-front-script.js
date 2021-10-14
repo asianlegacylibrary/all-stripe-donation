@@ -524,9 +524,13 @@
         $('.wpsd-donate-button').addClass('disabled')
         //$('.wpsd-donate-button').addClass('button--loading')
         $('.button').addClass('button--loading')
-        $('#wpsd-donation-message').fadeOut(function () {
+        $('#wpsd-donation-message').fadeIn(function () {
             $(this).removeClass('error')
             $(this).css('visibility', 'hidden')
+            $('.wpsd-donation-message-con').addClass('message-hidden')
+            // setTimeout(function () {
+
+            // }, 300)
         })
         //$('input[name=wpsd-donate-button]').val('')
     }
