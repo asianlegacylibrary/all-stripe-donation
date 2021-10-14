@@ -24,7 +24,7 @@
         }))
     )
 
-    console.log('shortcodes', shortcodes)
+    //console.log('shortcodes', shortcodes)
 
     // merge all the keys together, with the shortcodes overwriting anything from general
     const settings = {
@@ -32,7 +32,7 @@
         ...shortcodes
     }
 
-    console.log(settings)
+    console.log('pre-user settings', settings)
     // get currency as soon as window, and set to USD if undefined (not set in settings)
     var currency = settings.wpsd_currency ? settings.wpsd_currency : 'USD'
 

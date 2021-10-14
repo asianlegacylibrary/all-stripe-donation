@@ -154,13 +154,13 @@ class Wpsd_Webhooks {
 			$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
 		}
 		
-		if($subscription !== null && count($subscription->metadata) > 0) {
+		if($subscription !== null && isset($subscription->metadata)) {
 			$metadata = $subscription->metadata;
 			$metadata['has_subscription'] = true;
 			
 		} else {
 			$metadata = array(
-				'campaign' => $donation->wpsd_campaign,
+				'campaign' => $donation->wpsd_campaign ? $donation->wpsd_campaign : 'ALL General',
 				'is_recurring' => $donation->wpsd_is_recurring,
 				'has_subscription' => false
 			);
