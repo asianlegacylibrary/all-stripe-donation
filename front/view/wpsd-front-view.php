@@ -234,12 +234,19 @@ $this->dc('hi there again again and again');
 						<?php } ?>
 				
 						<!-- SUBMIT! -->
-						<div id="wpsd_donate_submit">
+						<!-- <div id="wpsd_donate_submit">
 							<div class="w-100">
-								<input type="submit" name="wpsd-donate-button" class="wpsd-donate-button" value="<?php echo esc_html__('Donate Now', 'wp-stripe-donation'); ?>">
+								<input type="submit" name="wpsd-donate-button" class="wpsd-donate-button" value="<?php #echo esc_html__('Donate Now', 'wp-stripe-donation'); ?>">
+							</div>
+						</div> -->
+
+						<div id="wpsd_donate_submit">
+							<div class="w-100 button">
+									<input type="submit" name="wpsd-donate-button" class="wpsd-donate-button" value="<?php echo esc_html__('Donate Now', 'wp-stripe-donation'); ?>">
 							</div>
 						</div>
 
+						
 						<div>
 							<p class="wpsd-metadata">
 								<?php esc_html_e( $wpsd_donate_assistance_label, 'wp-stripe-donation' ); ?>

@@ -322,6 +322,10 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
     margin: 0;
     border-radius: 0;
 }
+.wpsd-master-wrapper input[type='submit']:disabled {
+    color: rgba(0, 0, 0, 0.3);
+    transition: all 0.3s linear;
+}
 .wpsd-donation-sponsor-volume {
     font-size: 13px;
     border: #e6fa05 solid 1px;
@@ -336,6 +340,98 @@ body.rtl .wpsd-master-wrapper .wpsd-wrapper-content .wpsd_select_label {
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-donate-button.disabled:hover {
     cursor: not-allowed;
 }
+
+wpsd-donate-button {
+    position: relative;
+}
+
+.wpsd-donate-button.disabled {
+    color: rgba(230, 250, 5, 0.6);
+}
+
+.button {
+    position: relative;
+    border: none;
+    line-height: 4rem;
+    text-transform: uppercase;
+    text-align: right;
+    color: #000;
+    width: 100%;
+    cursor: pointer;
+    letter-spacing: 1px;
+    /* transition: all 0.3s linear; */
+    outline: none;
+    background: #e6fa05;
+    margin: 0;
+    border-radius: 0;
+}
+
+/* .button__text {
+    font: bold 20px 'Quicksand', san-serif;
+    color: #ffffff;
+    transition: all 0.2s;
+}
+
+.button--loading .button__text {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.button--loading::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+} */
+
+.button--loading::after {
+    content: '';
+    position: absolute;
+    /* display: inline-block; */
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(27, 40, 44, 0.6);
+    border-radius: 50%;
+    border-top-color: rgb(27, 40, 44);
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
 .wpsd-master-wrapper .wpsd-wrapper-content .wpsd-total-donation-today {
     margin: 10px 0;
     color: #798096;

@@ -104,7 +104,10 @@
         $('.wpsd-donate-button').on('click', function (e) {
             e.preventDefault()
             onSubmit()
-                .then(() => {})
+                .then(() => {
+                    console.log('we are sucessfully done i think')
+                    window.location.href = thankYouRedirectUrl
+                })
                 .catch((e) => console.log(e))
         })
 
@@ -150,11 +153,23 @@
         console.log('still on submit')
         await charge().catch((e) => (err = e))
         if (err) {
+            activateSubmitBtn()
             showError(err)
             return false
         }
+
         return true
     }
+
+    // async function charge() {
+    //     disableSubmitBtn()
+    //     setTimeout(function () {
+    //         console.log('Hello World!')
+    //         activateSubmitBtn()
+    //     }, 1500)
+
+    //     return true
+    // }
 
     async function charge() {
         disableSubmitBtn()
@@ -165,7 +180,7 @@
             donation_id = donation_result.donation_id
             donation_message = donation_result.message
         }
-        console.log('donation msg', donation_message)
+        //console.log('donation msg', donation_message)
         // 2. create payment method.
         if (!payment_method_id) {
             const payment_method = await createPaymentMethod(donation_id)
@@ -199,18 +214,19 @@
         customer_id = null
         client_key = null
         activateSubmitBtn()
-        showMessage(donation_message)
+        //showMessage(donation_message)
+
         return true
     }
 
     async function fetchStates(country) {
         $('#wpsd_donator_country').prop('disabled', true)
-        disableSubmitBtn()
+        //disableSubmitBtn()
         const data = await request('wpsd_get_states', 'GET', null, {
             code: country
         })
         $('#wpsd_donator_country').prop('disabled', false)
-        activateSubmitBtn()
+        //activateSubmitBtn()
         $('#wpsd_donator_country').css({
             color: '#000',
             'font-size': '16px',
@@ -283,8 +299,9 @@
         const result = await stripe.confirmCardPayment(client_key, {
             payment_method: method
         })
-        activateSubmitBtn()
+
         if (result.error) {
+            activateSubmitBtn()
             // Show error to customer
             throw result.error.message
         }
@@ -365,7 +382,7 @@
 
     async function request(action, type, data = null, params = null) {
         return new Promise((resolve, reject) => {
-            disableSubmitBtn()
+            //disableSubmitBtn()
             // get current locale to prevent a bug in wordpress:
             var url = wpsdAdminScriptObj.ajaxurl + '?action=' + action
             //console.log('in request', action, type, url, data)
@@ -382,7 +399,7 @@
                 dataType: 'JSON',
                 success: function (response) {
                     console.log('success', response)
-                    activateSubmitBtn()
+                    //activateSubmitBtn()
                     resolve(response.data)
                 },
                 error: function (response) {
@@ -500,10 +517,15 @@
     function activateSubmitBtn() {
         $('.wpsd-donate-button').removeAttr('disabled')
         $('.wpsd-donate-button').removeClass('disabled')
+        //$('.wpsd-donate-button').removeClass('button--loading')
+        $('.button').removeClass('button--loading')
     }
     function disableSubmitBtn() {
         $('.wpsd-donate-button').attr('disabled', true)
         $('.wpsd-donate-button').addClass('disabled')
+        //$('.wpsd-donate-button').addClass('button--loading')
+        $('.button').addClass('button--loading')
+        //$('input[name=wpsd-donate-button]').val('')
     }
 
     // Show the customer the error from Stripe if their card fails to charge
