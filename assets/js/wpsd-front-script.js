@@ -7,7 +7,7 @@
     //var wpsdSetShortcodes = []
     var card = null
     var donation_id = null
-    var donation_message = null
+    //var donation_message = null
     var client_key = null
     var payment_method_id = null
     var customer_id = null
@@ -26,7 +26,7 @@
         }))
     )
 
-    console.log('admin stuff', thankYouRedirectUrl)
+    //console.log('admin stuff', thankYouRedirectUrl)
 
     // merge all the keys together, with the shortcodes overwriting anything from general
     const settings = {
@@ -137,7 +137,7 @@
     }
 
     async function onSubmit() {
-        console.log('onSubmit')
+        //console.log('onSubmit')
         var valid = validateForm()
 
         if (!valid) {
@@ -149,7 +149,7 @@
         recurring = isNaN(recurring) ? 0 : recurring
 
         var err = null
-        console.log('still on submit')
+        //console.log('still on submit')
         await charge().catch((e) => (err = e))
         if (err) {
             activateSubmitBtn()
@@ -172,7 +172,7 @@
 
     async function charge() {
         disableSubmitBtn()
-        console.log('charge')
+        //console.log('charge')
         // 1. send donation info to the back-end.
         if (!donation_id) {
             const donation_result = await sendDonationInfo()
@@ -185,16 +185,12 @@
             const payment_method = await createPaymentMethod(donation_id)
             payment_method_id = payment_method.id
         }
-        console.log('payment method', payment_method_id)
-        console.log('client key?')
+        //console.log('payment method', payment_method_id)
+        //console.log('client key?')
         // 3. create customer.
         if (!customer_id) {
             customer_id = await createCustomer(payment_method_id)
         }
-
-        // script never makes it past the await createCustomer...when testing from different URLs
-        // not sure what it is about this
-        console.log('customer', customer_id)
 
         // 4. create payment intent.
         if (!client_key) {
@@ -283,7 +279,7 @@
             is_recurring: is_recurring
         }
         //
-        console.log('sendDonationInfo', requestData)
+        //console.log('sendDonationInfo', requestData)
         return await request('wpsd_donation', 'POST', requestData)
     }
 
@@ -320,7 +316,7 @@
                 //fund_id: settings.wpsd_fund_id
             }
         }
-        console.log('wpsd_create_customer', requestData)
+        //console.log('wpsd_create_customer', requestData)
         const data = await request('wpsd_create_customer', 'POST', requestData)
         //console.log('after await wpsd_create_customer', data)
         return data.customer_id
@@ -375,7 +371,7 @@
             }
         }
 
-        console.log('createPaymentIntent', requestData)
+        //console.log('createPaymentIntent', requestData)
         return await request('wpsd_payment_intent', 'POST', requestData)
     }
 
@@ -573,31 +569,31 @@
     }
 
     // Show the customer the error from Stripe if their card fails to charge
-    function showMessage(message) {
-        $('.wpsd-donation-message-con').removeClass('message-hidden')
-        setTimeout(function () {
-            $('#wpsd-donation-message').fadeIn(function () {
-                $(this).addClass('success')
-                $(this).css('visibility', 'visible')
-                $(this).html(message)
-            })
-            // pausing the redirect until after testing
-            // window.location.href =
-            //     'https://asianlegacylibrary.org/donate/thank-you/'
-            window.location.href = thankYouRedirectUrl
-            setTimeout(function () {
-                $('#wpsd-donation-message').fadeIn(function () {
-                    $(this).removeClass('success')
-                    $(this).css('visibility', 'hidden')
-                    setTimeout(function () {
-                        $('.wpsd-donation-message-con').addClass(
-                            'message-hidden'
-                        )
-                    }, 300)
-                })
-            }, 90000)
-        }, 200)
-    }
+    // function showMessage(message) {
+    //     $('.wpsd-donation-message-con').removeClass('message-hidden')
+    //     setTimeout(function () {
+    //         $('#wpsd-donation-message').fadeIn(function () {
+    //             $(this).addClass('success')
+    //             $(this).css('visibility', 'visible')
+    //             $(this).html(message)
+    //         })
+    //         // pausing the redirect until after testing
+    //         // window.location.href =
+    //         //     'https://asianlegacylibrary.org/donate/thank-you/'
+    //         window.location.href = thankYouRedirectUrl
+    //         setTimeout(function () {
+    //             $('#wpsd-donation-message').fadeIn(function () {
+    //                 $(this).removeClass('success')
+    //                 $(this).css('visibility', 'hidden')
+    //                 setTimeout(function () {
+    //                     $('.wpsd-donation-message-con').addClass(
+    //                         'message-hidden'
+    //                     )
+    //                 }, 300)
+    //             })
+    //         }, 90000)
+    //     }, 200)
+    // }
 
     function wpsd_validate_email($email) {
         var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
