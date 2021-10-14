@@ -7,7 +7,7 @@
     //var wpsdSetShortcodes = []
     var card = null
     var donation_id = null
-    //var donation_message = null
+    var donation_message = null
     var client_key = null
     var payment_method_id = null
     var customer_id = null
