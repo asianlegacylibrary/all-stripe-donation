@@ -106,7 +106,6 @@
             onSubmit()
                 .then(() => {
                     console.log('we are sucessfully done i think')
-                    window.location.href = thankYouRedirectUrl
                 })
                 .catch((e) => console.log(e))
         })
@@ -215,7 +214,7 @@
         client_key = null
         activateSubmitBtn()
         //showMessage(donation_message)
-
+        window.location.href = thankYouRedirectUrl
         return true
     }
 
