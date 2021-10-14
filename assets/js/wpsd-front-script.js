@@ -104,9 +104,7 @@
         $('.wpsd-donate-button').on('click', function (e) {
             e.preventDefault()
             onSubmit()
-                .then(() => {
-                    console.log('we are sucessfully done i think')
-                })
+                .then(() => {})
                 .catch((e) => console.log(e))
         })
 
