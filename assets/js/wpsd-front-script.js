@@ -4,7 +4,7 @@
     let stripe
     var wpsdDonateAmount = 0
     var wpsdCustomAmount = false
-    var wpsdSetShortcodes = []
+    //var wpsdSetShortcodes = []
     var card = null
     var donation_id = null
     var donation_message = null
@@ -23,6 +23,8 @@
             [`wpsd_${key}`]: wpsdSetShortcodes[key]
         }))
     )
+
+    console.log('shortcodes', shortcodes)
 
     // merge all the keys together, with the shortcodes overwriting anything from general
     const settings = {
