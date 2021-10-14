@@ -157,6 +157,7 @@ class Wpsd_Webhooks {
 		if($subscription !== null && count($subscription->metadata) > 0) {
 			$metadata = $subscription->metadata;
 			$metadata['has_subscription'] = true;
+			
 		} else {
 			$metadata = array(
 				'campaign' => $donation->wpsd_campaign,
@@ -165,6 +166,9 @@ class Wpsd_Webhooks {
 			);
 		}
 		
+		if($donation->meow) {
+			$metadata['meow'] = $donation->meow;
+		}
 
 		// if($is_subscribed) {
 		// 	$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
