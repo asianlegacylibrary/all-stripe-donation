@@ -119,7 +119,7 @@
         $("input[name='wpsd_donate_amount_radio']").on('change', function (e) {
             let target = e.target
             //let updated_value = target.value.replace(/[^0-9\.]/g, '')
-            console.log('currency: ', currency)
+            //console.log('currency: ', currency)
             var options = {
                 maximumFractionDigits: 2,
                 currency: currency,
@@ -391,7 +391,7 @@
                 url: url,
                 dataType: 'JSON',
                 success: function (response) {
-                    console.log('success', response)
+                    //console.log('success', response)
                     //activateSubmitBtn()
                     resolve(response.data)
                 },
