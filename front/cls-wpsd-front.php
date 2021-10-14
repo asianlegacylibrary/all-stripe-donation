@@ -76,6 +76,8 @@ class Wpsd_Front
 			'publishable_key'	=> $wpsdPublishableKey,
 			'locale'        => $this->locale,
 			'ajaxurl' 		=> admin_url('admin-ajax.php'),
+			'siteurl'		=> get_option('siteurl'),
+			'thank_you_path' => '/the-asian-legacy-library-support/thank-you/',
 			'title'			=> $wpsdPaymentTitle,
 			'currency'		=> $wpsdDonateCurrency,
 			'donation_for'  => $wpsdGeneralSettings['wpsd_donation_for']? $wpsdGeneralSettings['wpsd_donation_for']: get_bloginfo('name'),

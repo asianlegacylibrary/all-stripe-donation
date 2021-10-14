@@ -13,6 +13,8 @@
     var customer_id = null
     var recurring = false
 
+    let thankYouRedirectUrl = `${wpsdAdminScriptObj.siteurl}${wpsdAdminScriptObj.thank_you_path}`
+
     let amounts_array = []
     var stripeFormPresent = document.getElementById('card-element') //console.log("Form Present:", stripeFormPresent);
 
@@ -24,7 +26,7 @@
         }))
     )
 
-    //console.log('shortcodes', shortcodes)
+    console.log('admin stuff', thankYouRedirectUrl)
 
     // merge all the keys together, with the shortcodes overwriting anything from general
     const settings = {
@@ -553,6 +555,7 @@
             // pausing the redirect until after testing
             // window.location.href =
             //     'https://asianlegacylibrary.org/donate/thank-you/'
+            window.location.href = thankYouRedirectUrl
             setTimeout(function () {
                 $('#wpsd-donation-message').fadeIn(function () {
                     $(this).removeClass('success')
