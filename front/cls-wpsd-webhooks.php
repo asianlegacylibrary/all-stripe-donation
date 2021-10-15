@@ -79,7 +79,7 @@ class Wpsd_Webhooks {
 			case "payment_intent.succeeded":
 				$payment_intents = $event->data->values();
 				foreach ( $payment_intents as $payment_intent ) {
-					echo var_dump('payment intent', $payment_intent);
+					echo var_dump('payment intent', $payment_intent->metadata);
 					$this->wpsd_handle_payment_success($payment_intent);
 				}
 				break;
@@ -108,8 +108,8 @@ class Wpsd_Webhooks {
 
 		// if this returns false then quit the function
 		$updating_payment_status = $this->wpsd_update_payment_status($paymentIntent);
-		echo var_dump('UPDATING?!', $updating_payment_status, $paymentIntent->id);
-		echo var_dump($paymentIntent->metadata);
+		echo var_dump('UPDATING?!', $updating_payment_status, $paymentIntent->id, $paymentIntent->metadata);
+		# echo var_dump($paymentIntent->metadata);
 		if(!$updating_payment_status) {
 			return false;
 		}
