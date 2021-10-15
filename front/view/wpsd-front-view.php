@@ -202,7 +202,7 @@ sort($new_amounts);
 								<label class="wpsd_flex_item w-25 wpsd_radio_con">
 								<input type="radio" id="<?php echo esc_html($a); ?>" name="wpsd_donate_amount_radio" value="<?php esc_attr_e($a, 'wp-stripe-donation' ); ?>">
 								<span class="label_text">
-									<?php echo esc_html( $currency_symbol ) . esc_html__($a); ?>
+									US<?php echo esc_html( $currency_symbol ) . esc_html__($a); ?>
 								</span>
 							</label>
 							<?php } ?>
