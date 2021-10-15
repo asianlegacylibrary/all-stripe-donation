@@ -14,7 +14,7 @@
     var recurring = false
 
     let thankYouRedirectUrl = `${wpsdAdminScriptObj.siteurl}${wpsdAdminScriptObj.thank_you_path}`
-
+    console.log(wpsdAdminScriptObj.siteurl)
     let amounts_array = []
     var stripeFormPresent = document.getElementById('card-element') //console.log("Form Present:", stripeFormPresent);
 
