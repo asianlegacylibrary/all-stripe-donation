@@ -364,7 +364,7 @@ class Wpsd_Webhooks {
 		$recurring = (bool) $metadata['is_recurring'];
 
 		$has_subscription = $metadata['has_subscription'] ? $metadata['has_subscription'] : false;
-		
+		$referring_url = $metadata['referring_url'] ? $metadata['referring_url'] : '';
 		
 		
 		# what is sam-heck is the value needed to make this thing recurring in kindful?
@@ -400,7 +400,7 @@ class Wpsd_Webhooks {
 				#"stripe_charge_id"                   => $charge->id,
 				"transaction_type"                   => $transaction_type,
 				"has_subscription"					 => $has_subscription,
-				"referring_url"						 => $metadata['referring_url']
+				"referring_url"						 => $referring_url
 			)
 		);
 
