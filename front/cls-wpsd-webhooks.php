@@ -102,7 +102,11 @@ class Wpsd_Webhooks {
 		// try to find existing customer with the customer id from stripe, to retrieve metadata
 		// note that this doesn't make sense, the campaign should be attached to the subscription
 		// change this when you get to it
-		$metadata = null;
+		$metadata = $paymentIntent->metadata;
+		if($metadata && !(array)$metadata) {
+			$metadata = $paymentIntent->metadata;
+		}
+		
 		$customer = null;
 		$subscription = null;
 
@@ -124,7 +128,7 @@ class Wpsd_Webhooks {
 
 		// if this is a recurring payment, and there is no subscription, create one so that we charge the user monthly:
 		if ($recurring && !$is_subscribed) {
-			$subscription = $this->wpsd_create_stripe_subscription($donation);
+			$subscription = $this->wpsd_create_stripe_subscription($donation, $metadata);
 			if (is_string($subscription)) {
 				wp_send_json_error($subscription, 500);
 			}
@@ -471,7 +475,7 @@ class Wpsd_Webhooks {
 	 *
 	 * @return string|\Stripe\Subscription
 	 */
-	private function wpsd_create_stripe_subscription($donation){
+	private function wpsd_create_stripe_subscription($donation, $metadata){
 		
 		// 1. get or create product:
 		$product = $this->wpsd_get_stripe_product($donation);
@@ -494,9 +498,10 @@ class Wpsd_Webhooks {
 		$error = null;
 		$subscription = null;
 
-		$metadata = array(
-			'campaign' => $donation->wpsd_campaign,
-			'is_recurring' => $donation->wpsd_is_recurring
+		$updated_metadata = array(
+			'campaign' => $metadata->campaign ? $metadata->campaign : $donation->wpsd_campaign,
+			'is_recurring' => $metadata->is_recurring ? $metadata->is_recurring : $donation->wpsd_is_recurring,
+			'referring_url' => $metadata->referring_url ? $metadata->referring_url : ''
 			#'campaign_id' => $donation->wpsd_campaign_id,
 			#'fund' => $donation->wpsd_fund,
 			#'fund_id' => $donation->wpsd_fund_id
@@ -512,7 +517,7 @@ class Wpsd_Webhooks {
 				],
 				'trial_end' => $trial_end,
 				'expand'   => [ 'latest_invoice.payment_intent' ],
-				'metadata' => $metadata
+				'metadata' => $updated_metadata
 			] );
 		} catch ( \Stripe\Exception\ApiErrorException $e ) {
 			$error = $e->getMessage();
