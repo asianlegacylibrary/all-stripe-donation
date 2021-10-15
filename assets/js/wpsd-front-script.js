@@ -315,7 +315,7 @@
                 //fund_id: settings.wpsd_fund_id
             }
         }
-        //console.log('wpsd_create_customer', requestData)
+        console.log('wpsd_create_customer', requestData)
         const data = await request('wpsd_create_customer', 'POST', requestData)
         //console.log('after await wpsd_create_customer', data)
         return data.customer_id
@@ -371,7 +371,7 @@
             }
         }
 
-        //console.log('createPaymentIntent', requestData)
+        console.log('createPaymentIntent', requestData)
         return await request('wpsd_payment_intent', 'POST', requestData)
     }
 
