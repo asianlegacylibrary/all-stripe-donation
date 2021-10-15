@@ -164,9 +164,13 @@ class Wpsd_Webhooks {
 			$metadata['has_subscription'] = true;
 			
 		} else {
+			$campaign = $metadata->campaign ? $metadata->campaign : $donation->wpsd_campaign;
+			$is_recurring = $metadata->is_recurring ? $metadata->is_recurring : $donation->wpsd_is_recurring;
+			
 			$metadata = array(
-				'campaign' => $donation->wpsd_campaign ? $donation->wpsd_campaign : 'ALL General',
-				'is_recurring' => $donation->wpsd_is_recurring,
+				'campaign' => $campaign ? $campaign : 'ALL General',
+				'is_recurring' => $is_recurring ? $is_recurring : 'false',
+				'referring_url' => $metadata->referring_url ? $metadata->referring_url : '',
 				'has_subscription' => false
 			);
 		}
