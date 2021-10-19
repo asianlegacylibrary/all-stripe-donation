@@ -24,6 +24,7 @@ if( isset( $_POST['updateTempSettings'] ) ) {
         'wpsd_donate_amount_label'  => ( sanitize_text_field( $_POST['wpsd_donate_amount_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_amount_label'] ) : 'Donate Amount',
         'wpsd_donate_details_label'  => ( sanitize_text_field( $_POST['wpsd_donate_details_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_details_label'] ) : 'Personal Details',
         'wpsd_donate_assistance_label'  => ( sanitize_text_field( $_POST['wpsd_donate_assistance_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_assistance_label'] ) : 'If you need assistance with your donation, please email',
+        'wpsd_donate_in_us_dollars'  => ( sanitize_text_field( $_POST['wpsd_donate_in_us_dollars'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_in_us_dollars'] ) : 'All donations are in US dollars',
         'wpsd_donate_assistance_email'  => ( sanitize_text_field( $_POST['wpsd_donate_assistance_email'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_assistance_email'] ) : 'donations@asianlegacylibrary.org',
         'wpsd_donate_req_fields_msg_label'  => ( sanitize_text_field( $_POST['wpsd_donate_req_fields_msg_label'] ) != '' ) ? sanitize_text_field( $_POST['wpsd_donate_req_fields_msg_label'] ) : 'Required Fields Label',
     );
@@ -58,6 +59,7 @@ $wpsd_donate_amount_label = $options->get_value('template','wpsd_donate_amount_l
 $wpsd_donate_details_label = $options->get_value('template','wpsd_donate_details_label', 'Personal Details', false);
 $wpsd_donate_req_fields_msg_label = $options->get_value('template','wpsd_donate_req_fields_msg_label', 'Required Fields Label', false);
 $wpsd_donate_assistance_label = $options->get_value('template','wpsd_donate_assistance_label', 'If you need assistance with your donation, please email', false);
+$wpsd_donate_in_us_dollars = $options->get_value('template','wpsd_donate_in_us_dollars', 'All donations are in US dollars', false);
 $wpsd_donate_assistance_email = $options->get_value('template','wpsd_donate_assistance_email', 'donations@asianlegacylibrary.org', false);
 
 $wpsd_one_time_label = $options->get_value('template','wpsd_one_time_label', 'One Time', false);
@@ -262,7 +264,15 @@ $wpsd_card_agreement = $options->get_value('template','wpsd_card_agreement', '',
                         value="<?php echo $wpsd_donate_assistance_email; ?>">
                 </td>
             </tr>
-
+            <tr class="wpsd_donate_in_us_dollars">
+                <th scope="row">
+                    <label for="wpsd_donate_in_us_dollars"><?php _e('Donation Currency Label', 'wp-stripe-donation'); ?>:</label>
+                </th>
+                <td>
+                    <input type="text" name="wpsd_donate_in_us_dollars" class="long-text" placeholder="All donations in US dollars"
+                        value="<?php echo $wpsd_donate_in_us_dollars; ?>">
+                </td>
+            </tr>
             <tr class="wpsd_one_time_label">
                 <th scope="row">
                     <label for="wpsd_one_time_label"><?php _e('One Time Label', 'wp-stripe-donation'); ?>:</label>

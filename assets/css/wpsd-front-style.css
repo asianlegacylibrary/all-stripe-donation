@@ -52,6 +52,19 @@ select:-webkit-autofill:active {
     font-weight: bold;
 }
 
+.wpsd-metadata-squish {
+    padding: 0;
+    line-height: 0.8rem;
+    font-size: 0.6rem;
+    font-weight: bold;
+}
+
+.squish-item {
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: 0;
+}
+
 /* MASTER RAPPER YO */
 .wpsd-master-wrapper input,
 .wpsd-master-wrapper select,

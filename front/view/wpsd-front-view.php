@@ -30,7 +30,7 @@ $wpsd_donate_details_label = $options->get_value("template", "wpsd_donate_detail
 $wpsd_donate_req_fields_msg_label = $options->get_value("template", "wpsd_donate_req_fields_msg_label", "Required Fields Label", false);
 $wpsd_donate_assistance_label = $options->get_value("template", "wpsd_donate_assistance_label", "If you need assistance with your donation, please email", false);
 $wpsd_donate_assistance_email = $options->get_value("template", "wpsd_donate_assistance_email", "donations@asianlegacylibrary.org", false);
-
+$wpsd_donate_in_us_dollars = $options->get_value("template", "wpsd_donate_in_us_dollars", "All donations are in US dollars", false);
 $wpsd_donate_sponsor_volume = $options->get_value("template", "wpsd_donate_sponsor_volume", "Donations that total $120 USD sponsor a volume in your name.", false);
 //$wpsd_in_memory_of_label = $options->get_value("template", "wpsd_in_memory_of_label", "In memory of", false);
 $wpsd_one_time_label = $options->get_value("template", "wpsd_one_time_label", "One Time", false);
@@ -61,6 +61,7 @@ $wpsdTranslations = array(
 	'wpsd_donor_enter_amount'	=> esc_html__('Enter Your Amount', 'wp-stripe-donation'),
 	'wpsd_donor_agreement'	=> esc_html__('Agreement', 'wp-stripe-donation'),
 	'wpsd_donate_assistance_label' => esc_html__('Assistance Label', 'wp-stripe-donation'),
+	'wpsd_donate_in_us_dollars' => esc_html__('All donations are in US dollars', 'wp-stripe-donation'),
 	'wpsd_donate_req_fields_msg_label' => esc_html__('Required Fields Label', 'wp-stripe-donation'),
 	'dontmatterwhatcalled' => esc_html__('If you need assistance with your donation, please email', 'wp-stripe-donation'),
 	'reallyitdoesnt' => esc_html__('Please be sure to fill out all required fields, * denotes a required field', 'wp-stripe-donation')
@@ -202,7 +203,7 @@ sort($new_amounts);
 								<label class="wpsd_flex_item w-25 wpsd_radio_con">
 								<input type="radio" id="<?php echo esc_html($a); ?>" name="wpsd_donate_amount_radio" value="<?php esc_attr_e($a, 'wp-stripe-donation' ); ?>">
 								<span class="label_text">
-									US<?php echo esc_html( $currency_symbol ) . esc_html__($a); ?>
+									<?php echo esc_html( $currency_symbol ) . esc_html__($a); ?>
 								</span>
 							</label>
 							<?php } ?>
@@ -212,6 +213,9 @@ sort($new_amounts);
 									<input id="wpsd_donate_other_amount" type="currency" class="wpsd_donate_amount no-transform wpsd-text-field other_amount" name="wpsd_donate_other_amount" placeholder="<?php esc_html_e($wpsd_custom_amount_label, 'wp-stripe-donation'); ?>">
 								</div>
 							<?php } ?>
+							<div class="squish-item w-100 ">
+								<p class="wpsd-metadata-squish"><?php esc_html_e( $wpsd_donate_in_us_dollars, 'wp-stripe-donation' ); ?></p>
+							</div>
 							
 						
 						</div>
