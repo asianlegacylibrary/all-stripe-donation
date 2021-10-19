@@ -17,7 +17,7 @@
     let thankYouRedirectUrl = wpsdAdminScriptObj.thank_you_path
     //console.log(wpsdAdminScriptObj.siteurl)
 
-    console.log(wpsdAdminScriptObj)
+    //console.log(wpsdAdminScriptObj)
 
     let amounts_array = []
     var stripeFormPresent = document.getElementById('card-element') //console.log("Form Present:", stripeFormPresent);
