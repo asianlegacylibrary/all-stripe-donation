@@ -72,12 +72,38 @@ class Wpsd_Front
 			$wpsdDonateCurrency = "USD";
 		}
 
+		// will return http://domain.com/de/contact
+		//$wpml_permalink = apply_filters( 'wpml_permalink', get_option('siteurl') . '/the-asian-legacy-library-support/thank-you/', 'ro', true ); 
+		//$ro_thanks = apply_filters('wpml_permalink', 'http://all.local/the-asian-legacy-library-support/thank-you/', 'ro', true);
+
+		# icl_get_languages()
+		//$langs = apply_filters( 'wpml_active_languages', NULL, 'orderby=id&order=desc');
+		//echo var_dump($langs);
+		//$langsThankYou = array();
+		//$langs = array_keys(apply_filters( 'wpml_active_languages', NULL, 'orderby=id&order=desc'));
+		// foreach($langs as $l) {
+		// 	$wpml_permalink = apply_filters( 'wpml_permalink', get_option('siteurl') . '/the-asian-legacy-library-support/thank-you/', $l, true );
+		// 	$langsThankYou[$l] = $wpml_permalink;
+		// }
+		// $langs2 = get_object_vars($langs);
+		// $langs3 = array_keys($langs2);
+		//$data[$key] = $value;
+		// $arrayVariable = array(
+		// 	key1  => value1,
+		// 	key2 => value2,
+		// 	key3 => value3,
+		// 	...
+		// 	keyN => valueN,
+		// );
+
+		$current_lang = apply_filters( 'wpml_current_language', NULL );
+		$current_lang_thank_you = apply_filters( 'wpml_permalink', get_option('siteurl') . '/the-asian-legacy-library-support/thank-you/', $current_lang, true );
 		$wpsdAdminArray = array(
 			'publishable_key'	=> $wpsdPublishableKey,
 			'locale'        => $this->locale,
 			'ajaxurl' 		=> admin_url('admin-ajax.php'),
 			'siteurl'		=> get_option('siteurl'),
-			'thank_you_path' => '/the-asian-legacy-library-support/thank-you/',
+			'thank_you_path' => $current_lang_thank_you,
 			'title'			=> $wpsdPaymentTitle,
 			'currency'		=> $wpsdDonateCurrency,
 			'donation_for'  => $wpsdGeneralSettings['wpsd_donation_for']? $wpsdGeneralSettings['wpsd_donation_for']: get_bloginfo('name'),
@@ -89,6 +115,7 @@ class Wpsd_Front
 		wp_localize_script($this->wpsd_assets_prefix . 'front-script', 'wpsdAdminScriptObj', $wpsdAdminArray);
 		// made general settings accessible from client side (wpsd-front-script.js)
 		wp_localize_script($this->wpsd_assets_prefix . 'front-script', 'wpsdGeneralSettings', $wpsdGeneralSettings);
+		//wp_localize_script($my_current_lang = apply_filters( 'wpml_current_language', NULL );)
 	}
 
 	function wpsd_get_countries(){

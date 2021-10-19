@@ -151,7 +151,7 @@
             code += ' imof="' + in_memory_of_field + '"'
         }
         if (donation_amounts && donation_amounts.length) {
-            code += ' donations_amounts="' + donation_amounts + '"'
+            code += ' donation_amounts="' + donation_amounts + '"'
         }
 
         code += ']'
