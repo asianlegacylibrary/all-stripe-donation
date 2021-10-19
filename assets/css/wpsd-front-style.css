@@ -54,9 +54,8 @@ select:-webkit-autofill:active {
 
 .wpsd-metadata-squish {
     padding: 0;
-    line-height: 0.8rem;
-    font-size: 0.6rem;
-    font-weight: bold;
+    line-height: 1rem;
+    font-size: 0.8rem !important;
 }
 
 .squish-item {
