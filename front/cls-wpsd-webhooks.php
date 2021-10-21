@@ -233,6 +233,12 @@ class Wpsd_Webhooks {
 	private function wpsd_get_donation($id){
 		global $wpdb;
 		$tableName = WPSD_TABLE;
+		echo var_dump($wpdb->prefix, $tableName);
+		$tables = $wpdb->tables;
+		foreach($tables as $t) {
+			echo var_dump($t);
+		}
+		
 		return $wpdb->get_row( "SELECT * FROM $tableName WHERE wpsd_payment_intent_id = '$id'");
 	}
 	/**
@@ -304,7 +310,8 @@ class Wpsd_Webhooks {
 		$where = array( 'wpsd_payment_intent_id' => $paymentIntent->id, );
 		$result = $wpdb->update($tableName, $data, $where, array('%d'));
 
-		return false !== $result;
+		# return false !== $result;
+		return $result;
 	}
 
 	/**
