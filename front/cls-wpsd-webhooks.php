@@ -236,7 +236,10 @@ class Wpsd_Webhooks {
 		echo var_dump($wpdb->prefix, $tableName);
 		$tables = $wpdb->tables;
 		foreach($tables as $t) {
-			echo var_dump($t);
+			if (str_contains($t, 'wpsd_stripe_donation')) { 
+				echo var_dump($t);
+			}
+			
 		}
 		
 		return $wpdb->get_row( "SELECT * FROM $tableName WHERE wpsd_payment_intent_id = '$id'");
