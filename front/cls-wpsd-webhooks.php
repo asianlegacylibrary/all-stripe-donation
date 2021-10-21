@@ -115,6 +115,7 @@ class Wpsd_Webhooks {
 		echo var_dump('UPDATING?!', $updating_payment_status, $paymentIntent->id, $paymentIntent->metadata);
 		# echo var_dump($paymentIntent->metadata);
 		if(!$updating_payment_status) {
+			echo var_dump('nothing in WP db for paymentIntent id: ', $paymentIntent->id);
 			return false;
 		}
 		
@@ -175,9 +176,7 @@ class Wpsd_Webhooks {
 			);
 		}
 		
-		if($donation->meow) {
-			$metadata['meow'] = $donation->meow;
-		}
+		
 
 		// if($is_subscribed) {
 		// 	$subscription = $this->wpsd_get_stripe_subscription($donation->wpsd_subscription);
