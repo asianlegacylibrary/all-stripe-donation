@@ -314,8 +314,8 @@ class Wpsd_Webhooks {
 		$where = array( 'wpsd_payment_intent_id' => $paymentIntent->id, );
 		$result = $wpdb->update($tableName, $data, $where, array('%d'));
 
-		# return false !== $result;
-		return $result;
+		return false !== $result;
+		# return $result;
 	}
 
 	/**
