@@ -234,6 +234,7 @@ class Wpsd_Webhooks {
 		global $wpdb;
 		$tableName = WPSD_TABLE;
 		
+		# added code to find table like 'wpsd_stripe_donation', WPEngine adds ID number to table names
 		$tables = $wpdb->tables;
 		foreach($tables as $t) {
 			if (strpos($t, 'wpsd_stripe_donation') !== false) { 
@@ -456,6 +457,10 @@ class Wpsd_Webhooks {
 
 		$token = $wpsdKeySettings['wpsd_kindful_token'];
 		$url = $wpsdKeySettings['wpsd_kindful_url']  . "/api/v1/imports";
+
+		echo var_dump('admin array', $wpsdAdminArray);
+
+
 		$args = array(
 			'body' => json_encode($body_data),
 			'headers' => array(
@@ -493,7 +498,7 @@ class Wpsd_Webhooks {
 	private function wpsd_create_stripe_subscription($donation, $metadata){
 		
 		// 1. get or create product:
-		$product = $this->wpsd_get_stripe_product($donation);
+		$product = $this->$donation;
 		if (is_string($product)) {
 			wp_send_json_error($product, 500);
 			wp_die();
