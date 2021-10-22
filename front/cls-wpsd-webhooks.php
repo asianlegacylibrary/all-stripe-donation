@@ -455,12 +455,9 @@ class Wpsd_Webhooks {
 		
 		$body_data['data'] = $data;
 
+		echo var_dump('admin array', $wpsdAdminArray);
 		$token = $wpsdKeySettings['wpsd_kindful_token'];
 		$url = $wpsdKeySettings['wpsd_kindful_url']  . "/api/v1/imports";
-
-		echo var_dump('admin array', (array)$wpsdAdminArray);
-
-
 		$args = array(
 			'body' => json_encode($body_data),
 			'headers' => array(
@@ -498,7 +495,7 @@ class Wpsd_Webhooks {
 	private function wpsd_create_stripe_subscription($donation, $metadata){
 		
 		// 1. get or create product:
-		$product = $this->$donation;
+		$product = $this->wpsd_get_stripe_product($donation);
 		if (is_string($product)) {
 			wp_send_json_error($product, 500);
 			wp_die();
