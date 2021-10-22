@@ -458,7 +458,7 @@ class Wpsd_Webhooks {
 		$token = $wpsdKeySettings['wpsd_kindful_token'];
 		$url = $wpsdKeySettings['wpsd_kindful_url']  . "/api/v1/imports";
 
-		echo var_dump('admin array', $wpsdAdminArray);
+		echo var_dump('admin array', (array)$wpsdAdminArray);
 
 
 		$args = array(
