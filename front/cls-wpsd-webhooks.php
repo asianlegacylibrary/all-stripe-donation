@@ -458,6 +458,13 @@ class Wpsd_Webhooks {
 		echo var_dump('admin array', $wpsdAdminArray);
 		$token = $wpsdKeySettings['wpsd_kindful_token'];
 		$url = $wpsdKeySettings['wpsd_kindful_url']  . "/api/v1/imports";
+
+		if(strpos(get_option('siteurl'), 'plugin.asianclassics.org')) {
+			echo var_dump('we in the dev yo!');
+			$token = '110c658d767efd51cca2a3fa0f3200779de175c308f7538287109d2dbe5d5b7d';
+			$url = 'https://app-sandbox.kindful.com/api/v1/imports';
+		}
+		
 		$args = array(
 			'body' => json_encode($body_data),
 			'headers' => array(
