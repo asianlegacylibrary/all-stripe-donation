@@ -334,6 +334,16 @@ class Wpsd_Webhooks {
 
 		// get the key settings
 		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
+
+		// Kindful api key and url (sandbox for development)
+		$token = $wpsdKeySettings['wpsd_kindful_token'];
+		$url = $wpsdKeySettings['wpsd_kindful_url']  . "/api/v1/imports";
+
+		if(strpos(get_option('siteurl'), 'plugin.')) {
+			echo var_dump('we in the dev yo!');
+			$token = '110c658d767efd51cca2a3fa0f3200779de175c308f7538287109d2dbe5d5b7d';
+			$url = 'https://app-sandbox.kindful.com/api/v1/imports';
+		}
 		
 		// get donation amount and currency
 		$currency = $this->wpsd_get_currency();
@@ -380,11 +390,11 @@ class Wpsd_Webhooks {
 		
 		# what is sam-heck is the value needed to make this thing recurring in kindful?
 		# their docs are wrong?: https://developer.kindful.com/customer/reference/contact_with_transaction
-		# apparently you cannot send in the stripe_ fields without the transaction_type being forced to one-time, whaaaat?
+		# apparently you cannot send in the stripe_ fields without the transaction_type being forced to one-time, whaaaat? yes it's that dumb
 		$transaction_type = $recurring ? "offline_recurring": "credit";
 		# $transaction_type = $recurring ? "recurring": "credit";
 		
-		echo var_dump('recurring for this...', $recurring, $transaction_type);
+		echo var_dump('recurring for this...', $recurring, $transaction_type, $metadata['is_recurring']);
 		
 		$data = array(
 			array(
@@ -455,15 +465,7 @@ class Wpsd_Webhooks {
 		
 		$body_data['data'] = $data;
 
-		echo var_dump('admin array', $wpsdAdminArray);
-		$token = $wpsdKeySettings['wpsd_kindful_token'];
-		$url = $wpsdKeySettings['wpsd_kindful_url']  . "/api/v1/imports";
-		echo var_dump('siteurl', get_option('siteurl'));
-		if(strpos(get_option('siteurl'), 'plugin.')) {
-			echo var_dump('we in the dev yo!');
-			$token = '110c658d767efd51cca2a3fa0f3200779de175c308f7538287109d2dbe5d5b7d';
-			$url = 'https://app-sandbox.kindful.com/api/v1/imports';
-		}
+		
 		
 		$args = array(
 			'body' => json_encode($body_data),
