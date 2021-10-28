@@ -381,8 +381,8 @@ class Wpsd_Webhooks {
 		$customer = ($charge->customer !== null) ? $charge->customer : $donation->wpsd_customer_id;
 		$description = $charge->description;
 		
-		#$recurring = (bool) $donation->wpsd_is_recurring;
-		$recurring = (bool) $metadata['is_recurring'];
+		#$recurring = (bool) $metadata['is_recurring'];
+		$recurring = filter_var($metadata['is_recurring'], FILTER_VALIDATE_BOOLEAN);
 
 		$has_subscription = $metadata['has_subscription'] ? $metadata['has_subscription'] : false;
 		$referring_url = $metadata['referring_url'] ? $metadata['referring_url'] : '';
