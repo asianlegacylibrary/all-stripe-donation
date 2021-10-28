@@ -394,7 +394,7 @@ class Wpsd_Webhooks {
 		$transaction_type = $recurring ? "offline_recurring": "credit";
 		# $transaction_type = $recurring ? "recurring": "credit";
 		
-		echo var_dump('recurring for this...', $recurring, $transaction_type, $metadata['is_recurring']);
+		echo var_dump('recurring for this...', $recurring, $transaction_type, $metadata['is_recurring'], boolval($metadata['is_recurring']));
 		
 		$data = array(
 			array(
