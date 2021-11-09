@@ -627,8 +627,7 @@
 
     function checkForEuroCommaAsDecimal(v) {
         if (v.includes(',')) {
-            let [_, cents] = v.split(',', 2)
-
+            let [_, cents] = v.replace(' ', '').split(',', 2)
             if (cents.length === 2) {
                 return v.replace(',', '.')
             }
