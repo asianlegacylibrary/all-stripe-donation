@@ -495,6 +495,8 @@
             $('#wpsd_donate_other_amount').val()
         )
 
+        console.log(other_amount)
+
         other_amount = (other_amount * 100).toFixed(0)
 
         if (!other_amount || other_amount < 50) {
@@ -623,11 +625,23 @@
         return Number(String(s).replace(/[^0-9.-]+/g, ''))
     }
 
+    function checkForEuroCommaAsDecimal(v) {
+        if (v.includes(',')) {
+            let [_, cents] = v.split(',', 2)
+
+            if (cents.length === 2) {
+                return v.replace(',', '.')
+            }
+        }
+        return v
+    }
+
     function onFocus(e) {
         if (!e.target) {
             return
         }
         var value = e.target.value
+        value = checkForEuroCommaAsDecimal(value)
         e.target.value = value ? localStringToNumber(value) : ''
     }
 
@@ -636,6 +650,7 @@
             return
         }
         var value = e.target.value
+        value = checkForEuroCommaAsDecimal(value)
 
         var options = {
             maximumFractionDigits: 2,
