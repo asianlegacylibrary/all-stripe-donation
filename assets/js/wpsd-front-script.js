@@ -626,7 +626,7 @@
     }
 
     function checkForEuroCommaAsDecimal(v) {
-        console.log('checking for euro comma', v, v.includes(','))
+        //console.log('checking for euro comma', v, v.includes(','))
         if (v.includes(',')) {
             let [_, cents] = v.replace(' ', '').split(',', 2)
             console.log('cents', cents, cents.length === 2, cents.length == 2)
