@@ -491,9 +491,15 @@
             return false
         }
 
-        var other_amount = localStringToNumber(
+        let other_amount = checkForEuroCommaAsDecimal(
             $('#wpsd_donate_other_amount').val()
         )
+
+        other_amount = localStringToNumber(other_amount)
+
+        // var other_amount = localStringToNumber(
+        //     $('#wpsd_donate_other_amount').val()
+        // )
 
         console.log(other_amount)
 
