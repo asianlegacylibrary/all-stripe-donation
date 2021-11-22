@@ -68,6 +68,7 @@
             }
         }
     }
+
     function addListeners() {
         $('#wpsd_donator_country').on('change', function (ev) {
             fetchStates(ev.target.value).catch((e) => console.log(e))

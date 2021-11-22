@@ -331,7 +331,10 @@ class Wpsd_Webhooks {
 		
 		// pull out charge obj from payment_intent
 		$charge = $paymentIntent->charges->first();
-
+		// set the transaction id for kindful to the Stripe Payment Intent ID
+		$transaction_id = $paymentIntent->id;
+		$extended_id = 'WP Stripe Donation |' . $transaction_id;
+		echo var_dump('extended Id', $extended_id); 
 		// get the key settings
 		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
 
@@ -403,7 +406,7 @@ class Wpsd_Webhooks {
 		
 		$data = array(
 			array(
-				"id"                                 => $donation->wpsd_donator_email,
+				"id"                                 => $extended_id, # $donation->wpsd_donator_email,
 				"first_name"                         => $donation->wpsd_donator_first_name,
 				"last_name"                          => $donation->wpsd_donator_last_name,
 				"email"                              => $donation->wpsd_donator_email,
@@ -414,7 +417,7 @@ class Wpsd_Webhooks {
 				"country"                            => $country_long,
 				"primary_phone"                      => $donation->wpsd_donator_phone,
 				#"stripe_customer_id"                 => $customer,
-				"transaction_id"                     => null,
+				"transaction_id"                     => $transaction_id,
 				"amount_in_cents"                    => $amount_val,
 				"currency"                           => strtolower($currency),
 				"campaign"                           => $metadata['campaign'],
