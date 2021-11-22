@@ -76,8 +76,10 @@
         $('#wpsd_donate_other_amount').on('blur', function () {
             // check to see if other_amount matches any of the radio values
             // if it does or doesn't update CSS accordingly
-            if (amounts_array.includes(parseInt(this.value))) {
-                $(`#${this.value}`).prop('checked', true)
+            let euroValue = parseInt(checkForEuroCommaAsDecimal(this.value))
+            console.log('listening for array', this.value, euroValue)
+            if (amounts_array.includes(parseInt(euroValue))) {
+                $(`#${euroValue}`).prop('checked', true)
             } else {
                 // all radios unchecked
                 $('input[name="wpsd_donate_amount_radio"]').prop(
@@ -633,13 +635,21 @@
 
     function checkForEuroCommaAsDecimal(v) {
         //console.log('checking for euro comma', v, v.includes(','))
-        if (v.includes(',')) {
-            let [_, cents] = v.replace(' ', '').split(',', 2)
-            console.log('cents', cents, cents.length === 2, cents.length == 2)
+        const regex = /[^A-Za-z\d\s\.$]/gi
+        if (regex.test(v)) {
+            let [_, cents] = v.replace(' ', '').split(regex, 2)
             if (cents.length === 2) {
-                return v.replace(',', '.')
+                return v.replace(regex, '.')
             }
         }
+        // if (v.includes(',')) {
+        //     let [_, cents] = v.replace(' ', '').split(',', 2)
+        //     //console.log('cents', cents, cents.length === 2, cents.length == 2)
+        //     if (cents.length === 2) {
+        //         //console.log('hi', v.replace(regex, '.'))
+        //         return v.replace(',', '.')
+        //     }
+        // }
         return v
     }
 
