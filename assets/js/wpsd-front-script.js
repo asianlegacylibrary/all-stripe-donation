@@ -16,7 +16,7 @@
     //let thankYouRedirectUrl = `${wpsdAdminScriptObj.siteurl}${wpsdAdminScriptObj.thank_you_path}`
     let thankYouRedirectUrl = wpsdAdminScriptObj.thank_you_path
     //console.log(wpsdAdminScriptObj.siteurl)
-    console.log('updated on 2021-11-15')
+    console.log('updated on 2021-11-30')
     //console.log(wpsdAdminScriptObj)
 
     let amounts_array = []
@@ -636,7 +636,7 @@
 
     function checkForEuroCommaAsDecimal(v) {
         //console.log('checking for euro comma', v, v.includes(','))
-        console.log('pre-check', v)
+        //console.log('pre-check', v)
         const regex = /[^A-Za-z\d\s\.$]/gi
         if (regex.test(v)) {
             let [_, cents] = v.replace(' ', '').split(regex, 2)
@@ -644,8 +644,8 @@
                 return v.replace(regex, '.')
             }
         }
-        console.log('post-check', v)
-        console.log('to number func', localStringToNumber(v))
+        //console.log('post-check', v)
+        //console.log('to number func', localStringToNumber(v))
 
         // if (v.includes(',')) {
         //     let [_, cents] = v.replace(' ', '').split(',', 2)
@@ -663,7 +663,7 @@
             return
         }
         var value = e.target.value
-        console.log('pre-check', value)
+
         value = checkForEuroCommaAsDecimal(value)
         e.target.value = value ? localStringToNumber(value) : ''
     }
@@ -684,10 +684,10 @@
         if (value % 1 !== 0) {
             options['maximumFractionDigits'] = 2
         }
-        console.log('runnin outta options', options)
-        console.log(
-            localStringToNumber(value).toLocaleString(undefined, options)
-        )
+        // console.log('runnin outta options', options)
+        // console.log(
+        //     localStringToNumber(value).toLocaleString(undefined, options)
+        // )
 
         e.target.value = value
             ? localStringToNumber(value).toLocaleString(undefined, options)
