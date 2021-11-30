@@ -128,7 +128,7 @@
             //let updated_value = target.value.replace(/[^0-9\.]/g, '')
             //console.log('currency: ', currency)
             var options = {
-                maximumFractionDigits: 2,
+                maximumFractionDigits: 0,
                 currency: currency,
                 style: 'currency',
                 currencyDisplay: 'symbol'
@@ -636,6 +636,7 @@
 
     function checkForEuroCommaAsDecimal(v) {
         //console.log('checking for euro comma', v, v.includes(','))
+        console.log('pre-check', v)
         const regex = /[^A-Za-z\d\s\.$]/gi
         if (regex.test(v)) {
             let [_, cents] = v.replace(' ', '').split(regex, 2)
@@ -643,6 +644,9 @@
                 return v.replace(regex, '.')
             }
         }
+        console.log('post-check', v)
+        console.log('to number func', localStringToNumber(v))
+
         // if (v.includes(',')) {
         //     let [_, cents] = v.replace(' ', '').split(',', 2)
         //     //console.log('cents', cents, cents.length === 2, cents.length == 2)
@@ -659,6 +663,7 @@
             return
         }
         var value = e.target.value
+        console.log('pre-check', value)
         value = checkForEuroCommaAsDecimal(value)
         e.target.value = value ? localStringToNumber(value) : ''
     }
@@ -670,12 +675,19 @@
         var value = e.target.value
         value = checkForEuroCommaAsDecimal(value)
 
-        var options = {
-            maximumFractionDigits: 2,
+        let options = {
+            maximumFractionDigits: 0,
             currency: currency,
             style: 'currency',
             currencyDisplay: 'symbol'
         }
+        if (value % 1 !== 0) {
+            options['maximumFractionDigits'] = 2
+        }
+        console.log('runnin outta options', options)
+        console.log(
+            localStringToNumber(value).toLocaleString(undefined, options)
+        )
 
         e.target.value = value
             ? localStringToNumber(value).toLocaleString(undefined, options)
