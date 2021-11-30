@@ -681,10 +681,18 @@
             style: 'currency',
             currencyDisplay: 'symbol'
         }
-        if (value % 1 !== 0) {
+        if (localStringToNumber(value) % 1 !== 0) {
             options['maximumFractionDigits'] = 2
         }
-        // console.log('runnin outta options', options)
+        // console.log(
+        //     'runnin outta options',
+        //     value,
+        //     localStringToNumber(value),
+        //     localStringToNumber(value) % 1 !== 0,
+        //     parseInt(value) % 1 !== 0,
+        //     parseFloat(value) % 1 !== 0,
+        //     options
+        // )
         // console.log(
         //     localStringToNumber(value).toLocaleString(undefined, options)
         // )
