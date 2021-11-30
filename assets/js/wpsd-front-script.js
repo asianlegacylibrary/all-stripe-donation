@@ -684,6 +684,7 @@
         if (localStringToNumber(value) % 1 !== 0) {
             options['maximumFractionDigits'] = 2
         }
+
         // console.log(
         //     'runnin outta options',
         //     value,
