@@ -204,7 +204,7 @@ class Wpsd_Webhooks {
 		// KINDFUL - finally we send the data to kindful CMS --------------------
 		// send to kindful
 		//$this->wpsd_send_to_kindful($donation, $paymentIntent->charges->first());
-		$this->wpsd_send_to_kindful($donation, $paymentIntent, $metadata);
+		//$this->wpsd_send_to_kindful($donation, $paymentIntent, $metadata);
 	}
 
 	
