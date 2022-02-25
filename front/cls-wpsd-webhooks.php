@@ -79,14 +79,14 @@ class Wpsd_Webhooks {
 			case "payment_intent.succeeded":
 				$payment_intents = $event->data->values();
 				foreach ( $payment_intents as $payment_intent ) {
-					print_r('payment intent!');
+					print_r('payment intent!\n');
 					$this->wpsd_handle_payment_success($payment_intent);
 				}
 				break;
 			case "customer.updated":
 				$customer_id = $event->data->object->id;
 				$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
-				print_r('CUSTOMER!');
+				print_r('CUSTOMER!\n');
 			default:
 				//
 				break;
@@ -115,7 +115,7 @@ class Wpsd_Webhooks {
 		//echo var_dump('UPDATING?!', $updating_payment_status, $paymentIntent->id, $paymentIntent->metadata);
 		# echo var_dump($paymentIntent->metadata);
 		if(!$updating_payment_status) {
-			print_r('nothing in WP db for paymentIntent id:');
+			print_r('nothing in WP db for paymentIntent id: ');
 			var_dump($paymentIntent->id);
 			return false;
 		}
@@ -204,7 +204,7 @@ class Wpsd_Webhooks {
 
 		// KINDFUL - finally we send the data to kindful CMS --------------------
 		// send to kindful
-		print_r('We are now NOT using WP to send transactions to Kindful, see Express API!', );
+		print_r('We are now NOT using WP to send transactions to Kindful, see Express API!\n', );
 		echo var_dump($metadata);
 		//$this->wpsd_send_to_kindful($donation, $paymentIntent, $metadata);
 	}
