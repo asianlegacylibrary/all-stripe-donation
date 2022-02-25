@@ -203,11 +203,8 @@ class Wpsd_Webhooks {
 
 		// KINDFUL - finally we send the data to kindful CMS --------------------
 		// send to kindful
-		echo print_r('this is echo print r');
-		print_r('this is just print r with a variable    |   ', $metadata);
-		var_dump('this is var_dump without echo');
-		echo var_dump('this is var_dump with echo');
-		echo var_dump('We are now NOT using WP to send transactions to Kindful, see Express API!', $metadata);
+		print_r('We are now NOT using WP to send transactions to Kindful, see Express API!', );
+		echo var_dump($metadata);
 		//$this->wpsd_send_to_kindful($donation, $paymentIntent, $metadata);
 	}
 
