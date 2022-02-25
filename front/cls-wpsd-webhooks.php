@@ -112,7 +112,7 @@ class Wpsd_Webhooks {
 
 		// if this returns false then quit the function
 		$updating_payment_status = $this->wpsd_update_payment_status($paymentIntent);
-		echo var_dump('UPDATING?!', $updating_payment_status, $paymentIntent->id, $paymentIntent->metadata);
+		//echo var_dump('UPDATING?!', $updating_payment_status, $paymentIntent->id, $paymentIntent->metadata);
 		# echo var_dump($paymentIntent->metadata);
 		if(!$updating_payment_status) {
 			echo var_dump('nothing in WP db for paymentIntent id: ', $paymentIntent->id);
@@ -203,6 +203,10 @@ class Wpsd_Webhooks {
 
 		// KINDFUL - finally we send the data to kindful CMS --------------------
 		// send to kindful
+		echo print_r('this is echo print r');
+		print_r('this is just print r');
+		var_dump('this is var_dump without echo');
+		echo var_dump('this is var_dump with echo');
 		echo var_dump('We are now NOT using WP to send transactions to Kindful, see Express API!', $metadata);
 		//$this->wpsd_send_to_kindful($donation, $paymentIntent, $metadata);
 	}
