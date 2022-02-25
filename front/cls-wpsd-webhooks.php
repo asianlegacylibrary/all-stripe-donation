@@ -79,14 +79,14 @@ class Wpsd_Webhooks {
 			case "payment_intent.succeeded":
 				$payment_intents = $event->data->values();
 				foreach ( $payment_intents as $payment_intent ) {
-					echo var_dump('payment intent', $payment_intent->metadata);
+					print_r('payment intent!');
 					$this->wpsd_handle_payment_success($payment_intent);
 				}
 				break;
 			case "customer.updated":
 				$customer_id = $event->data->object->id;
 				$customer = $this->wpsd_get_stripe_customer_by_id($customer_id);
-				echo var_dump('CUSTOMER!', $customer);
+				print_r('CUSTOMER!');
 			default:
 				//
 				break;
@@ -115,7 +115,8 @@ class Wpsd_Webhooks {
 		//echo var_dump('UPDATING?!', $updating_payment_status, $paymentIntent->id, $paymentIntent->metadata);
 		# echo var_dump($paymentIntent->metadata);
 		if(!$updating_payment_status) {
-			echo var_dump('nothing in WP db for paymentIntent id: ', $paymentIntent->id);
+			print_r('nothing in WP db for paymentIntent id:');
+			var_dump($paymentIntent->id);
 			return false;
 		}
 		
@@ -239,12 +240,12 @@ class Wpsd_Webhooks {
 		$tables = $wpdb->tables;
 		foreach($tables as $t) {
 			if (strpos($t, 'wpsd_stripe_donation') !== false) { 
-				echo var_dump($t);
+				//echo var_dump($t);
 				$tableName = $t;
 			}
 			
 		}
-		echo var_dump($wpdb->prefix, $tableName);
+		//echo var_dump($wpdb->prefix, $tableName);
 		return $wpdb->get_row( "SELECT * FROM $tableName WHERE wpsd_payment_intent_id = '$id'");
 	}
 	/**
