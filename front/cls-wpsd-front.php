@@ -68,22 +68,54 @@ class Wpsd_Front
 			$wpsdPaymentTitle = esc_html__($wpsdGeneralSettings['wpsd_payment_title'], 'wp-stripe-donation');
 			$wpsdDonateCurrency = $wpsdGeneralSettings['wpsd_donate_currency'];
 		} else {
-			$wpsdPaymentTitle = esc_html__('Donate Us', 'wp-stripe-donation');
+			$wpsdPaymentTitle = esc_html__('Donate', 'wp-stripe-donation');
 			$wpsdDonateCurrency = "USD";
 		}
 
+		// will return http://domain.com/de/contact
+		//$wpml_permalink = apply_filters( 'wpml_permalink', get_option('siteurl') . '/the-asian-legacy-library-support/thank-you/', 'ro', true ); 
+		//$ro_thanks = apply_filters('wpml_permalink', 'http://all.local/the-asian-legacy-library-support/thank-you/', 'ro', true);
+
+		# icl_get_languages()
+		//$langs = apply_filters( 'wpml_active_languages', NULL, 'orderby=id&order=desc');
+		//echo var_dump($langs);
+		//$langsThankYou = array();
+		//$langs = array_keys(apply_filters( 'wpml_active_languages', NULL, 'orderby=id&order=desc'));
+		// foreach($langs as $l) {
+		// 	$wpml_permalink = apply_filters( 'wpml_permalink', get_option('siteurl') . '/the-asian-legacy-library-support/thank-you/', $l, true );
+		// 	$langsThankYou[$l] = $wpml_permalink;
+		// }
+		// $langs2 = get_object_vars($langs);
+		// $langs3 = array_keys($langs2);
+		//$data[$key] = $value;
+		// $arrayVariable = array(
+		// 	key1  => value1,
+		// 	key2 => value2,
+		// 	key3 => value3,
+		// 	...
+		// 	keyN => valueN,
+		// );
+
+		$current_lang = apply_filters( 'wpml_current_language', NULL );
+		$current_lang_thank_you = apply_filters( 'wpml_permalink', get_option('siteurl') . '/the-asian-legacy-library-support/thank-you/', $current_lang, true );
 		$wpsdAdminArray = array(
 			'publishable_key'	=> $wpsdPublishableKey,
 			'locale'        => $this->locale,
 			'ajaxurl' 		=> admin_url('admin-ajax.php'),
+			'siteurl'		=> get_option('siteurl'),
+			'thank_you_path' => $current_lang_thank_you,
 			'title'			=> $wpsdPaymentTitle,
 			'currency'		=> $wpsdDonateCurrency,
 			'donation_for'  => $wpsdGeneralSettings['wpsd_donation_for']? $wpsdGeneralSettings['wpsd_donation_for']: get_bloginfo('name'),
 			'countries' => $this->wpsd_get_countries(),
 		);
+
 		$js_strings = $this->wpsd_get_js_strings();
 		$wpsdAdminArray = array_merge($wpsdAdminArray, $js_strings);
 		wp_localize_script($this->wpsd_assets_prefix . 'front-script', 'wpsdAdminScriptObj', $wpsdAdminArray);
+		// made general settings accessible from client side (wpsd-front-script.js)
+		wp_localize_script($this->wpsd_assets_prefix . 'front-script', 'wpsdGeneralSettings', $wpsdGeneralSettings);
+		//wp_localize_script($my_current_lang = apply_filters( 'wpml_current_language', NULL );)
 	}
 
 	function wpsd_get_countries(){
@@ -132,16 +164,40 @@ class Wpsd_Front
 	public function wpsd_load_shortcode_view($atts)
 	{
 		$output = '';
+
+		wp_localize_script($this->wpsd_assets_prefix . 'front-script', 'wpsdSetShortcodes', $atts);
+
+		// temporary...until I figure out how to call the function above...
+		$default_donation_amounts = [10,20,50,100];
+		$wpsdGeneralSettings = stripslashes_deep( unserialize( get_option('wpsd_general_settings') ) );
+		if (is_array($wpsdGeneralSettings)) {
+			if(array_key_exists('wpsd_donation_amounts', $wpsdGeneralSettings) && !empty($wpsdGeneralSettings['wpsd_donation_amounts'])) {
+				$default_donation_amounts = $wpsdGeneralSettings['wpsd_donation_amounts'];
+			}
+		}
+
+		// donation amounts to int values
+		if(array_key_exists('donation_amounts', $atts)) {
+			$atts['donation_amounts'] = array_map('intval', explode(',', $atts['donation_amounts']));
+		} 
+			
 		ob_start();
+		
 		$expected_attr = array(
 			"campaign" => "General",
 			'campaign_id' => "",
 			'custom_amount' => "true",
+			'allow_recurring' => "true",
 			"fund" => "General",
 			"fund_id" => "",
 			"imof" => "",
+			"donation_amounts" => $default_donation_amounts,
 		);
+
 		$params = shortcode_atts($expected_attr, $atts);
+		
+		
+
 		include(plugin_dir_path(__FILE__) . '/view/wpsd-front-view.php');
 		$output .= ob_get_clean();
 		return $output;
@@ -286,6 +342,7 @@ class Wpsd_Front
 	function wpsd_payment_intent_handler(){
 		$payload = @file_get_contents('php://input');
 		$data = json_decode($payload, true);
+		
 		$required = [
 			'donation_id',
 			'payment_method_id',
@@ -313,8 +370,9 @@ class Wpsd_Front
 			$amount_val = intval(str_replace('.', '', $donation->wpsd_donated_amount));
 		}
 		$paymentMethod = sanitize_text_field($data['payment_method_id']);
+		
 		$customer = sanitize_text_field($data['customer_id']);
-		$paymentIntent = $this->wpsd_create_payment_intent($donation, $amount_val, $customer, $paymentMethod);
+		$paymentIntent = $this->wpsd_create_payment_intent($donation, $amount_val, $customer, $paymentMethod, $data['metadata']);
 		if(is_string($paymentIntent)) {
 			$err = array(
 				"status" => "error",
@@ -329,6 +387,7 @@ class Wpsd_Front
 			'wpsd_payment_method' => $paymentMethod,
 			'wpsd_payment_intent_id' => $paymentIntent->id
 		);
+	
 		$where = array(
 			'wpsd_id' => $donation->wpsd_id
 		);
@@ -343,6 +402,7 @@ class Wpsd_Front
 	function wpsd_create_customer_handler() {
 		$payload = @file_get_contents('php://input');
 		$data = json_decode($payload, true);
+		
 		$required_fields = array(
 			'donation_id',
 			'payment_method_id',
@@ -363,6 +423,7 @@ class Wpsd_Front
 		}
 		// try to find existing customer with the email to prevent duplicates:
 		$customer = $this->wpsd_get_stripe_customer($donation->wpsd_donator_email);
+		//$this->dc($data);
 		if($customer && !is_string($customer)){
 			// attach payment:
 			$res = $this->wpsd_attach_payment_method($paymentMethodId, $customer->id);
@@ -386,6 +447,7 @@ class Wpsd_Front
 				'country' => $country->toArray()['code'],
 				'address' => $donation->wpsd_donator_address,
 				'zip' => $donation->wpsd_donator_zip,
+				'metadata' => $data['metadata']
 			);
 			if($donation->wpsd_donator_state){
 				$states = $country->getStates();
@@ -435,7 +497,7 @@ class Wpsd_Front
 	 *
 	 * @return string|\Stripe\PaymentIntent
 	 */
-	function wpsd_create_payment_intent($donation, $amountObj, $customer = null, $paymentMethod = null){
+	function wpsd_create_payment_intent($donation, $amountObj, $customer = null, $paymentMethod = null, $metadata = null){
 		$amount_val = $amountObj;
 		if(is_object($amountObj)){
 			$amount_val = $amountObj->wpsd_amount;
@@ -459,6 +521,11 @@ class Wpsd_Front
 		if($paymentMethod){
 			$paymentIntentData['payment_method'] = $paymentMethod;
 		}
+
+		// add metadata to the payment intent data sent to stripe, get campaign
+		//$metadata = $metadata;
+		$paymentIntentData['metadata'] = $metadata;
+
 		$stripe = $this->wpsd_get_stripe_client();
 		try {
 			$paymentIntent = $stripe->paymentIntents->create($paymentIntentData);

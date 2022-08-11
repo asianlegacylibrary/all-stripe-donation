@@ -52,6 +52,7 @@ trait AmountCrud{
 		return $wpdb->get_results($wpdb->prepare("SELECT * FROM $tableName WHERE %d", 1));
 	}
 	
+	// was a private function
 	private function dc( $data ) { 
 		if ( is_object( $data ) ) { $output = "<script>console.log(".json_encode($data).");</script>"; } 
 		else if ( is_array( $data ) ) { $output = "<script>console.log(".json_encode($data).");</script>"; } 
