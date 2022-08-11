@@ -7,7 +7,7 @@
  *                  via Stripe payment method and send the donation info to Kindful.
  * Plugin URI:      https://github.com/asianlegacylibrary/all-stripe-donation
  * Author: devvly.com, Jesse Waitz, joelcrawford
- * Author URI: http://flagstaffconnection.com
+ * Author URI: http://devvly.com
  * Version: 1.0.7
  * License: GPL2+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
