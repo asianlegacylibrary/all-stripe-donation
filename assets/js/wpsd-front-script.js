@@ -16,9 +16,7 @@
     //let thankYouRedirectUrl = `${wpsdAdminScriptObj.siteurl}${wpsdAdminScriptObj.thank_you_path}`
     let thankYouRedirectUrl = wpsdAdminScriptObj.thank_you_path
     //console.log(wpsdAdminScriptObj.siteurl)
-    console.log(
-        'updated on 2021-11-30, testing web hook for dev and staging wpengine on 2022-06-08'
-    )
+    console.log('updated on 2021-11-30, testing web hook for dev 2022-08-12')
     //console.log(wpsdAdminScriptObj)
 
     let amounts_array = []
