@@ -16,7 +16,9 @@
     //let thankYouRedirectUrl = `${wpsdAdminScriptObj.siteurl}${wpsdAdminScriptObj.thank_you_path}`
     let thankYouRedirectUrl = wpsdAdminScriptObj.thank_you_path
     //console.log(wpsdAdminScriptObj.siteurl)
-    console.log('updated on 2022-11-18, had to rebase to merge...')
+    console.log(
+        'updated on 2022-11-18, had to rebase to merge...still not allowing...'
+    )
     //console.log(wpsdAdminScriptObj)
 
     let amounts_array = []
