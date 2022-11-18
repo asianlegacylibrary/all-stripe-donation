@@ -3,14 +3,14 @@ on:
     push:
         branches:
             - develop
-env:
-    WPE_SERVER: asianlegacystg
-    WP_CONTENT_FOLDER: plugins
-    WP_PLUGIN_NAME: all-stripe-donation
-    BASH_SCRIPT_NAME: post_deploy_development.sh
 jobs:
     build:
         runs-on: ubuntu-latest
+        env:
+            WPE_SERVER: asianlegacystg
+            WP_CONTENT_FOLDER: plugins
+            WP_PLUGIN_NAME: all-stripe-donation
+            BASH_SCRIPT_NAME: post_deploy_development.sh
         steps:
             - uses: actions/checkout@v2
             - name: GitHub Action Deploy to WP Engine
