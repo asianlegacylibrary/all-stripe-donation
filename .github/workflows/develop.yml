@@ -7,7 +7,7 @@ env:
     WPE_SERVER: asianlegacystg
     WP_CONTENT_FOLDER: plugins
     WP_PLUGIN_NAME: all-stripe-donation
-    BASH_SCRIPT_NAME: post_deploy_development.sh
+    BASH_SCRIPT_NAME: post-deploy-to-dev-server.sh
 jobs:
     build:
         runs-on: ubuntu-latest
