@@ -17,7 +17,7 @@
     let thankYouRedirectUrl = wpsdAdminScriptObj.thank_you_path
     //console.log(wpsdAdminScriptObj.siteurl)
     console.log(
-        'updated on 2022-11-18, reconfigured git work flow with github actions for deployment'
+        'updated on 2022-11-18, had to rebase to merge...still not allowing...'
     )
     //console.log(wpsdAdminScriptObj)
 
