@@ -17,7 +17,7 @@
     let thankYouRedirectUrl = wpsdAdminScriptObj.thank_you_path
     //console.log(wpsdAdminScriptObj.siteurl)
     console.log(
-        'updated on 2022-11-18, had to rebase to merge...still not allowing...'
+        'updated on 2021-11-30, testing web hook for dev and staging wpengine on 2022-06-08'
     )
     //console.log(wpsdAdminScriptObj)
 
@@ -144,7 +144,7 @@
     }
 
     async function onSubmit() {
-        //console.log('onSubmit')
+        console.log('onSubmit')
         var valid = validateForm()
 
         if (!valid) {
@@ -186,7 +186,7 @@
             donation_id = donation_result.donation_id
             donation_message = donation_result.message
         }
-        //console.log('donation msg', donation_message)
+
         // 2. create payment method.
         if (!payment_method_id) {
             const payment_method = await createPaymentMethod(donation_id)
@@ -217,7 +217,7 @@
         client_key = null
         activateSubmitBtn()
         //showMessage(donation_message)
-        window.location.href = thankYouRedirectUrl
+        //window.location.href = thankYouRedirectUrl
         return true
     }
 
@@ -279,6 +279,7 @@
             city: $('#wpsd_donator_city').val(),
             zip: $('#wpsd_donator_zip').val(),
             address: $('#wpsd_donator_address').val(),
+            wpsd_token: $('input[name=wpsd_token]').val(),
             campaign: settings.wpsd_campaign,
             campaign_id: settings.wpsd_campaign_id,
             fund: settings.wpsd_fund,
@@ -286,7 +287,11 @@
             is_recurring: is_recurring
         }
         //
-        //console.log('sendDonationInfo', requestData)
+        console.log(
+            '+290 @ts sendDonationInfo Token Value: ',
+            $('input[name=wpsd_token]').val()
+            //requestData
+        )
         return await request('wpsd_donation', 'POST', requestData)
     }
 
