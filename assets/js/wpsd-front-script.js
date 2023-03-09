@@ -40,7 +40,8 @@
         ...shortcodes
     }
 
-    console.log('pre-user settings', settings)
+    console.log('pre-user settings', wpsdGeneralSettings)
+    console.log('shortcodes', shortcodes)
     // get currency as soon as window, and set to USD if undefined (not set in settings)
     var currency = settings.wpsd_currency ? settings.wpsd_currency : 'USD'
 
@@ -510,8 +511,6 @@
         // var other_amount = localStringToNumber(
         //     $('#wpsd_donate_other_amount').val()
         // )
-
-        console.log(other_amount)
 
         other_amount = (other_amount * 100).toFixed(0)
 

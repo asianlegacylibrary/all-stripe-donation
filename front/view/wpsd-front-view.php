@@ -115,37 +115,50 @@ sort($new_amounts);
 <script>
 
 async function sendDonationInfo() {
-        let is_recurring = isNaN(
-            parseInt($('#wpsd_is_recurring:checked').val())
-        )
-            ? 0
-            : parseInt($('#wpsd_is_recurring:checked').val())
 
-        const requestData = {
-            action: 'wpsd_donation',
-            wpsdSecretKey: wpsdAdminScriptObj.publishable_key,
-            amount: $('#wpsd_donate_other_amount').val(),
-            custom_amount: 1,
-            currency: "USD",
-            first_name: $('#wpsd_donator_first_name').val(),
-            last_name: $('#wpsd_donator_last_name').val(),
-            email: $('#wpsd_donator_email').val(),
-            phone: $('#wpsd_donator_phone').val(),
-            country: $('#wpsd_donator_country').val(),
-            state: $('#wpsd_donator_state').val(),
-            city: $('#wpsd_donator_city').val(),
-            zip: $('#wpsd_donator_zip').val(),
-            address: $('#wpsd_donator_address').val(),
-            wpsd_token: $('input[name=wpsd_token]').val(),
-            campaign: "ALL General",
-            //campaign_id: settings.wpsd_campaign_id,
-            //fund: settings.wpsd_fund,
-            //fund_id: settings.wpsd_fund_id,
-            is_recurring: is_recurring
-        }
+	let shortcodes = Object.assign(
+        {},
+        ...Object.keys(wpsdSetShortcodes).map((key) => ({
+            [`wpsd_${key}`]: wpsdSetShortcodes[key]
+        }))
+    )
+	const currency = shortcodes.wpsd_currency ? shortcodes.wpsd_currency : 'USD'
 
-        return await request('wpsd_donation', 'POST', requestData)
-    }
+	let is_recurring = isNaN(
+		parseInt($('#wpsd_is_recurring:checked').val())
+	)
+		? 0
+		: parseInt($('#wpsd_is_recurring:checked').val())
+
+	// as far as I can tell custom amount is always true (1)
+	// so I'm just setting it to 1 here
+	const requestData = {
+		action: 'wpsd_donation',
+		wpsdSecretKey: wpsdAdminScriptObj.publishable_key,
+		amount: $('#wpsd_donate_other_amount').val(),
+		custom_amount: 1,
+		currency: currency,
+		first_name: $('#wpsd_donator_first_name').val(),
+		last_name: $('#wpsd_donator_last_name').val(),
+		email: $('#wpsd_donator_email').val(),
+		phone: $('#wpsd_donator_phone').val(),
+		country: $('#wpsd_donator_country').val(),
+		state: $('#wpsd_donator_state').val(),
+		city: $('#wpsd_donator_city').val(),
+		zip: $('#wpsd_donator_zip').val(),
+		address: $('#wpsd_donator_address').val(),
+		wpsd_token: $('input[name=wpsd_token]').val(),
+		campaign: wpsdGeneralSettings.wpsd_campaign,
+		campaign_id: wpsdGeneralSettings.wpsd_campaign_id,
+		fund: wpsdGeneralSettings.wpsd_fund,
+		fund_id: wpsdGeneralSettings.wpsd_fund_id,
+		is_recurring: is_recurring
+	}
+
+	console.log('send from backend', requestData)
+
+	return await request('wpsd_donation', 'POST', requestData)
+}
 
 
 	async function request(action, type, data = null, params = null) {
