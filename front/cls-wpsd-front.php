@@ -242,24 +242,17 @@ class Wpsd_Front
     {
         $payload = @file_get_contents('php://input');
         $data = json_decode($payload, true);
-        // @ts 2023-03-01 22:40
-        error_log(__METHOD__ . ' +' . __LINE__ . ' $data: ' . var_export($data, true));
-        //
+        
         $data = $this->wpsd_get_default_donation_values($data);
         $this->wpsd_check_donation_required_fields($data);
         $this->wpsd_validate_int_fields($data);
         // @ts 2023-02-25 17:47
         $captchaCheckResult = $this->wpsd_check_google_recaptcha($data);
-        // @ts 2023-02-25 17:52
-        error_log(__FILE__ . ' +' . __LINE__ . ' $data: ' . var_export($data, true));
-        error_log(__FILE__ . ' +' . __LINE__ . ' $captchaCheckResult: ' . var_export($captchaCheckResult, true));
-        //
+        
         // processing:
         $amountObj = $this->wpsd_get_amount_val($data);
         $donation_id = $this->wpsd_donation_insert_donation_data($data, $amountObj);
-        // @ts 2023-02-25 12:38
-        error_log(__FILE__ . ' +' . __LINE__ . ' $donation_id: ' . var_export($donation_id, true));
-        //
+        
         if (!$donation_id) {
 			
             $err = array(
@@ -274,17 +267,13 @@ class Wpsd_Front
             'message' => esc_html__("Thank you for your donation.", 'wp-stripe-donation'),
             'donation_id' => $donation_id,
         );
-        // @ts 2023-02-25 17:24
-        error_log(__FILE__ . ' +' . __LINE__ . ' $response: ' . var_export($response, true));
-        //
+        
         wp_send_json_success($response);
     }
 
     private function wpsd_check_google_recaptcha($data)
     {
-        // @ts 2023-02-25 17:51
-        error_log(__FILE__ . ' +' . __LINE__ . ' $_POST: ' . var_export($_POST, true));
-        //
+        
         // @ts 2023-02-25 17:49 try to fill in g-recaptcha-response
         if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
             if (!isset($data['g-recaptcha-response'])) {
@@ -306,9 +295,7 @@ class Wpsd_Front
             'response' => $data['g-recaptcha-response'],
             // 'remoteip' => 'Optional. The user's IP address.',
         ]);
-        // @ts 2023-02-25 17:50
-        error_log(__FILE__ . ' +' . __LINE__ . ' $postdata: ' . var_export($postdata, true));
-        //
+        
         $opts = ['http' => [
             'method' => 'POST',
             'header' => 'Content-type: application/x-www-form-urlencoded',
@@ -325,9 +312,7 @@ class Wpsd_Front
      */
     private function wpsd_check_donation_required_fields($data)
     {
-        // @ts 2023-02-25 12:20
-        error_log(__FILE__ . ' +' . __LINE__ . ' $data: ' . var_export($data, true));
-        //
+        
         $required = [
             'amount',
             'custom_amount',

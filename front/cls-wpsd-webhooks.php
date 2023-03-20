@@ -53,7 +53,7 @@ class Wpsd_Webhooks {
 			wp_send_json_error($result, 400);
 		} catch(\Stripe\Exception\SignatureVerificationException $e) {
 			// Invalid signature
-			$result['message'] = esc_html__("Invalid signature yo yo", 'wp-stripe-donation');
+			$result['message'] = esc_html__("Invalid signature", 'wp-stripe-donation');
 			// $result['secrets'] = array(
 			// 	'secret' => $secret_key,
 			// 	'endpoint_secret' => $endpoint_secret,
@@ -336,7 +336,7 @@ class Wpsd_Webhooks {
 		// set the transaction id for kindful to the Stripe Payment Intent ID
 		$transaction_id = $paymentIntent->id;
 		$extended_id = 'WP Stripe Donation | ' . $transaction_id;
-		echo var_dump('extended Id', $extended_id); 
+		
 		// get the key settings
 		$wpsdKeySettings = stripslashes_deep(unserialize(get_option('wpsd_key_settings')));
 
@@ -345,7 +345,7 @@ class Wpsd_Webhooks {
 		$url = $wpsdKeySettings['wpsd_kindful_url']  . "/api/v1/imports";
 
 		if(strpos(get_option('siteurl'), 'plugin.')) {
-			echo var_dump('we in the dev yo!');
+			echo var_dump('KINDFUL SANDBOX');
 			$token = '110c658d767efd51cca2a3fa0f3200779de175c308f7538287109d2dbe5d5b7d';
 			$url = 'https://app-sandbox.kindful.com/api/v1/imports';
 		}
@@ -484,8 +484,6 @@ class Wpsd_Webhooks {
                 'Content-Type' => 'application/json'
 			)
 		);
-
-		echo var_dump('pre-kindful body', $body_data);
 
 		$result = wp_remote_post($url, $args);
 	}

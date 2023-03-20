@@ -99,16 +99,6 @@ sort($new_amounts);
 //$this->dc('hi there again again and again');
 
 
-
-// THIS WAS CAUSING FATAL ERROR, Fatal error: Cannot redeclare compareByAmount()
-// function compareByAmount($a, $b) {
-// 	return $a->wpsd_amount - $b->wpsd_amount;
-// }
-
-// usort($amounts, 'compareByAmount'); //$this->dc($amounts);
-
-
-
 ?>
 
 
@@ -154,8 +144,6 @@ async function sendDonationInfo() {
 		fund_id: wpsdGeneralSettings.wpsd_fund_id,
 		is_recurring: is_recurring
 	}
-
-	console.log('send from backend', requestData)
 
 	return await request('wpsd_donation', 'POST', requestData)
 }
@@ -209,28 +197,20 @@ async function sendDonationInfo() {
                 }
             }
 
-            //console.log('right before the ajax request', requestOptions)
             $.ajax(requestOptions)
         })
     }
 
 async function setTokenVal(t)
 {
-    console.log("+119 @ts token value is: ", $('input[name=wpsd_token]').val());
     $('input[name=wpsd_token]').val(t);
-    console.log("+121 @ts token value is: ", $('input[name=wpsd_token]').val());
-
     return true;
 }
 
 async function onSubmit19(token)
 {
-    console.log("+128 @ts onSubmit19...");
-    
     const set_token_result = await setTokenVal(token);
     console.log("+131 @ts set_token_result is: ", set_token_result);
-    
-    //document.getElementById("wpsd-donation-form-id").submit();
 	sendDonationInfo()
 }
 
@@ -374,19 +354,6 @@ async function onSubmit19(token)
 									value="<?php echo esc_html__('Donate Now', 'wp-stripe-donation'); ?>">
 							</div>
 						</div>
-						<!-- class="wpsd-donate-button"  -->
-						<!-- <div id="wpsd_donate_submit">
-							<div class="w-100 button">
-                                <input type="submit"
-                                       name="wpsd-donate-button"
-                                       class="wpsd-donate-button ts-ln-249 g-recaptcha"
-                                       data-sitekey="6Ld-pa8kAAAAAKhG5QfKB5ATZewmwEc_TLSrhGbE"
-                                       data-callback="onSubmit19"
-                                       data-action="submit"
-                                       value="<?php //echo esc_html__('Donate Now', 'wp-stripe-donation'); ?>" />
-							</div>
-						</div> -->
-
 						
 						<div>
 							<p class="wpsd-metadata">
