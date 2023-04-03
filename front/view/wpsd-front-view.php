@@ -96,28 +96,132 @@ $new_amounts = array_unique($new_amounts);
 sort($new_amounts);
 
 // note this is function to console.log
-$this->dc('hi there again again and again');
-
-
-
-// THIS WAS CAUSING FATAL ERROR, Fatal error: Cannot redeclare compareByAmount()
-// function compareByAmount($a, $b) {
-// 	return $a->wpsd_amount - $b->wpsd_amount;
-// }
-
-// usort($amounts, 'compareByAmount'); //$this->dc($amounts);
-
+//$this->dc('hi there again again and again');
 
 
 ?>
 
 
+<script>
 
-<div class="wpsd-master-wrapper wpsd-template-0" id="wpsd-wrap-all">
+async function sendDonationInfo() {
+
+	let shortcodes = Object.assign(
+        {},
+        ...Object.keys(wpsdSetShortcodes).map((key) => ({
+            [`wpsd_${key}`]: wpsdSetShortcodes[key]
+        }))
+    )
+	const currency = shortcodes.wpsd_currency ? shortcodes.wpsd_currency : 'USD'
+
+	let is_recurring = isNaN(
+		parseInt($('#wpsd_is_recurring:checked').val())
+	)
+		? 0
+		: parseInt($('#wpsd_is_recurring:checked').val())
+
+	// as far as I can tell custom amount is always true (1)
+	// so I'm just setting it to 1 here
+	const requestData = {
+		action: 'wpsd_donation',
+		wpsdSecretKey: wpsdAdminScriptObj.publishable_key,
+		amount: $('#wpsd_donate_other_amount').val(),
+		custom_amount: 1,
+		currency: currency,
+		first_name: $('#wpsd_donator_first_name').val(),
+		last_name: $('#wpsd_donator_last_name').val(),
+		email: $('#wpsd_donator_email').val(),
+		phone: $('#wpsd_donator_phone').val(),
+		country: $('#wpsd_donator_country').val(),
+		state: $('#wpsd_donator_state').val(),
+		city: $('#wpsd_donator_city').val(),
+		zip: $('#wpsd_donator_zip').val(),
+		address: $('#wpsd_donator_address').val(),
+		wpsd_token: $('input[name=wpsd_token]').val(),
+		campaign: wpsdGeneralSettings.wpsd_campaign,
+		campaign_id: wpsdGeneralSettings.wpsd_campaign_id,
+		fund: wpsdGeneralSettings.wpsd_fund,
+		fund_id: wpsdGeneralSettings.wpsd_fund_id,
+		is_recurring: is_recurring
+	}
+
+	return await request('wpsd_donation', 'POST', requestData)
+}
+
+
+	async function request(action, type, data = null, params = null) {
+        return new Promise((resolve, reject) => {
+            //disableSubmitBtn()
+            // get current locale to prevent a bug in wordpress:
+            var url = wpsdAdminScriptObj.ajaxurl + '?action=' + action
+            //console.log('in request', action, type, url, data)
+            var lang = window.location.href.match(/lang=\w+/g)
+
+            if (lang && lang.length) {
+                lang = lang[0]
+                lang = lang.replace('lang=', '')
+                url += '&lang=' + lang
+            }
+
+            const requestOptions = {
+                url: url,
+                dataType: 'JSON',
+                success: function (response) {
+                    //console.log('success', response)
+                    //activateSubmitBtn()
+                    resolve(response.data)
+                },
+                error: function (response) {
+                    //activateSubmitBtn()
+                    if (response?.responseJSON?.data) {
+                        reject(response.responseJSON.data)
+                    } else if (response?.statusText) {
+                        reject(response.statusText)
+                    }
+                }
+            }
+
+            if (type === 'POST') {
+                requestOptions.type = type
+                requestOptions.contentType = 'application/json'
+            }
+
+            if (data) {
+                requestOptions.data = JSON.stringify(data)
+            }
+
+            if (params) {
+                const fields = Object.keys(params)
+                for (let field of fields) {
+                    requestOptions.url += '&' + field + '=' + params[field]
+                }
+            }
+
+            $.ajax(requestOptions)
+        })
+    }
+
+async function setTokenVal(t)
+{
+    $('input[name=wpsd_token]').val(t);
+    return true;
+}
+
+async function onSubmit19(token)
+{
+    const set_token_result = await setTokenVal(token);
+    console.log("+131 @ts set_token_result is: ", set_token_result);
+	sendDonationInfo()
+}
+
+</script>
+
+<div class="wpsd-master-wrapper wpsd-template-0 ts-ln-116" id="wpsd-wrap-all">
 	<!-- OLD LOCATION banner / header -->
 	<!-- OLD LOCATION <div class="wpsd-wrapper-content"> -->
 	<form action="" method="POST" id="wpsd-donation-form-id">
 		<!-- Input section -->
+        <input type="hidden" name="wpsd_token" value="yo"  id="wpsd-token1">
 		<input type="hidden" required name="wpsd_campaign" id="wpsd_campaign" class="wpsd-text-field" value="<?php echo $campaign; ?>">
 		<input type="hidden" required name="wpsd_campaign_id" id="wpsd_campaign_id" class="wpsd-text-field" value="<?php echo $campaign_id; ?>">
 		<input type="hidden" required name="wpsd_fund" id="wpsd_fund" class="wpsd-text-field" value="<?php echo $fund; ?>">
@@ -238,18 +342,18 @@ $this->dc('hi there again again and again');
 						<?php } ?>
 				
 						<!-- SUBMIT! -->
-						<!-- <div id="wpsd_donate_submit">
-							<div class="w-100">
-								<input type="submit" name="wpsd-donate-button" class="wpsd-donate-button" value="<?php #echo esc_html__('Donate Now', 'wp-stripe-donation'); ?>">
-							</div>
-						</div> -->
-
 						<div id="wpsd_donate_submit">
-							<div class="w-100 button">
-									<input type="submit" name="wpsd-donate-button" class="wpsd-donate-button" value="<?php echo esc_html__('Donate Now', 'wp-stripe-donation'); ?>">
+							<div class="w-100">
+								<input 
+									type="submit" 
+									class="wpsd-donate-button ts-ln-249 g-recaptcha"
+                                    data-sitekey="6Ld-pa8kAAAAAKhG5QfKB5ATZewmwEc_TLSrhGbE"
+									data-callback="onSubmit19"
+									data-action="submit"
+									name="wpsd-donate-button" 
+									value="<?php echo esc_html__('Donate Now', 'wp-stripe-donation'); ?>">
 							</div>
 						</div>
-
 						
 						<div>
 							<p class="wpsd-metadata">

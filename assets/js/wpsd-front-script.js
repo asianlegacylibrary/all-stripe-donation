@@ -15,11 +15,6 @@
 
     //let thankYouRedirectUrl = `${wpsdAdminScriptObj.siteurl}${wpsdAdminScriptObj.thank_you_path}`
     let thankYouRedirectUrl = wpsdAdminScriptObj.thank_you_path
-    //console.log(wpsdAdminScriptObj.siteurl)
-    console.log(
-        'updated on 2022-11-18, had to rebase to merge...still not allowing...'
-    )
-    //console.log(wpsdAdminScriptObj)
 
     let amounts_array = []
     var stripeFormPresent = document.getElementById('card-element') //console.log("Form Present:", stripeFormPresent);
@@ -32,15 +27,12 @@
         }))
     )
 
-    //console.log('admin stuff', thankYouRedirectUrl)
-
     // merge all the keys together, with the shortcodes overwriting anything from general
     const settings = {
         ...wpsdGeneralSettings,
         ...shortcodes
     }
 
-    console.log('pre-user settings', settings)
     // get currency as soon as window, and set to USD if undefined (not set in settings)
     var currency = settings.wpsd_currency ? settings.wpsd_currency : 'USD'
 
@@ -80,7 +72,7 @@
             // check to see if other_amount matches any of the radio values
             // if it does or doesn't update CSS accordingly
             let euroValue = parseInt(checkForEuroCommaAsDecimal(this.value))
-            console.log('listening for array', this.value, euroValue)
+
             if (amounts_array.includes(parseInt(euroValue))) {
                 $(`#${euroValue}`).prop('checked', true)
             } else {
@@ -98,17 +90,6 @@
                 )
             }
         })
-
-        // $("input[name='wpsd_donate_amount_radio']").on('click', function () {
-        //     console.log(
-        //         'clicked radio btn',
-        //         document.querySelector('input[name="wpsd_donate_amount_radio"]')
-        //             .value,
-        //         $('input[name=wpsd_donate_amount_radio]').val()
-        //     )
-        //     $('#wpsd_donate_other_amount').val('')
-        //     $('#wpsd_donate_other_amount_wrapper').removeClass('bg-white')
-        // })
 
         $('.wpsd-donate-button').on('click', function (e) {
             e.preventDefault()
@@ -128,7 +109,7 @@
         $("input[name='wpsd_donate_amount_radio']").on('change', function (e) {
             let target = e.target
             //let updated_value = target.value.replace(/[^0-9\.]/g, '')
-            //console.log('currency: ', currency)
+
             var options = {
                 maximumFractionDigits: 0,
                 currency: currency,
@@ -144,7 +125,6 @@
     }
 
     async function onSubmit() {
-        //console.log('onSubmit')
         var valid = validateForm()
 
         if (!valid) {
@@ -179,21 +159,20 @@
 
     async function charge() {
         disableSubmitBtn()
-        //console.log('charge')
+
         // 1. send donation info to the back-end.
         if (!donation_id) {
             const donation_result = await sendDonationInfo()
             donation_id = donation_result.donation_id
             donation_message = donation_result.message
         }
-        //console.log('donation msg', donation_message)
+
         // 2. create payment method.
         if (!payment_method_id) {
             const payment_method = await createPaymentMethod(donation_id)
             payment_method_id = payment_method.id
         }
-        //console.log('payment method', payment_method_id)
-        //console.log('client key?')
+
         // 3. create customer.
         if (!customer_id) {
             customer_id = await createCustomer(payment_method_id)
@@ -279,14 +258,14 @@
             city: $('#wpsd_donator_city').val(),
             zip: $('#wpsd_donator_zip').val(),
             address: $('#wpsd_donator_address').val(),
+            wpsd_token: $('input[name=wpsd_token]').val(),
             campaign: settings.wpsd_campaign,
             campaign_id: settings.wpsd_campaign_id,
             fund: settings.wpsd_fund,
             fund_id: settings.wpsd_fund_id,
             is_recurring: is_recurring
         }
-        //
-        //console.log('sendDonationInfo', requestData)
+
         return await request('wpsd_donation', 'POST', requestData)
     }
 
@@ -324,9 +303,9 @@
                 //fund_id: settings.wpsd_fund_id
             }
         }
-        //console.log('wpsd_create_customer', requestData)
+
         const data = await request('wpsd_create_customer', 'POST', requestData)
-        //console.log('after await wpsd_create_customer', data)
+
         return data.customer_id
     }
 
@@ -351,7 +330,7 @@
                 }
             }
         }
-        //console.log('createPaymentMethod', paymentMethodData)
+
         const result = await stripe.createPaymentMethod(paymentMethodData)
         // Handle result.error or result.paymentMethod
         if (result.error) {
@@ -380,7 +359,6 @@
             }
         }
 
-        //console.log('createPaymentIntent', requestData)
         return await request('wpsd_payment_intent', 'POST', requestData)
     }
 
@@ -432,7 +410,6 @@
                 }
             }
 
-            //console.log('right before the ajax request', requestOptions)
             $.ajax(requestOptions)
         })
     }
@@ -505,8 +482,6 @@
         // var other_amount = localStringToNumber(
         //     $('#wpsd_donate_other_amount').val()
         // )
-
-        console.log(other_amount)
 
         other_amount = (other_amount * 100).toFixed(0)
 
@@ -637,8 +612,6 @@
     }
 
     function checkForEuroCommaAsDecimal(v) {
-        //console.log('checking for euro comma', v, v.includes(','))
-        //console.log('pre-check', v)
         const regex = /[^A-Za-z\d\s\.$]/gi
         if (regex.test(v)) {
             let [_, cents] = v.replace(' ', '').split(regex, 2)
@@ -646,17 +619,7 @@
                 return v.replace(regex, '.')
             }
         }
-        //console.log('post-check', v)
-        //console.log('to number func', localStringToNumber(v))
 
-        // if (v.includes(',')) {
-        //     let [_, cents] = v.replace(' ', '').split(',', 2)
-        //     //console.log('cents', cents, cents.length === 2, cents.length == 2)
-        //     if (cents.length === 2) {
-        //         //console.log('hi', v.replace(regex, '.'))
-        //         return v.replace(',', '.')
-        //     }
-        // }
         return v
     }
 
@@ -686,19 +649,6 @@
         if (localStringToNumber(value) % 1 !== 0) {
             options['maximumFractionDigits'] = 2
         }
-
-        // console.log(
-        //     'runnin outta options',
-        //     value,
-        //     localStringToNumber(value),
-        //     localStringToNumber(value) % 1 !== 0,
-        //     parseInt(value) % 1 !== 0,
-        //     parseFloat(value) % 1 !== 0,
-        //     options
-        // )
-        // console.log(
-        //     localStringToNumber(value).toLocaleString(undefined, options)
-        // )
 
         e.target.value = value
             ? localStringToNumber(value).toLocaleString(undefined, options)
